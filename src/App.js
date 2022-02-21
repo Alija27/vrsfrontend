@@ -1,17 +1,21 @@
 import './App.css';
+import { Admin } from './Admin';
 
-import { Header } from './components/admin/layouts/Header';
-import { Sidebar } from './components/admin/layouts/Sidebar';
-import { Footer } from './components/admin/layouts/Footer';
-import { Dashboard } from './components/admin/layouts/Dashboard';
+
+import {BrowserRouter,Routes,Route,Link} from 'react-router-dom';
 
 function App() {
   return (
     <div className="App">
-      <Header/>
-      <Sidebar/>
-      <Dashboard/>
-      <Footer/>
+      
+      <BrowserRouter>
+        <Routes>
+          {/* <Route path="/" element={<Home/>}/>
+          <Route path="/about" element={<About/>}/> */}
+          <Route path="/admin/*" element={<Admin/>}/>
+          </Routes>
+          </BrowserRouter>
+      
     </div>
   );
 }
