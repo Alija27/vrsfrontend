@@ -5,10 +5,10 @@ export const Sidebar = () => {
     <div>
   <aside className="main-sidebar sidebar-light-indigo elevation-4">
     {/* Brand Logo */}
-    <a href="index3.html" className="brand-link">
+    <Link href="index3.html" className="brand-link">
       <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" className="brand-image img-circle elevation-3" style={{opacity: '.8'}} />
       <span className="brand-text font-weight-light">AdminLTE 3</span>
-    </a>
+    </Link>
     {/* Sidebar */}
     <div className="sidebar">
       {/* Sidebar user panel (optional) */}
@@ -21,67 +21,67 @@ export const Sidebar = () => {
          with font-awesome or any other icon font library */}
           
           <li className="nav-item">
-            <a href="#" className="nav-link">
+            <Link href="#" className="nav-link">
               <i className="nav-icon fas fa-tachometer-alt" />
               <p>
                Dashboard
                 
               </p>
-            </a>
+            </Link>
           </li>
           <li className="nav-item">
-            <a href="#" className="nav-link">
+            <Link href="#" className="nav-link">
               <i className="nav-icon fas fa-users" />
               <p>
               Users
                 
               </p>
-            </a>
+            </Link>
           </li>
           <li className="nav-item">
-            <a href="#" className="nav-link">
+            <Link href="#" className="nav-link">
               <i className="nav-icon fas fa-portrait" />
               <p>
                Vendors
                 
               </p>
-            </a>
+            </Link>
           </li>
           <li className="nav-item">
-            <a href="#" className="nav-link">
+            <Link href="#" className="nav-link">
               <i className="nav-icon fas fa-truck-moving" />
               <p>
                Types
                 
               </p>
-            </a>
+            </Link>
           </li>
           <li className="nav-item">
-            <a href="#" className="nav-link">
+            <Link href="#" className="nav-link">
               <i className="nav-icon fas fa-car" />
               <p>
               Vehicles
                 
               </p>
-            </a>
+            </Link>
           </li>
           <li className="nav-item">
-            <a href="#" className="nav-link">
+            <Link href="#" className="nav-link">
               <i className="nav-icon fas fa-list" />
               <p>
                Rentals
                 
               </p>
-            </a>
+            </Link>
           </li>
           <li className="nav-item">
-            <a href="#" className="nav-link">
+            <Link href="#" className="nav-link">
               <i className="nav-icon fas fa-star" />
               <p>
             Reviews
                 
               </p>
-            </a>
+            </Link>
           </li>
 
         </ul>

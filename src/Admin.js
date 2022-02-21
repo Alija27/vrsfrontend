@@ -13,6 +13,7 @@ export const Admin = () => {
         <Routes>
            <Route path="/admin" element={<Dashboard/>}/>
            
+           
         </Routes>
        
       <Footer/>

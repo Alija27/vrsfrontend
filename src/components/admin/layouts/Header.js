@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 export const Header = () => {
   return (
@@ -8,10 +9,10 @@ export const Header = () => {
   {/* Left navbar links */}
   <ul className="navbar-nav">
     <li className="nav-item">
-      <a className="nav-link" data-widget="pushmenu" href="#" role="button"><i className="fas fa-bars" /></a>
+      <Link className="nav-link" data-widget="pushmenu" to="#" role="button"><i className="fas fa-bars" /></Link>
     </li>
     <li className="nav-item d-none d-sm-inline-block">
-      <a href="index3.html" className="nav-link">Home</a>
+      <Link to="#" className="nav-link">Home</Link>
     </li>
     
   </ul>
@@ -19,9 +20,9 @@ export const Header = () => {
   <ul className="navbar-nav ml-auto">
     {/* Navbar Search */}
     <li className="nav-item">
-      <a className="nav-link" data-widget="navbar-search" href="#" role="button">
+      <Link className="nav-link" data-widget="navbar-search" to="#" role="button">
         <i className="fas fa-search" />
-      </a>
+      </Link>
       <div className="navbar-search-block">
         <form className="form-inline">
           <div className="input-group input-group-sm">
@@ -43,34 +44,34 @@ export const Header = () => {
     
     {/* Notifications Dropdown Menu */}
     <li className="nav-item dropdown">
-      <a className="nav-link" data-toggle="dropdown" href="#">
+      <Link className="nav-link" data-toggle="dropdown" to="#">
         Admin
         
-      </a>
+      </Link>
       <div className="dropdown-menu dropdown-menu-sm dropdown-menu-right">
        
         
-        <a href="#" className="dropdown-item">
+        <Link to="#" className="dropdown-item">
           <i className="fas fa-user-tie mr-2" /> Profile
          
-        </a>
+        </Link>
         <div className="dropdown-divider" />
-        <a href="#" className="dropdown-item">
+        <Link to="#" className="dropdown-item">
           <i className="fas fa-home mr-2" /> Home
          
-        </a>
+        </Link>
         <div className="dropdown-divider" />
-        <a href="#" className="dropdown-item">
+        <Link to="#" className="dropdown-item">
           <i className="fas fa-key mr-2" /> Logout
           
-        </a>
+        </Link>
         
       </div>
     </li>
     <li className="nav-item">
-      <a className="nav-link" data-widget="fullscreen" href="#" role="button">
+      <Link className="nav-link" data-widget="fullscreen" to="#" role="button">
         <i className="fas fa-expand-arrows-alt" />
-      </a>
+      </Link>
     </li>
     
   </ul>
