@@ -24,7 +24,7 @@ export const UserCreate = () => {
             
             <div className="form-group">
               <label htmlFor="name">Name <span className="text-danger" title="Required">*</span></label>
-              <input type="text" name="name" id="name"  className="form-control " autofocus />
+              <input type="text" name="name" id="name"  className="form-control "  />
             </div>
             <div className="form-group">
               <label htmlFor="email">Email<span className="text-danger" title="Required">*</span></label>
@@ -39,18 +39,24 @@ export const UserCreate = () => {
               <input type="text" name="password" id="password" className="form-control " />
             </div>
             <div className="form-group">
+              <label htmlFor="address">Addres<span className="text-danger" title="Required">*</span></label>
+              <input type="text" name="address" id="address" className="form-control " />
+            </div>
+            
+            {/* <div className="form-group">
               <label htmlFor="document">Document</label>
               <input type="file" name="document" id="document" className="form-control " />
-            </div>
+            </div> */}
             <div className="form-group">
               <label htmlFor="document">Role</label>
-              <select className="form-select">
+              <select className="form-control">
   <option className="Disabled">Select Role</option>
   <option className="Disabled"value="admin">Admin</option>
   <option className="Disabled"value="vendor">Vendor</option>
   <option className="Disabled"value="customer">Customer</option>
 </select>
             </div>
+            
             </form>
         
       </div>

@@ -6,16 +6,19 @@ import { Dashboard } from './components/admin/layouts/Dashboard';
 import { Routes,Route } from 'react-router-dom';
 import { UserIndex } from './components/admin/users/UserIndex';
 import { UserCreate } from './components/admin/users/UserCreate';
+import { UserShow } from './components/admin/users/UserShow';
 
 export const Admin = () => {
   return (
     <div>
         <Header/>
-      <Sidebar/>
+        <Sidebar/>
         <Routes>
-           <Route path="/admin" element={<Dashboard/>}/>
-           <Route path="/users" element={<UserIndex/>}/>
-           <Route path="/users/create" element={<UserCreate/>}/>
+           <Route exact path="/dashboard" element={<Dashboard/>}/>
+           <Route exact path="/users" element={<UserIndex/>}/>
+           <Route exact path="/users/create" element={<UserCreate/>}/>
+           <Route exact path="/users/show" element={<UserShow/>}/>
+
            
         </Routes>
        

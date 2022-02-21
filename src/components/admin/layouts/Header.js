@@ -12,7 +12,7 @@ export const Header = () => {
       <Link className="nav-link" data-widget="pushmenu" to="#" role="button"><i className="fas fa-bars" /></Link>
     </li>
     <li className="nav-item d-none d-sm-inline-block">
-      <Link to="#" className="nav-link">Home</Link>
+      <Link to="" className="nav-link">Home</Link>
     </li>
     
   </ul>
@@ -51,17 +51,17 @@ export const Header = () => {
       <div className="dropdown-menu dropdown-menu-sm dropdown-menu-right">
        
         
-        <Link to="#" className="dropdown-item">
+        <Link to="" className="dropdown-item">
           <i className="fas fa-user-tie mr-2" /> Profile
          
         </Link>
         <div className="dropdown-divider" />
-        <Link to="#" className="dropdown-item">
+        <Link to="/" className="dropdown-item">
           <i className="fas fa-home mr-2" /> Home
          
         </Link>
         <div className="dropdown-divider" />
-        <Link to="#" className="dropdown-item">
+        <Link to="" className="dropdown-item">
           <i className="fas fa-key mr-2" /> Logout
           
         </Link>
@@ -69,7 +69,7 @@ export const Header = () => {
       </div>
     </li>
     <li className="nav-item">
-      <Link className="nav-link" data-widget="fullscreen" to="#" role="button">
+      <Link className="nav-link" data-widget="fullscreen" to="" role="button">
         <i className="fas fa-expand-arrows-alt" />
       </Link>
     </li>

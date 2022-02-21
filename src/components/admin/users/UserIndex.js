@@ -17,7 +17,7 @@ export const UserIndex = () => {
                                 <div className="col-sm-6">
                                     <ol className="breadcrumb float-sm-right">
                                         <li className="breadcrumb-item">
-                                            <Link to="/">Home</Link>
+                                            <Link to="/admin">Home</Link>
                                         </li>
                                         <li className="breadcrumb-item active text-bold">
                                            Users
@@ -40,7 +40,7 @@ export const UserIndex = () => {
                                             </h3>
                                             <div className="float-right">
                                             
-                                                {/* <button className="btn btn-sm bg-indigo"><i class="fas fa-plus-circle"></i>User</button> */}
+                                                {/* <button className="btn btn-sm bg-indigo"><i className="fas fa-plus-circle"></i>User</button> */}
                                                 <Link to="/admin/users/create" className="bg-indigo btn btn-link btn-sm "> <i className="fas fa-plus-circle mr-1"></i>Add User</Link>
                                             </div>
                                         </div>
@@ -230,10 +230,10 @@ export const UserIndex = () => {
                                                                     <td
                                                                        
                                                                     >
-                                                                         <Link to="/editUser" className=" btn btn-link  bg-primary btn-sm m-1 "> <i class="fas fa-edit ml-1 mr-1"></i> Edit</Link> 
+                                                                         <Link to="/editUser" className=" btn btn-link  bg-primary btn-sm m-1 "> <i className="fas fa-edit ml-1 mr-1"></i> Edit</Link> 
                                                                        
-                                                                     <Link to="/showUser" className="btn btn-link bg-success btn-sm m-1"> <i class="fas fa-eye ml-1 mr-1"></i>Show </Link>
-                                                                     <Link to="#" className="btn btn-link bg-danger btn-sm m-1"> <i class="fas fa-trash ml-1 mr-1"></i>Delete</Link>
+                                                                     <Link to="/showUser" className="btn btn-link bg-success btn-sm m-1"> <i className="fas fa-eye ml-1 mr-1"></i>Show </Link>
+                                                                     <Link to="#" className="btn btn-link bg-danger btn-sm m-1"> <i className="fas fa-trash ml-1 mr-1"></i>Delete</Link>
                                                                     </td>
                                                                 </tr>
                                                                 

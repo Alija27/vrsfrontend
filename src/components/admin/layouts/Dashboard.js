@@ -1,9 +1,10 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 export const Dashboard = () => {
   return (
     <div>
-        <div class="content-wrapper">
+        <div className="content-wrapper">
     <section className="content-header">
   <div className="container-fluid">
     {/* Small boxes (Stat box) */}
@@ -18,7 +19,7 @@ export const Dashboard = () => {
           <div className="icon">
             <i className="ion ion-bag" />
           </div>
-          <a href="#" className="small-box-footer">More info <i className="fas fa-arrow-circle-right" /></a>
+          <Link to="/" className="small-box-footer">More info <i className="fas fa-arrow-circle-right" /></Link>
         </div>
       </div>
       {/* ./col */}
@@ -32,7 +33,7 @@ export const Dashboard = () => {
           <div className="icon">
             <i className="ion ion-stats-bars" />
           </div>
-          <a href="#" className="small-box-footer">More info <i className="fas fa-arrow-circle-right" /></a>
+          <Link to="/" className="small-box-footer">More info <i className="fas fa-arrow-circle-right" /></Link>
         </div>
       </div>
       {/* ./col */}
@@ -46,7 +47,7 @@ export const Dashboard = () => {
           <div className="icon">
             <i className="ion ion-person-add" />
           </div>
-          <a href="#" className="small-box-footer">More info <i className="fas fa-arrow-circle-right" /></a>
+          <Link to="/" className="small-box-footer">More info <i className="fas fa-arrow-circle-right" /></Link>
         </div>
       </div>
       {/* ./col */}
@@ -60,7 +61,7 @@ export const Dashboard = () => {
           <div className="icon">
             <i className="ion ion-pie-graph" />
           </div>
-          <a href="#" className="small-box-footer">More info <i className="fas fa-arrow-circle-right" /></a>
+          <Link to="/" className="small-box-footer">More info <i className="fas fa-arrow-circle-right" /></Link>
         </div>
       </div>
       {/* ./col */}
