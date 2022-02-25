@@ -2,6 +2,27 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 export const UserIndex = () => {
+        /* state={
+         name:'',
+      
+        };
+        handleInput =(e)=>{
+          this.setState({
+           name: e.target.value
+           
+          })
+          console.log(this.state.name);
+        }
+         submitCategory= async (e)=>{
+         e.preventDefault(); 
+          await axios.post("http://localhost:8000/api/users",
+         {name: this.state.name
+        });
+        console.log(this.state.name);
+        this.setState({
+            name:'',
+          }); */
+        
   return (
     <div>
         <div>
@@ -131,7 +152,7 @@ export const UserIndex = () => {
                                                                     >
                                                                         Address
                                                                     </th>
-                                                                    <th
+                                                                   {/*  <th
                                                                         className="sorting"
                                                                         tabIndex={0}
                                                                         aria-controls="example2"
@@ -141,7 +162,7 @@ export const UserIndex = () => {
                                                                        
                                                                     >
                                                                         Document
-                                                                    </th>
+                                                                    </th> */}
                                                                     <th
                                                                         className="sorting"
                                                                         tabIndex={0}
@@ -212,6 +233,11 @@ export const UserIndex = () => {
                                                                     >
                                                                         A
                                                                     </td>
+                                                                    {/* <td
+                                                                       
+                                                                    >
+                                                                        A
+                                                                    </td> */}
                                                                     <td
                                                                        
                                                                     >
@@ -225,14 +251,9 @@ export const UserIndex = () => {
                                                                     <td
                                                                        
                                                                     >
-                                                                        A
-                                                                    </td>
-                                                                    <td
+                                                                         <Link to="/admin/users/edit" className=" btn btn-link  bg-primary btn-sm m-1 "> <i className="fas fa-edit ml-1 mr-1"></i> Edit</Link> 
                                                                        
-                                                                    >
-                                                                         <Link to="/editUser" className=" btn btn-link  bg-primary btn-sm m-1 "> <i className="fas fa-edit ml-1 mr-1"></i> Edit</Link> 
-                                                                       
-                                                                     <Link to="/showUser" className="btn btn-link bg-success btn-sm m-1"> <i className="fas fa-eye ml-1 mr-1"></i>Show </Link>
+                                                                     <Link to="/admin/users/show" className="btn btn-link bg-success btn-sm m-1"> <i className="fas fa-eye ml-1 mr-1"></i>Show </Link>
                                                                      <Link to="#" className="btn btn-link bg-danger btn-sm m-1"> <i className="fas fa-trash ml-1 mr-1"></i>Delete</Link>
                                                                     </td>
                                                                 </tr>

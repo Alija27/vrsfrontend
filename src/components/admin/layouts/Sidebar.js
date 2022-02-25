@@ -23,7 +23,7 @@ export const Sidebar = () => {
          with font-awesome or any other icon font library */}
           
           <li className="nav-item">
-            <Link to="/admin/dashboard" className="nav-link">
+            <Link to="/admin" className="nav-link">
               <i className="nav-icon fas fa-tachometer-alt" />
               <p>
                Dashboard

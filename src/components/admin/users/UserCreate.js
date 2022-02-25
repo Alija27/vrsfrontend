@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 export const UserCreate = () => {
+  
   return (
     <div>
 
@@ -39,7 +40,7 @@ export const UserCreate = () => {
               <input type="text" name="password" id="password" className="form-control " />
             </div>
             <div className="form-group">
-              <label htmlFor="address">Addres<span className="text-danger" title="Required">*</span></label>
+              <label htmlFor="address">Address<span className="text-danger" title="Required">*</span></label>
               <input type="text" name="address" id="address" className="form-control " />
             </div>
             
@@ -48,7 +49,7 @@ export const UserCreate = () => {
               <input type="file" name="document" id="document" className="form-control " />
             </div> */}
             <div className="form-group">
-              <label htmlFor="document">Role</label>
+              <label htmlFor="document">Role<span className="text-danger" title="Required">*</span></label>
               <select className="form-control">
   <option className="Disabled">Select Role</option>
   <option className="Disabled"value="admin">Admin</option>

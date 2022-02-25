@@ -14,14 +14,11 @@ export const Admin = () => {
         <Header/>
         <Sidebar/>
         <Routes>
-           <Route exact path="/dashboard" element={<Dashboard/>}/>
+            <Route exact path="/" element={<Dashboard />}/>
            <Route exact path="/users" element={<UserIndex/>}/>
            <Route exact path="/users/create" element={<UserCreate/>}/>
-           <Route exact path="/users/show" element={<UserShow/>}/>
-
-           
+           <Route exact path="/users/show" element={<UserShow/>}/>           
         </Routes>
-       
       <Footer/>
     </div>
   )
