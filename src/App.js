@@ -1,42 +1,55 @@
-import './App.css';
-import { Admin } from './Admin';
+import "./App.css";
+import { Admin } from "./Admin";
+import { Login } from "./components/auth/Login";
+import { Register } from "./components/auth/Register";
+import { ForgetPassword } from "./components/auth/ForgetPassword";
 
-/* import axios from 'axios'; */
-import {BrowserRouter,Routes,Route} from 'react-router-dom';
-/* import UserContext from './UserContext';
-import { useEffect, useState } from 'react'; */
+import axios from "axios";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+import UserContext from "./UserContext";
+import { useEffect, useState } from "react";
+import Logout from "./components/auth/Logout";
+import First from "./First";
 
 function App() {
-  /* const [user, setUser] = useState({});
-  const [token, setToken] = localStorage.getItem('token');
+  const [user, setUser] = useState({});
 
-  function fetchUser() {
-    axios.get('http://locahost:8000/api/user', {
-      headers: {
-        'Authorization': `Bearer ${token}`
-      }
-    }).then(res => {
-      setUser(res.data);
-    }).catch(err => {
-      setUser({'error': true});
-    })
-  }
+  const fetchUser = async () => {
+    await axios
+      .get("http://localhost:8000/api/user", {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
+      .then((res) => {
+        setUser(res.data);
+        console.log(res.data.role);
+      })
+      .catch((err) => {
+        setUser({ error: true });
+      });
+  };
 
   useEffect(() => {
     fetchUser();
   }, []);
- */
+
   return (
     <div className="App">
-      
-      {/* <UserContext.Provider value={[user, fetchUser]}> */}
+      <UserContext.Provider value={[user, fetchUser]}>
         <BrowserRouter>
           <Routes>
             {/* <Route path="/about" element={<About/>}/> */}
-            <Route path="/admin/*" element={<Admin/>}/>
-            </Routes>
+            <Route path="/" element={<First />} />
+            <Route path="/admin/*" element={<Admin />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/forgetpassword" element={<ForgetPassword />} />
+            <Route path="/logout" element={<Logout />} />
+          </Routes>
         </BrowserRouter>
-     {/*  </UserContext.Provider> */}
+      </UserContext.Provider>
     </div>
   );
 }
