@@ -1,8 +1,8 @@
-import './App.css';
-import { Admin } from './Admin';
+import "./App.css";
+import { Admin } from "./components/admin/Admin";
 
 /* import axios from 'axios'; */
-import {BrowserRouter,Routes,Route} from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 /* import UserContext from './UserContext';
 import { useEffect, useState } from 'react'; */
 
@@ -28,15 +28,14 @@ function App() {
  */
   return (
     <div className="App">
-      
       {/* <UserContext.Provider value={[user, fetchUser]}> */}
-        <BrowserRouter>
-          <Routes>
-            {/* <Route path="/about" element={<About/>}/> */}
-            <Route path="/admin/*" element={<Admin/>}/>
-            </Routes>
-        </BrowserRouter>
-     {/*  </UserContext.Provider> */}
+      <BrowserRouter>
+        <Routes>
+          {/* <Route path="/about" element={<About/>}/> */}
+          <Route path="/admin/*" element={<Admin />} />
+        </Routes>
+      </BrowserRouter>
+      {/*  </UserContext.Provider> */}
     </div>
   );
 }

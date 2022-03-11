@@ -1,44 +1,57 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
 import axios from "axios";
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 
-export const UserCreate = () => {
-  const [userData, setUserData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    address: "",
-    password: "",
-    role: "",
-  });
-  const [image, setImage] = useState(null);
+const UserEdit = () => {
+  const [image, setImage] = useState();
   const navigate = useNavigate();
   const [validation, setValidationError] = useState({});
+  const [user, setUser] = useState({});
+
+  //   const [userData, setuserData] = useState({
+  //     name: "",
+  //     email: "",
+  //     phone: "",
+  //     address: "",
+  //     password: "",
+  //     role: "",
+  //   });
+  const { id } = useParams();
+  const fetchUser = async () => {
+    await axios(`http://localhost:8000/api/users/${id}`).then((res) => {
+      setUser(res.data);
+    });
+    console.log(user);
+  };
+  useEffect(() => {
+    fetchUser(); /* eslint-disable */
+  }, []);
 
   const handleInputChange = (e) => {
-    console.log(e.target.name, e.target.value);
-    setUserData({ ...userData, [e.target.name]: e.target.value });
-    console.log(userData);
+    setUser({ ...user, [e.target.name]: e.target.value });
+    console.log(user);
   };
   const handleImage = (files) => {
     setImage(files[0]);
     console.log(image);
   };
 
-  const submitUserData = async (e) => {
+  const updateuser = async (e) => {
     e.preventDefault();
     const data = new FormData();
-    data.append("name", userData.name);
+    data.append("name", user.name);
     data.append("image", image);
-    data.append("phone", userData.phone);
-    data.append("email", userData.email);
-    data.append("password", userData.password);
-    data.append("address", userData.address);
-    data.append("role", userData.role);
+    data.append("phone", user.phone);
+    data.append("email", user.email);
+    data.append("password", user.password);
+    data.append("address", user.address);
+    data.append("role", user.role);
+    console.log(data);
     await axios
-      .post("http://localhost:8000/api/users", data)
+      .put(`http://localhost:8000/api/users/${id}`, data)
       .then((res) => {
         Swal.fire({
           timer: 2000,
@@ -51,7 +64,6 @@ export const UserCreate = () => {
         setValidationError(err.response.data.errors);
       });
   };
-
   return (
     <div>
       <div>
@@ -71,7 +83,7 @@ export const UserCreate = () => {
                   </div>
                 </div>
                 <div className="card-body">
-                  <form onSubmit={submitUserData} method="post">
+                  <form onSubmit={updateuser} method="post">
                     <div className="form-group">
                       <label htmlFor="name">
                         Name
@@ -84,8 +96,8 @@ export const UserCreate = () => {
                         name="name"
                         id="name"
                         className="form-control "
-                        value={userData.name}
                         onChange={handleInputChange}
+                        value={user.name}
                       />
                       {validation.name ? (
                         <div className="text-danger">{validation.name} </div>
@@ -105,7 +117,7 @@ export const UserCreate = () => {
                         name="email"
                         id="email"
                         className="form-control "
-                        value={userData.email}
+                        value={user.email}
                         onChange={handleInputChange}
                       />
                       {validation.email ? (
@@ -126,7 +138,7 @@ export const UserCreate = () => {
                         name="phone"
                         id="phone"
                         className="form-control "
-                        value={userData.phone}
+                        value={user.phone}
                         onChange={handleInputChange}
                       />
                       {validation.phone ? (
@@ -134,45 +146,6 @@ export const UserCreate = () => {
                       ) : (
                         ""
                       )}
-                    </div>
-                    <div className="form-group">
-                      <label htmlFor="password">
-                        Password
-                        <span className="text-danger" title="Required">
-                          *
-                        </span>
-                      </label>
-                      <input
-                        type="password"
-                        name="password"
-                        id="password"
-                        className="form-control "
-                        value={userData.password}
-                        onChange={handleInputChange}
-                      />
-                      {validation.password ? (
-                        <div className="text-danger">
-                          {validation.password}{" "}
-                        </div>
-                      ) : (
-                        ""
-                      )}
-                    </div>
-                    <div className="form-group">
-                      <label htmlFor="confirmpassword">
-                        Confirm Password
-                        <span className="text-danger" title="Required">
-                          *
-                        </span>
-                      </label>
-                      <input
-                        type="password"
-                        name="confirmpassword"
-                        id="confirmpassword"
-                        className="form-control "
-                        value={userData.confirmpassword}
-                        onChange={handleInputChange}
-                      />
                     </div>
                     <div className="form-group">
                       <label htmlFor="address">
@@ -186,7 +159,7 @@ export const UserCreate = () => {
                         name="address"
                         id="address"
                         className="form-control "
-                        value={userData.address}
+                        value={user.address}
                         onChange={handleInputChange}
                       />
                       {validation.address ? (
@@ -204,6 +177,11 @@ export const UserCreate = () => {
                         id="image"
                         className="form-control "
                         onChange={(e) => handleImage(e.target.files)}
+                      />
+                      <img
+                        src={`http://localhost:8000/storage/${user.image}`}
+                        width={150}
+                        height={150}
                       />
                     </div>
                     <div className="form-group">
@@ -223,11 +201,7 @@ export const UserCreate = () => {
                         <option value="Vendor">Vendor</option>
                         <option value="Customer">Customer</option>
                       </select>
-                      {validation.role ? (
-                        <div className="text-danger">{validation.role}</div>
-                      ) : (
-                        ""
-                      )}
+
                       <input
                         type="submit"
                         className="btn btn-md bg-indigo mt-2"
@@ -245,3 +219,5 @@ export const UserCreate = () => {
     </div>
   );
 };
+
+export default UserEdit;
