@@ -1,4 +1,5 @@
 import "./App.css";
+<<<<<<< HEAD
 import { Admin } from "./Admin";
 import { Login } from "./components/auth/Login";
 import { Register } from "./components/auth/Register";
@@ -11,6 +12,14 @@ import UserContext from "./UserContext";
 import { useEffect, useState } from "react";
 import Logout from "./components/auth/Logout";
 import First from "./First";
+=======
+import { Admin } from "./components/admin/Admin";
+
+/* import axios from 'axios'; */
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+/* import UserContext from './UserContext';
+import { useEffect, useState } from 'react'; */
+>>>>>>> 7bea311a973895f4dd1806e9eaed035ad84374d4
 
 function App() {
   const [user, setUser] = useState({});
@@ -50,6 +59,14 @@ function App() {
           </Routes>
         </BrowserRouter>
       </UserContext.Provider>
+      {/* <UserContext.Provider value={[user, fetchUser]}> */}
+      <BrowserRouter>
+        <Routes>
+          {/* <Route path="/about" element={<About/>}/> */}
+          <Route path="/admin/*" element={<Admin />} />
+        </Routes>
+      </BrowserRouter>
+      {/*  </UserContext.Provider> */}
     </div>
   );
 }

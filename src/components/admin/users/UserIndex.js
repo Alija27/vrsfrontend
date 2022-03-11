@@ -1,8 +1,59 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import axios from "axios";
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { Spinner } from "../../Spinner";
+import Swal from "sweetalert2";
 
 export const UserIndex = () => {
-        /* state={
+  const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  const getUsers = async () => {
+    setLoading(true);
+    await axios.get("http://localhost:8000/api/users").then((res) => {
+      setUsers(res.data);
+      setLoading(false);
+    });
+  };
+  useEffect(() => {
+    getUsers();
+  }, []);
+
+  const handleDelete = async (id) => {
+    const isConfirmed = await Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((res) => {
+      return res.isConfirmed;
+    });
+
+    if (isConfirmed) {
+      await axios
+        .delete(`http://localhost:8000/api/users/${id}`)
+        .then((res) => {
+          Swal.fire({
+            icon: "success",
+            title: res.data.message,
+            timer: 2000,
+          });
+          getUsers();
+        })
+        .catch((error) => {
+          Swal.fire({
+            icon: "icon",
+            title: /* res.response.data.errors */ "Cannot delete this user",
+            text: "This user is connected with others",
+          });
+        });
+    }
+  };
+
+  /* state={
          name:'',
       
         };
@@ -22,268 +73,112 @@ export const UserIndex = () => {
         this.setState({
             name:'',
           }); */
-        
+
   return (
     <div>
-        <div>
-                
-                <div className="content-wrapper">
-                    {/* Content Header (Page header) */}
-                    <section className="content-header">
-                        <div className="container-fluid">
-                            <div className="row mb-2">
-                                <div className="col-sm-6">
-                                    <h1>Users</h1>
-                                </div>
-                                <div className="col-sm-6">
-                                    <ol className="breadcrumb float-sm-right">
-                                        <li className="breadcrumb-item">
-                                            <Link to="/admin">Home</Link>
-                                        </li>
-                                        <li className="breadcrumb-item active text-bold">
-                                           Users
-                                        </li>
-                                    </ol>
-                                </div>
-                            </div>
+      <div>
+        <div className="content-wrapper">
+          <section className="content">
+            <div className="container-fluid">
+              <div className="row">
+                <div className="col-12">
+                  <div className="card mt-2">
+                    <div className="card-header">
+                      <h3 className="card-title text-bold">All Users</h3>
+                      <div className="card-tools">
+                        <Link
+                          to="/admin/users/create"
+                          className="bg-indigo btn btn-link btn-sm "
+                        >
+                          <i className="fas fa-plus-circle mr-1"></i>Add New
+                          User
+                        </Link>
+                      </div>
+                    </div>
+                    {/* /.card-header */}
+                    <div className="card-body p-0">
+                      {loading ? (
+                        <div className=" row justify-content-center">
+                          <Spinner />
                         </div>
-                        {/* /.container-fluid */}
-                    </section>
-                    {/* Main content */}
-                    <section className="content">
-                        <div className="container-fluid">
-                            <div className="row">
-                                <div className="col-12">
-                                    <div className="card">
-                                        <div className="card-header">
-                                            <h3 className="card-title text-bold">
-                                                All Users
-                                            </h3>
-                                            <div className="float-right">
-                                            
-                                                {/* <button className="btn btn-sm bg-indigo"><i className="fas fa-plus-circle"></i>User</button> */}
-                                                <Link to="/admin/users/create" className="bg-indigo btn btn-link btn-sm "> <i className="fas fa-plus-circle mr-1"></i>Add User</Link>
-                                            </div>
-                                        </div>
-                                        {/* /.card-header */}
-                                        <div className="card-body">
-                                            <div
-                                                id="example2_wrapper"
-                                                className="dataTables_wrapper dt-bootstrap4"
-                                            >
-                                                <div className="row">
-                                                    <div className="col-sm-12 col-md-6" />
-                                                    <div className="col-sm-12 col-md-6" />
-                                                </div>
-                                                <div className="row" style={{overflowX: 'auto'}}>
-                                                   <div classname="col-sm-12" >
-    
-    
-                                                        <table
-                                                            id="example2"
-                                                            className="table table-bordered table-hover dataTable dtr-inline collapsed table-indigo"
-                                                            aria-describedby="example2_info"
-                                                        >
-                                                            <thead>
-                                                                <tr>
-                                                                    <th
-                                                                        className="sorting sorting_asc"
-                                                                        tabIndex={0}
-                                                                        aria-controls="example2"
-                                                                        rowSpan={1}
-                                                                        colSpan={1}
-                                                                        aria-sort="ascending"
-                                                                        aria-label="Rendering engine: activate to sort column descending"
-                                                                    >
-                                                                        Id
-                                                                    </th>
-                                                                    <th
-                                                                        className="sorting"
-                                                                        tabIndex={0}
-                                                                        aria-controls="example2"
-                                                                        rowSpan={1}
-                                                                        colSpan={1}
-                                                                        aria-label="Browser: activate to sort column ascending"
-                                                                       
-                                                                    >
-                                                                        Name
-                                                                    </th>
-                                                                    <th
-                                                                        className="sorting"
-                                                                        tabIndex={0}
-                                                                        aria-controls="example2"
-                                                                        rowSpan={1}
-                                                                        colSpan={1}
-                                                                        aria-label="Platform(s): activate to sort column ascending"
-                                                                        
-                                                                    >
-                                                                       Email
-                                                                    </th>
-                                                                    <th
-                                                                        className="sorting"
-                                                                        tabIndex={0}
-                                                                        aria-controls="example2"
-                                                                        rowSpan={1}
-                                                                        colSpan={1}
-                                                                        aria-label="Engine version: activate to sort column ascending"
-                                                                        
-                                                                    >
-                                                                        Phone
-                                                                    </th>
-                                                                    <th
-                                                                        className="sorting"
-                                                                        tabIndex={0}
-                                                                        aria-controls="example2"
-                                                                        rowSpan={1}
-                                                                        colSpan={1}
-                                                                        aria-label="CSS grade: activate to sort column ascending"
-                                                                       
-                                                                    >
-                                                                        Password
-                                                                    </th>
-                                                                    <th
-                                                                        className="sorting"
-                                                                        tabIndex={0}
-                                                                        aria-controls="example2"
-                                                                        rowSpan={1}
-                                                                        colSpan={1}
-                                                                        aria-label="CSS grade: activate to sort column ascending"
-                                                                       
-                                                                    >
-                                                                        Address
-                                                                    </th>
-                                                                   {/*  <th
-                                                                        className="sorting"
-                                                                        tabIndex={0}
-                                                                        aria-controls="example2"
-                                                                        rowSpan={1}
-                                                                        colSpan={1}
-                                                                        aria-label="CSS grade: activate to sort column ascending"
-                                                                       
-                                                                    >
-                                                                        Document
-                                                                    </th> */}
-                                                                    <th
-                                                                        className="sorting"
-                                                                        tabIndex={0}
-                                                                        aria-controls="example2"
-                                                                        rowSpan={1}
-                                                                        colSpan={1}
-                                                                        aria-label="CSS grade: activate to sort column ascending"
-                                                                       
-                                                                    >
-                                                                        Role
-                                                                    </th>
-                                                                    <th
-                                                                        className="sorting"
-                                                                        tabIndex={0}
-                                                                        aria-controls="example2"
-                                                                        rowSpan={1}
-                                                                        colSpan={1}
-                                                                        aria-label="CSS grade: activate to sort column ascending"
-                                                                       
-                                                                    >
-                                                                        Created at
-                                                                    </th>
-                                                                    <th
-                                                                        className="sorting"
-                                                                        tabIndex={0}
-                                                                        aria-controls="example2"
-                                                                        rowSpan={1}
-                                                                        colSpan={1}
-                                                                        aria-label="CSS grade: activate to sort column ascending"
-                                                                       
-                                                                    >
-                                                                        Action
-                                                                    </th>
-                                                                    
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                <tr className="odd">
-                                                                    <td
-                                                                        className="dtr-control sorting_1"
-                                                                        tabIndex={0}
-                                                                    >
-                                                                        Gecko
-                                                                    </td>
-                                                                    <td
-                                                                        
-                                                                    >
-                                                                        Firefox 1.0
-                                                                    </td>
-                                                                    <td
-                                                                        
-                                                                    >
-                                                                        Win 98+ /
-                                                                        OSX.2+
-                                                                    </td>
-                                                                    <td
-                                                                        
-                                                                    >
-                                                                        1.7
-                                                                    </td>
-                                                                    <td
-                                                                        
-                                                                    >
-                                                                        A
-                                                                    </td>
-                                                                    <td
-                                                                       
-                                                                    >
-                                                                        A
-                                                                    </td>
-                                                                    {/* <td
-                                                                       
-                                                                    >
-                                                                        A
-                                                                    </td> */}
-                                                                    <td
-                                                                       
-                                                                    >
-                                                                        A
-                                                                    </td>
-                                                                    <td
-                                                                       
-                                                                    >
-                                                                        A
-                                                                    </td>
-                                                                    <td
-                                                                       
-                                                                    >
-                                                                         <Link to="/admin/users/edit" className=" btn btn-link  bg-primary btn-sm m-1 "> <i className="fas fa-edit ml-1 mr-1"></i> Edit</Link> 
-                                                                       
-                                                                     <Link to="/admin/users/show" className="btn btn-link bg-success btn-sm m-1"> <i className="fas fa-eye ml-1 mr-1"></i>Show </Link>
-                                                                     <Link to="#" className="btn btn-link bg-danger btn-sm m-1"> <i className="fas fa-trash ml-1 mr-1"></i>Delete</Link>
-                                                                    </td>
-                                                                </tr>
-                                                                
-                                                            </tbody>
-                                                        
-                                                        </table>
-                                                    </div>
-                                                </div>
-                                                
-                                                           
-                                                       
-                                                    
-                                               
-                                            </div>
-                                        </div>
-                                        {/* /.card-body */}
-                                    </div>
-                                    {/* /.card */}
-                                </div>
-                                {/* /.col */}
-                            </div>
-                            {/* /.row */}
-                        </div>
-                        {/* /.container-fluid */}
-                    </section>
-                    {/* /.content */}
+                      ) : (
+                        <table className="table table-bordered table-hover">
+                          <thead className="bg-indigo">
+                            <tr>
+                              <th>Id</th>
+                              <th>Name</th>
+                              <th>Image</th>
+                              <th>Email</th>
+                              <th>Phone</th>
+
+                              <th>Role</th>
+
+                              <th>Action</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {users.map((user, index) => (
+                              <tr key={index}>
+                                <td>{user.id}</td>
+                                <td>{user.name}</td>
+                                <td>
+                                  <img
+                                    src={`http://localhost:8000/storage/${user.image}`}
+                                    height={60}
+                                    width={60}
+                                    alt=""
+                                  />
+                                </td>
+                                <td>{user.email}</td>
+                                <td>{user.phone}</td>
+
+                                <td>{user.role}</td>
+
+                                <td>
+                                  <Link
+                                    to={`/admin/users/edit/${user.id}`}
+                                    className="btn btn-link  bg-cyan btn-sm m-1"
+                                  >
+                                    <i className="fas fa-edit ml-1 mr-1"></i>
+                                    Edit
+                                  </Link>
+
+                                  <Link
+                                    to={`/admin/users/${user.id}`}
+                                    className="btn btn-link bg-success btn-sm m-1"
+                                  >
+                                    <i className="fas fa-eye ml-1 mr-1"></i>
+                                    Show
+                                  </Link>
+                                  <span
+                                    onClick={() => handleDelete(user.id)}
+                                    className="btn btn-link bg-danger btn-sm m-1"
+                                  >
+                                    <i className="fas fa-trash ml-1 mr-1"></i>
+                                    Delete
+                                  </span>
+                                </td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* /.card-body */}
                 </div>
-                
+                {/* /.card */}
+              </div>
+              {/* /.col */}
             </div>
+            {/* /.row */}
+          </section>
+        </div>
+        {/* /.container-fluid */}
+
+        {/* /.content */}
+      </div>
     </div>
-  )
-}
+  );
+};
