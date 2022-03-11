@@ -84,10 +84,12 @@ export const UserShow = () => {
                       <th>Role</th>
                       <td>{user.role}</td>
                     </tr>
-                    {/* <tr>
-                      <th>Role</th>
-                      <td>{user}</td>
-                    </tr> */}
+                    {user.vendor && (
+                      <tr>
+                        <th>Vendor</th>
+                        <td>{user.vendor.name}</td>
+                      </tr>
+                    )}
                   </table>
                 </div>
               </div>

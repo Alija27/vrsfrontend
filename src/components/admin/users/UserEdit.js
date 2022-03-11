@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 
 const UserEdit = () => {
-  const [image, setImage] = useState();
+  const [image, setImage] = useState("");
   const navigate = useNavigate();
   const [validation, setValidationError] = useState({});
   const [user, setUser] = useState({});
@@ -43,15 +43,19 @@ const UserEdit = () => {
     e.preventDefault();
     const data = new FormData();
     data.append("name", user.name);
-    data.append("image", image);
+    if (image) {
+      data.append("image", image);
+    }
     data.append("phone", user.phone);
     data.append("email", user.email);
-    data.append("password", user.password);
+    // data.append("password", user.password);
     data.append("address", user.address);
     data.append("role", user.role);
-    console.log(data);
+    data.append("_method", "PUT");
+    console.log(data.get("name"));
+
     await axios
-      .put(`http://localhost:8000/api/users/${id}`, data)
+      .post(`http://localhost:8000/api/users/${id}`, data)
       .then((res) => {
         Swal.fire({
           timer: 2000,
@@ -61,7 +65,15 @@ const UserEdit = () => {
         navigate("/admin/users");
       })
       .catch((err) => {
-        setValidationError(err.response.data.errors);
+        if (err.response.status == 422) {
+          setValidationError(err.response.data.errors);
+        } else {
+          Swal.fire({
+            timer: 2000,
+            icon: "error",
+            title: err,
+          });
+        }
       });
   };
   return (
@@ -194,6 +206,7 @@ const UserEdit = () => {
                       <select
                         className="form-control"
                         name="role"
+                        value={user.role}
                         onChange={handleInputChange}
                       >
                         <option value="">Select Role</option>

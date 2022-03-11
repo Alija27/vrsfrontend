@@ -78,26 +78,6 @@ export const UserIndex = () => {
     <div>
       <div>
         <div className="content-wrapper">
-          {/* Content Header (Page header) */}
-          {/* <section className="content-header">
-            <div className="container-fluid">
-              <div className="row mb-2">
-                <div className="col-sm-6">
-                  <h1>Users</h1>
-                </div>
-                <div className="col-sm-6">
-                  <ol className="breadcrumb float-sm-right">
-                    <li className="breadcrumb-item">
-                      <Link to="/admin">Home</Link>
-                    </li>
-                    <li className="breadcrumb-item active text-bold">Users</li>
-                  </ol>
-                </div>
-              </div>
-            </div>
-            {/* /.container-fluid *
-          </section> */}
-          {/* Main content */}
           <section className="content">
             <div className="container-fluid">
               <div className="row">
@@ -106,7 +86,6 @@ export const UserIndex = () => {
                     <div className="card-header">
                       <h3 className="card-title text-bold">All Users</h3>
                       <div className="card-tools">
-                        {/* <button className="btn btn-sm bg-indigo"><i className="fas fa-plus-circle"></i>User</button> */}
                         <Link
                           to="/admin/users/create"
                           className="bg-indigo btn btn-link btn-sm "
