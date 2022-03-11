@@ -1,7 +1,11 @@
+<<<<<<< HEAD
+import React from "react";
+=======
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
+>>>>>>> 7bea311a973895f4dd1806e9eaed035ad84374d4
 
 export const UserShow = () => {
   const [user, setUser] = useState({});
@@ -18,6 +22,45 @@ export const UserShow = () => {
   return (
     <div>
       <div className="content-wrapper">
+<<<<<<< HEAD
+        {/* Content Header (Page header) */}
+        <section className="content-header">
+          <div className="container-fluid">
+            <div className="row mb-2">
+              <div className="col-sm-6">
+                <h1>User Details</h1>
+              </div>
+            </div>
+          </div>
+          {/* /.container-fluid */}
+        </section>
+        {/* Main content */}
+        <section className="content">
+          <div className="container-fluid">
+            <div className="row">
+              <div className="col-12">
+                {/* interactive chart */}
+                <div className="card card-primary card-outline">
+                  <div className="card-header">
+                    <h3 className="card-title">
+                      <i className="far fa-chart-bar" />
+                      User
+                    </h3>
+                    <div className="card-tools">Go back</div>
+                  </div>
+                  <div className="card-body">
+                    <div id="interactive" style={{ height: 300 }} />
+                  </div>
+                  {/* /.card-body*/}
+                </div>
+                {/* /.card */}
+              </div>
+              {/* /.col */}
+            </div>
+            {/* /.row */}
+          </div>
+        </section>
+=======
         <div className="container-fluid">
           <div className="row mt-1">
             <div className="col-12">
@@ -96,6 +139,7 @@ export const UserShow = () => {
             </div>
           </div>
         </div>
+>>>>>>> 7bea311a973895f4dd1806e9eaed035ad84374d4
       </div>
     </div>
   );
