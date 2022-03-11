@@ -16,6 +16,7 @@ export const UserCreate = () => {
   const [image, setImage] = useState(null);
   const navigate = useNavigate();
   const [validation, setValidationError] = useState({});
+  const [loading, setLoading] = useState(false);
 
   const handleInputChange = (e) => {
     console.log(e.target.name, e.target.value);
@@ -29,6 +30,7 @@ export const UserCreate = () => {
 
   const submitUserData = async (e) => {
     e.preventDefault();
+    setLoading(true);
     const data = new FormData();
     data.append("name", userData.name);
     data.append("image", image);
@@ -37,19 +39,32 @@ export const UserCreate = () => {
     data.append("password", userData.password);
     data.append("address", userData.address);
     data.append("role", userData.role);
+
     await axios
+
       .post("http://localhost:8000/api/users", data)
+
       .then((res) => {
         Swal.fire({
           timer: 2000,
           icon: "success",
           title: res.data.message,
         });
+
         navigate("/admin/users");
       })
       .catch((err) => {
-        setValidationError(err.response.data.errors);
+        if (err.response.status === 422) {
+          setValidationError(err.response.data.errors);
+        } else {
+          Swal.fire({
+            timer: 2000,
+            icon: "error",
+            title: err,
+          });
+        }
       });
+    setLoading(false);
   };
 
   return (
@@ -66,7 +81,9 @@ export const UserCreate = () => {
                       to="/admin/users"
                       className="btn-link btn-sm bg-indigo"
                     >
-                      <span>Go Back</span>
+                      <span>
+                        <i className="mr-1 fas fa-arrow-left"></i>Go Back
+                      </span>
                     </Link>
                   </div>
                 </div>
@@ -228,12 +245,33 @@ export const UserCreate = () => {
                       ) : (
                         ""
                       )}
-                      <input
+                      {/*  <input
                         type="submit"
                         className="btn btn-md bg-indigo mt-2"
                         id="btnSave"
                         value="Create"
-                      />
+                      /> */}
+                    </div>
+                    <div className="form-group my-2">
+                      <button
+                        onClick={submitUserData}
+                        type="submit"
+                        id="btnSave"
+                        className="btn bg-indigo"
+                      >
+                        {loading ? (
+                          <>
+                            <span
+                              className="spinner-border spinner-border-sm mr-2"
+                              role="status"
+                              aria-hidden="true"
+                            ></span>
+                            <span>Saving...</span>
+                          </>
+                        ) : (
+                          "Create"
+                        )}
+                      </button>
                     </div>
                   </form>
                 </div>

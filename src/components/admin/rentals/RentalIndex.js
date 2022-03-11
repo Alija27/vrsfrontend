@@ -45,7 +45,7 @@ export const RentalIndex = () => {
         })
         .catch((error) => {
           Swal.fire({
-            icon: "icon",
+            icon: "error",
             title: /* res.response.data.errors */ "Cannot delete this rental",
             text: "This rental is connected with others",
           });
@@ -68,7 +68,6 @@ export const RentalIndex = () => {
                         className="bg-indigo btn btn-link btn-sm "
                       >
                         <i className="fas fa-plus-circle mr-1"></i>Add New
-                        rental
                       </Link>
                     </div>
                   </div>
@@ -82,14 +81,16 @@ export const RentalIndex = () => {
                       <table className="table table-bordered table-hover">
                         <thead className="bg-indigo">
                           <tr>
-                            <th>Id</th>
-                            <th>Name</th>
-                            <th>Image</th>
-                            <th>Email</th>
-                            <th>Phone</th>
+                            <th>ID</th>
+                            <th>User_ID</th>
+                            <th>Vehicle_ID</th>
+                            <th>Start Date</th>
+                            <th>End Date</th>
 
-                            <th>Role</th>
+                            <th>Destination</th>
 
+                            <th>Is Approved</th>
+                            <th>Is Complete</th>
                             <th>Action</th>
                           </tr>
                         </thead>
@@ -97,20 +98,13 @@ export const RentalIndex = () => {
                           {rentals.map((rental, index) => (
                             <tr key={index}>
                               <td>{rental.id}</td>
-                              <td>{rental.name}</td>
-                              <td>
-                                <img
-                                  src={`http://localhost:8000/storage/${rental.image}`}
-                                  height={60}
-                                  width={60}
-                                  alt=""
-                                />
-                              </td>
-                              <td>{rental.email}</td>
-                              <td>{rental.phone}</td>
-
-                              <td>{rental.role}</td>
-
+                              <td>{rental.user_id}</td>
+                              <td>{rental.vehicle_id}</td>
+                              <td>{rental.start_date}</td>
+                              <td>{rental.end_date}</td>
+                              <td>{rental.destination}</td>
+                              <td>{rental.is_approved}</td>
+                              <td>{rental.is_complete}</td>
                               <td>
                                 <Link
                                   to={`/admin/rentals/edit/${rental.id}`}

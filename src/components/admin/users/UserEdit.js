@@ -10,6 +10,7 @@ const UserEdit = () => {
   const navigate = useNavigate();
   const [validation, setValidationError] = useState({});
   const [user, setUser] = useState({});
+  const [loading, setLoading] = useState();
 
   //   const [userData, setuserData] = useState({
   //     name: "",
@@ -41,6 +42,7 @@ const UserEdit = () => {
 
   const updateuser = async (e) => {
     e.preventDefault();
+    setLoading(true);
     const data = new FormData();
     data.append("name", user.name);
     if (image) {
@@ -75,6 +77,7 @@ const UserEdit = () => {
           });
         }
       });
+    setLoading(false);
   };
   return (
     <div>
@@ -84,13 +87,15 @@ const UserEdit = () => {
             <div className="container-fluid">
               <div className="card m-2">
                 <div className="card-header">
-                  <h3 className="card-title">Add New User</h3>
+                  <h3 className="card-title">Edit User</h3>
                   <div className="card-tools">
                     <Link
                       to="/admin/users"
                       className="btn-link btn-sm bg-indigo"
                     >
-                      <span>Go Back</span>
+                      <span>
+                        <i class="fas fa-arrow-left mr-1"></i>Go Back
+                      </span>
                     </Link>
                   </div>
                 </div>
@@ -215,12 +220,33 @@ const UserEdit = () => {
                         <option value="Customer">Customer</option>
                       </select>
 
-                      <input
+                      {/* <input
                         type="submit"
                         className="btn btn-md bg-indigo mt-2"
                         id="btnSave"
                         value="Create"
-                      />
+                      /> */}
+                    </div>
+                    <div className="form-group my-2">
+                      <button
+                        onClick={updateuser}
+                        type="submit"
+                        id="btnSave"
+                        className="btn bg-indigo"
+                      >
+                        {loading ? (
+                          <>
+                            <span
+                              className="spinner-border spinner-border-sm mr-2"
+                              role="status"
+                              aria-hidden="true"
+                            ></span>
+                            <span>Updating...</span>
+                          </>
+                        ) : (
+                          "Update"
+                        )}
+                      </button>
                     </div>
                   </form>
                 </div>

@@ -45,7 +45,7 @@ export const UserIndex = () => {
         })
         .catch((error) => {
           Swal.fire({
-            icon: "icon",
+            icon: "error",
             title: /* res.response.data.errors */ "Cannot delete this user",
             text: "This user is connected with others",
           });
@@ -84,14 +84,13 @@ export const UserIndex = () => {
                 <div className="col-12">
                   <div className="card mt-2">
                     <div className="card-header">
-                      <h3 className="card-title text-bold">All Users</h3>
+                      <h3 className="card-title">All Users</h3>
                       <div className="card-tools">
                         <Link
                           to="/admin/users/create"
                           className="bg-indigo btn btn-link btn-sm "
                         >
                           <i className="fas fa-plus-circle mr-1"></i>Add New
-                          User
                         </Link>
                       </div>
                     </div>

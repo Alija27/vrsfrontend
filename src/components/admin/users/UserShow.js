@@ -1,11 +1,7 @@
-<<<<<<< HEAD
-import React from "react";
-=======
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { useParams } from "react-router-dom";
->>>>>>> 7bea311a973895f4dd1806e9eaed035ad84374d4
+
+import { useParams, Link } from "react-router-dom";
 
 export const UserShow = () => {
   const [user, setUser] = useState({});
@@ -22,49 +18,14 @@ export const UserShow = () => {
   return (
     <div>
       <div className="content-wrapper">
-<<<<<<< HEAD
         {/* Content Header (Page header) */}
-        <section className="content-header">
-          <div className="container-fluid">
-            <div className="row mb-2">
-              <div className="col-sm-6">
-                <h1>User Details</h1>
-              </div>
-            </div>
-          </div>
-          {/* /.container-fluid */}
-        </section>
-        {/* Main content */}
-        <section className="content">
-          <div className="container-fluid">
-            <div className="row">
-              <div className="col-12">
-                {/* interactive chart */}
-                <div className="card card-primary card-outline">
-                  <div className="card-header">
-                    <h3 className="card-title">
-                      <i className="far fa-chart-bar" />
-                      User
-                    </h3>
-                    <div className="card-tools">Go back</div>
-                  </div>
-                  <div className="card-body">
-                    <div id="interactive" style={{ height: 300 }} />
-                  </div>
-                  {/* /.card-body*/}
-                </div>
-                {/* /.card */}
-              </div>
-              {/* /.col */}
-            </div>
-            {/* /.row */}
-          </div>
-        </section>
-=======
+
+        {/* <div className="card card-primary card-outline"> */}
+
         <div className="container-fluid">
           <div className="row mt-1">
             <div className="col-12">
-              <div className="card m-2 mt-5">
+              <div className="card card-indigo card-outline m-2 mt-5">
                 <div className="card-header">
                   <div className="card-title">User Details</div>
                   <div className="card-tools">
@@ -72,12 +33,14 @@ export const UserShow = () => {
                       to={`/admin/users/edit/${user.id}`}
                       className="btn btn-link bg-cyan btn-sm mr-1"
                     >
+                      <i class="fas fa- mr-1"></i>
                       Edit
                     </Link>
                     <Link
                       to="/admin/users"
                       className="btn btn-link bg-indigo btn-sm ml-1"
                     >
+                      <i class="fas fa-arrow-left mr-1"></i>
                       Go back
                     </Link>
                   </div>
@@ -95,12 +58,16 @@ export const UserShow = () => {
                     <tr>
                       <th>Image</th>
                       <td>
-                        <img
-                          src={`http://localhost:8000/storage/${user.image}`}
-                          height={200}
-                          width={200}
-                          alt=""
-                        />
+                        {user.image ? (
+                          <img
+                            src={`http://localhost:8000/storage/${user.image}`}
+                            height={200}
+                            width={200}
+                            alt=""
+                          />
+                        ) : (
+                          "No image to preview"
+                        )}
                       </td>
                     </tr>
                     <tr>
@@ -130,7 +97,31 @@ export const UserShow = () => {
                     {user.vendor && (
                       <tr>
                         <th>Vendor</th>
-                        <td>{user.vendor.name}</td>
+
+                        <td className="p-0">
+                          <table className="table table-bordered table-hover p-0">
+                            <thead className="bg-indigo">
+                              <tr>
+                                {/*  <th>Id</th> */}
+                                <th>Name</th>
+                                {/* <th>Address</th>
+                              <th>Phone</th>
+                              <th>User ID</th>
+                              <th>Image</th> */}
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                {/* <td>{user.vendor.id}</td> */}
+                                <td>{user.vendor.name}</td>
+                                {/*  <td>{user.vendor.address}</td>
+                                <td>{user.vendor.phone}</td>
+                                <td>{user.vendor.user_id}</td>
+                                <td>{user.vendor.image}</td> */}
+                              </tr>
+                            </tbody>
+                          </table>
+                        </td>
                       </tr>
                     )}
                   </table>
@@ -139,7 +130,6 @@ export const UserShow = () => {
             </div>
           </div>
         </div>
->>>>>>> 7bea311a973895f4dd1806e9eaed035ad84374d4
       </div>
     </div>
   );

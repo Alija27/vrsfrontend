@@ -33,7 +33,6 @@ export const Sidebar = () => {
 
               <li className="nav-item">
                 <NavLink
-                  strict
                   to="/admin"
                   activeclassname="active"
                   className="nav-link mt-2"
