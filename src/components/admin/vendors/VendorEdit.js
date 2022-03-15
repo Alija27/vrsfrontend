@@ -5,69 +5,69 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 
-const UserEdit = () => {
+const VendorEdit = () => {
   const [image, setImage] = useState("");
   const navigate = useNavigate();
   const [validation, setValidationError] = useState({});
-  const [user, setUser] = useState({});
+  const [vendor, setVendor] = useState({});
   const [loading, setLoading] = useState();
+  const [user_list, setUsers] = useState([]);
 
-  //   const [userData, setuserData] = useState({
-  //     name: "",
-  //     email: "",
-  //     phone: "",
-  //     address: "",
-  //     password: "",
-  //     role: "",
-  //   });
   const { id } = useParams();
-  const fetchUser = async () => {
-    await axios(`http://localhost:8000/api/users/${id}`).then((res) => {
-      setUser(res.data);
+  const fetchVendor = async () => {
+    await axios(`http://localhost:8000/api/vendors/${id}`).then((res) => {
+      setVendor(res.data);
     });
-    console.log(user);
+    console.log(vendor);
   };
-  useEffect(() => {
-    fetchUser(); /* eslint-disable */
-  }, []);
+  const fetchUser = async () => {
+    await axios(`http://localhost:8000/api/users`).then((res) => {
+      setUsers(res.data);
+    });
+  };
 
   const handleInputChange = (e) => {
-    setUser({ ...user, [e.target.name]: e.target.value });
-    console.log(user);
+    setVendor({ ...vendor, [e.target.name]: e.target.value });
+    console.log(vendor);
   };
   const handleImage = (files) => {
     setImage(files[0]);
     console.log(image);
   };
 
-  const updateuser = async (e) => {
+  useEffect(() => {
+    fetchUser();
+    fetchVendor(); /* eslint-disable */
+  }, []);
+
+  const updatevendor = async (e) => {
     e.preventDefault();
     setLoading(true);
     const data = new FormData();
-    data.append("name", user.name);
+    data.append("name", vendor.name);
     if (image) {
       data.append("image", image);
     }
-    data.append("phone", user.phone);
-    data.append("email", user.email);
-    // data.append("password", user.password);
-    data.append("address", user.address);
-    data.append("role", user.role);
+    data.append("phone", vendor.phone);
+
+    // data.append("password", vendor.password);
+    data.append("address", vendor.address);
+    /*  data.append("user_id", vendor.user_id); */
     data.append("_method", "PUT");
     console.log(data.get("name"));
 
     await axios
-      .post(`http://localhost:8000/api/users/${id}`, data)
+      .post(`http://localhost:8000/api/vendors/${id}`, data)
       .then((res) => {
         Swal.fire({
           timer: 2000,
           icon: "success",
           title: res.data.message,
         });
-        navigate("/admin/users");
+        navigate("/admin/vendors");
       })
       .catch((err) => {
-        if (err.response.status == 422) {
+        if (err.response.status === 422) {
           setValidationError(err.response.data.errors);
         } else {
           Swal.fire({
@@ -87,10 +87,10 @@ const UserEdit = () => {
             <div className="container-fluid">
               <div className="card m-2">
                 <div className="card-header">
-                  <h3 className="card-title">Edit User</h3>
+                  <h3 className="card-title">Edit Vendor</h3>
                   <div className="card-tools">
                     <Link
-                      to="/admin/users"
+                      to="/admin/vendors"
                       className="btn-link btn-sm bg-indigo"
                     >
                       <span>
@@ -100,7 +100,7 @@ const UserEdit = () => {
                   </div>
                 </div>
                 <div className="card-body">
-                  <form onSubmit={updateuser} method="post">
+                  <form onSubmit={updatevendor} method="post">
                     <div className="form-group">
                       <label htmlFor="name">
                         Name
@@ -114,31 +114,10 @@ const UserEdit = () => {
                         id="name"
                         className="form-control "
                         onChange={handleInputChange}
-                        value={user.name}
+                        value={vendor.name}
                       />
                       {validation.name ? (
                         <div className="text-danger">{validation.name} </div>
-                      ) : (
-                        ""
-                      )}
-                    </div>
-                    <div className="form-group">
-                      <label htmlFor="email">
-                        Email
-                        <span className="text-danger" title="Required">
-                          *
-                        </span>
-                      </label>
-                      <input
-                        type="text"
-                        name="email"
-                        id="email"
-                        className="form-control "
-                        value={user.email}
-                        onChange={handleInputChange}
-                      />
-                      {validation.email ? (
-                        <div className="text-danger">{validation.email}</div>
                       ) : (
                         ""
                       )}
@@ -155,7 +134,7 @@ const UserEdit = () => {
                         name="phone"
                         id="phone"
                         className="form-control "
-                        value={user.phone}
+                        value={vendor.phone}
                         onChange={handleInputChange}
                       />
                       {validation.phone ? (
@@ -176,7 +155,7 @@ const UserEdit = () => {
                         name="address"
                         id="address"
                         className="form-control "
-                        value={user.address}
+                        value={vendor.address}
                         onChange={handleInputChange}
                       />
                       {validation.address ? (
@@ -185,7 +164,6 @@ const UserEdit = () => {
                         ""
                       )}
                     </div>
-
                     <div className="form-group">
                       <label htmlFor="image">Image</label>
                       <input
@@ -196,40 +174,38 @@ const UserEdit = () => {
                         onChange={(e) => handleImage(e.target.files)}
                       />
                       <img
-                        src={`http://localhost:8000/storage/${user.image}`}
+                        alt=""
+                        src={`http://localhost:8000/storage/${vendor.image}`}
                         width={150}
                         height={150}
                       />
                     </div>
                     <div className="form-group">
-                      <label htmlFor="role">
-                        Role
+                      <label htmlFor="user_id">
+                        User
                         <span className="text-danger" title="Required">
                           *
                         </span>
                       </label>
                       <select
                         className="form-control"
-                        name="role"
-                        value={user.role}
+                        value={vendor.user_id}
+                        name="user_id"
                         onChange={handleInputChange}
                       >
-                        <option value="">Select Role</option>
-                        <option value="Admin">Admin</option>
-                        <option value="Vendor">Vendor</option>
-                        <option value="Customer">Customer</option>
+                        <option value="">Select User</option>
+                        {user_list &&
+                          user_list.map((user) => (
+                            <option value={user.id}>{user.name}</option>
+                          ))}
                       </select>
-
-                      {/* <input
-                        type="submit"
-                        className="btn btn-md bg-indigo mt-2"
-                        id="btnSave"
-                        value="Create"
-                      /> */}
+                      {validation.user_id && (
+                        <div className="text-danger">{validation.user_id} </div>
+                      )}
                     </div>
                     <div className="form-group my-2">
                       <button
-                        onClick={updateuser}
+                        onClick={updatevendor}
                         type="submit"
                         id="btnSave"
                         className="btn bg-indigo"
@@ -259,4 +235,4 @@ const UserEdit = () => {
   );
 };
 
-export default UserEdit;
+export default VendorEdit;

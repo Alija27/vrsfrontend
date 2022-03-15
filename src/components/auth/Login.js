@@ -1,6 +1,7 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import UserContext from "../../UserContext";
 
 export const Login = () => {
   const navigate = useNavigate();
@@ -29,6 +30,8 @@ export const Login = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
+  const [setUser] = useContext(UserContext);
+
   function login(e) {
     e.preventDefault();
     setError("");
@@ -42,6 +45,7 @@ export const Login = () => {
         navigate("/admin");
       })
       .catch((err) => {
+        console.log(err);
         setError("Invalid Email or Password");
       });
   }

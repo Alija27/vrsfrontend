@@ -82,7 +82,7 @@ export const RentalIndex = () => {
                         <thead className="bg-indigo">
                           <tr>
                             <th>ID</th>
-                            <th>User_ID</th>
+                            <th>User</th>
                             <th>Vehicle_ID</th>
                             <th>Start Date</th>
                             <th>End Date</th>
@@ -98,13 +98,13 @@ export const RentalIndex = () => {
                           {rentals.map((rental, index) => (
                             <tr key={index}>
                               <td>{rental.id}</td>
-                              <td>{rental.user_id}</td>
-                              <td>{rental.vehicle_id}</td>
+                              <td>{rental.user.name}</td>
+                              <td>{rental.vehicle.name}</td>
                               <td>{rental.start_date}</td>
                               <td>{rental.end_date}</td>
                               <td>{rental.destination}</td>
-                              <td>{rental.is_approved}</td>
-                              <td>{rental.is_complete}</td>
+                              <td>{rental.is_approved === 1 ? "Yes" : "No"}</td>
+                              <td>{rental.is_complete === 1 ? "Yes" : "No"}</td>
                               <td>
                                 <Link
                                   to={`/admin/rentals/edit/${rental.id}`}

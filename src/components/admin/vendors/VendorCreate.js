@@ -1,73 +1,62 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import axios from "axios";
 import Swal from "sweetalert2";
+const VendorCreate = () => {
+  const [vendorData, setVendorData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    address: "",
+    password: "",
+    role: "",
+  });
 
-const UserEdit = () => {
-  const [image, setImage] = useState("");
+  const [image, setImage] = useState(null);
   const navigate = useNavigate();
   const [validation, setValidationError] = useState({});
-  const [user, setUser] = useState({});
-  const [loading, setLoading] = useState();
+  const [loading, setLoading] = useState(false);
 
-  //   const [userData, setuserData] = useState({
-  //     name: "",
-  //     email: "",
-  //     phone: "",
-  //     address: "",
-  //     password: "",
-  //     role: "",
-  //   });
-  const { id } = useParams();
-  const fetchUser = async () => {
-    await axios(`http://localhost:8000/api/users/${id}`).then((res) => {
-      setUser(res.data);
-    });
-    console.log(user);
-  };
-  useEffect(() => {
-    fetchUser(); /* eslint-disable */
-  }, []);
+  const [users, setUsers] = useState([]);
 
   const handleInputChange = (e) => {
-    setUser({ ...user, [e.target.name]: e.target.value });
-    console.log(user);
+    console.log(e.target.name, e.target.value);
+    setVendorData({ ...vendorData, [e.target.name]: e.target.value });
+    console.log(vendorData);
   };
   const handleImage = (files) => {
     setImage(files[0]);
     console.log(image);
   };
 
-  const updateuser = async (e) => {
+  const submitVendorData = async (e) => {
     e.preventDefault();
     setLoading(true);
     const data = new FormData();
-    data.append("name", user.name);
-    if (image) {
-      data.append("image", image);
-    }
-    data.append("phone", user.phone);
-    data.append("email", user.email);
-    // data.append("password", user.password);
-    data.append("address", user.address);
-    data.append("role", user.role);
-    data.append("_method", "PUT");
-    console.log(data.get("name"));
+    data.append("name", vendorData.name);
+    data.append("image", image);
+    data.append("phone", vendorData.phone);
+    data.append("email", vendorData.email);
+    data.append("password", vendorData.password);
+    data.append("address", vendorData.address);
+    data.append("user_id", vendorData.user_id);
 
     await axios
-      .post(`http://localhost:8000/api/users/${id}`, data)
+
+      .post("http://localhost:8000/api/vendors", data)
+
       .then((res) => {
         Swal.fire({
           timer: 2000,
           icon: "success",
           title: res.data.message,
         });
-        navigate("/admin/users");
+
+        navigate("/admin/vendors");
       })
       .catch((err) => {
-        if (err.response.status == 422) {
+        if (err.response.status === 422) {
           setValidationError(err.response.data.errors);
         } else {
           Swal.fire({
@@ -79,6 +68,15 @@ const UserEdit = () => {
       });
     setLoading(false);
   };
+
+  const getUsers = async () => {
+    await axios.get("http://localhost:8000/api/users").then((res) => {
+      setUsers(res.data);
+    });
+  };
+  useEffect(() => {
+    getUsers();
+  }, []);
   return (
     <div>
       <div>
@@ -87,20 +85,20 @@ const UserEdit = () => {
             <div className="container-fluid">
               <div className="card m-2">
                 <div className="card-header">
-                  <h3 className="card-title">Edit User</h3>
+                  <h3 className="card-title">Add New vendor</h3>
                   <div className="card-tools">
                     <Link
-                      to="/admin/users"
+                      to="/admin/vendors"
                       className="btn-link btn-sm bg-indigo"
                     >
                       <span>
-                        <i className="fas fa-arrow-left mr-1"></i>Go Back
+                        <i className="mr-1 fas fa-arrow-left"></i>Go Back
                       </span>
                     </Link>
                   </div>
                 </div>
                 <div className="card-body">
-                  <form onSubmit={updateuser} method="post">
+                  <form onSubmit={submitVendorData} method="post">
                     <div className="form-group">
                       <label htmlFor="name">
                         Name
@@ -113,8 +111,8 @@ const UserEdit = () => {
                         name="name"
                         id="name"
                         className="form-control "
+                        value={vendorData.name}
                         onChange={handleInputChange}
-                        value={user.name}
                       />
                       {validation.name ? (
                         <div className="text-danger">{validation.name} </div>
@@ -122,27 +120,7 @@ const UserEdit = () => {
                         ""
                       )}
                     </div>
-                    <div className="form-group">
-                      <label htmlFor="email">
-                        Email
-                        <span className="text-danger" title="Required">
-                          *
-                        </span>
-                      </label>
-                      <input
-                        type="text"
-                        name="email"
-                        id="email"
-                        className="form-control "
-                        value={user.email}
-                        onChange={handleInputChange}
-                      />
-                      {validation.email ? (
-                        <div className="text-danger">{validation.email}</div>
-                      ) : (
-                        ""
-                      )}
-                    </div>
+
                     <div className="form-group">
                       <label htmlFor="phone">
                         Phone
@@ -155,7 +133,7 @@ const UserEdit = () => {
                         name="phone"
                         id="phone"
                         className="form-control "
-                        value={user.phone}
+                        value={vendorData.phone}
                         onChange={handleInputChange}
                       />
                       {validation.phone ? (
@@ -176,7 +154,7 @@ const UserEdit = () => {
                         name="address"
                         id="address"
                         className="form-control "
-                        value={user.address}
+                        value={vendorData.address}
                         onChange={handleInputChange}
                       />
                       {validation.address ? (
@@ -195,41 +173,41 @@ const UserEdit = () => {
                         className="form-control "
                         onChange={(e) => handleImage(e.target.files)}
                       />
-                      <img
-                        src={`http://localhost:8000/storage/${user.image}`}
-                        width={150}
-                        height={150}
-                      />
                     </div>
                     <div className="form-group">
-                      <label htmlFor="role">
-                        Role
+                      <label htmlFor="user_id">
+                        User
                         <span className="text-danger" title="Required">
                           *
                         </span>
                       </label>
                       <select
                         className="form-control"
-                        name="role"
-                        value={user.role}
+                        name="user_id"
                         onChange={handleInputChange}
                       >
-                        <option value="">Select Role</option>
-                        <option value="Admin">Admin</option>
-                        <option value="Vendor">Vendor</option>
-                        <option value="Customer">Customer</option>
+                        <option value="">Select User</option>
+                        {users.map((user) => (
+                          <option value={user.id}>{user.name}</option>
+                        ))}
                       </select>
+                      {validation.user_id ? (
+                        <div className="text-danger">{validation.user_id} </div>
+                      ) : (
+                        ""
+                      )}
+                    </div>
 
-                      {/* <input
+                    {/*  <input
                         type="submit"
                         className="btn btn-md bg-indigo mt-2"
                         id="btnSave"
                         value="Create"
                       /> */}
-                    </div>
+
                     <div className="form-group my-2">
                       <button
-                        onClick={updateuser}
+                        onClick={submitVendorData}
                         type="submit"
                         id="btnSave"
                         className="btn bg-indigo"
@@ -241,10 +219,10 @@ const UserEdit = () => {
                               role="status"
                               aria-hidden="true"
                             ></span>
-                            <span>Updating...</span>
+                            <span>Saving...</span>
                           </>
                         ) : (
-                          "Update"
+                          "Create"
                         )}
                       </button>
                     </div>
@@ -259,4 +237,4 @@ const UserEdit = () => {
   );
 };
 
-export default UserEdit;
+export default VendorCreate;

@@ -1,24 +1,24 @@
+import React from "react";
 import axios from "axios";
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Spinner } from "../../Spinner";
 import Swal from "sweetalert2";
 
-export const UserIndex = () => {
-  const [users, setUsers] = useState([]);
+const TypeIndex = () => {
+  const [types, setTypes] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  const getUsers = async () => {
+  const getTypes = async () => {
     setLoading(true);
-    await axios.get("http://localhost:8000/api/users").then((res) => {
-      setUsers(res.data);
+    await axios.get("http://localhost:8000/api/types").then((res) => {
+      setTypes(res.data);
       setLoading(false);
     });
   };
   useEffect(() => {
-    getUsers();
+    getTypes();
   }, []);
-
   const handleDelete = async (id) => {
     const isConfirmed = await Swal.fire({
       title: "Are you sure?",
@@ -34,45 +34,24 @@ export const UserIndex = () => {
 
     if (isConfirmed) {
       await axios
-        .delete(`http://localhost:8000/api/users/${id}`)
+        .delete(`http://localhost:8000/api/types/${id}`)
         .then((res) => {
           Swal.fire({
             icon: "success",
             title: res.data.message,
             timer: 2000,
           });
-          getUsers();
+          getTypes();
         })
         .catch((error) => {
           Swal.fire({
             icon: "error",
-            title: /* res.response.data.errors */ "Cannot delete this user",
-            text: "This user is connected with others",
+            title: /* res.response.data.errors */ "Cannot delete this Type",
+            text: "This Type is connected with others",
           });
         });
     }
   };
-
-  /* state={
-         name:'',
-      
-        };
-        handleInput =(e)=>{
-          this.setState({
-           name: e.target.value
-           
-          })
-          console.log(this.state.name);
-        }
-         submitCategory= async (e)=>{
-         e.preventDefault(); 
-          await axios.post("http://localhost:8000/api/users",
-         {name: this.state.name
-        });
-        console.log(this.state.name);
-        this.setState({
-            name:'',
-          }); */
 
   return (
     <div>
@@ -84,10 +63,10 @@ export const UserIndex = () => {
                 <div className="col-12">
                   <div className="card mt-2">
                     <div className="card-header">
-                      <h3 className="card-title">All Users</h3>
+                      <h3 className="card-title">All Types</h3>
                       <div className="card-tools">
                         <Link
-                          to="/admin/users/create"
+                          to="/admin/types/create"
                           className="bg-indigo btn btn-link btn-sm "
                         >
                           <i className="fas fa-plus-circle mr-1"></i>Add New
@@ -106,38 +85,19 @@ export const UserIndex = () => {
                             <tr>
                               <th>Id</th>
                               <th>Name</th>
-                              <th>Image</th>
-                              <th>Email</th>
-                              <th>Phone</th>
-
-                              <th>Role</th>
 
                               <th>Action</th>
                             </tr>
                           </thead>
                           <tbody>
-                            {users.map((user, index) => (
+                            {types.map((type, index) => (
                               <tr key={index}>
-                                <td>{user.id}</td>
-                                <td>{user.name}</td>
-                                <td>
-                                  {user.image && (
-                                    <img
-                                      src={`http://localhost:8000/storage/${user.image}`}
-                                      height={60}
-                                      width={60}
-                                      alt=""
-                                    />
-                                  )}
-                                </td>
-                                <td>{user.email}</td>
-                                <td>{user.phone}</td>
-
-                                <td>{user.role}</td>
+                                <td>{type.id}</td>
+                                <td>{type.name}</td>
 
                                 <td>
                                   <Link
-                                    to={`/admin/users/edit/${user.id}`}
+                                    to={`/admin/types/edit/${type.id}`}
                                     className="btn btn-link  bg-cyan btn-sm m-1"
                                   >
                                     <i className="fas fa-edit ml-1 mr-1"></i>
@@ -145,14 +105,14 @@ export const UserIndex = () => {
                                   </Link>
 
                                   <Link
-                                    to={`/admin/users/${user.id}`}
+                                    to={`/admin/types/${type.id}`}
                                     className="btn btn-link bg-success btn-sm m-1"
                                   >
                                     <i className="fas fa-eye ml-1 mr-1"></i>
                                     Show
                                   </Link>
                                   <span
-                                    onClick={() => handleDelete(user.id)}
+                                    onClick={() => handleDelete(type.id)}
                                     className="btn btn-link bg-danger btn-sm m-1"
                                   >
                                     <i className="fas fa-trash ml-1 mr-1"></i>
@@ -183,3 +143,5 @@ export const UserIndex = () => {
     </div>
   );
 };
+
+export default TypeIndex;

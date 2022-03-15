@@ -1,19 +1,29 @@
+import React from "react";
+import { useParams } from "react-router-dom";
+import { useState } from "react";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { Link } from "react-router-dom";
 
-import { useParams, Link } from "react-router-dom";
-
-export const UserShow = () => {
-  const [user, setUser] = useState({});
+const Vendor = () => {
+  const [vendor, setVendor] = useState({});
   const { id } = useParams();
+  const [user, setUser] = useState([]);
+  const fetchVendor = async () => {
+    await axios(`http://localhost:8000/api/vendors/${id}`).then((res) => {
+      setVendor(res.data);
+    });
+    console.log(vendor);
+  };
   const fetchUser = async () => {
     await axios(`http://localhost:8000/api/users/${id}`).then((res) => {
       setUser(res.data);
     });
-    console.log(user);
   };
+
   useEffect(() => {
-    fetchUser(); /* eslint-disable */
+    fetchUser();
+    fetchVendor(); /* eslint-disable */
   }, []);
   return (
     <div>
@@ -27,20 +37,20 @@ export const UserShow = () => {
             <div className="col-12">
               <div className="card card-indigo card-outline m-2 mt-5">
                 <div className="card-header">
-                  <div className="card-title">User Details</div>
+                  <div className="card-title">Vendor Details</div>
                   <div className="card-tools">
                     <Link
-                      to={`/admin/users/edit/${user.id}`}
+                      to={`/admin/vendors/edit/${vendor.id}`}
                       className="btn btn-link bg-cyan btn-sm mr-1"
                     >
-                      <i className="fas fa- mr-1"></i>
+                      <i class="fas fa- mr-1"></i>
                       Edit
                     </Link>
                     <Link
-                      to="/admin/users"
+                      to="/admin/vendors"
                       className="btn btn-link bg-indigo btn-sm ml-1"
                     >
-                      <i className="fas fa-arrow-left mr-1"></i>
+                      <i class="fas fa-arrow-left mr-1"></i>
                       Go back
                     </Link>
                   </div>
@@ -53,14 +63,14 @@ export const UserShow = () => {
                     </tr>
                     <tr>
                       <th>Name</th>
-                      <td>{user.name}</td>
+                      <td>{vendor.name}</td>
                     </tr>
                     <tr>
                       <th>Image</th>
                       <td>
-                        {user.image ? (
+                        {vendor.image ? (
                           <img
-                            src={`http://localhost:8000/storage/${user.image}`}
+                            src={`http://localhost:8000/storage/${vendor.image}`}
                             height={200}
                             width={200}
                             alt=""
@@ -70,29 +80,26 @@ export const UserShow = () => {
                         )}
                       </td>
                     </tr>
-                    <tr>
-                      <th>Email</th>
-                      <td>{user.email}</td>
-                    </tr>
+
                     <tr>
                       <th>Phone</th>
-                      <td>{user.phone}</td>
+                      <td>{vendor.phone}</td>
                     </tr>
                     <tr>
                       <th>Address</th>
-                      <td>{user.address}</td>
+                      <td>{vendor.address}</td>
                     </tr>
                     <tr>
                       <th>Created At</th>
-                      <td>{user.created_at}</td>
+                      <td>{vendor.created_at}</td>
                     </tr>
                     <tr>
                       <th>Updated At</th>
-                      <td>{user.updated_at}</td>
+                      <td>{vendor.updated_at}</td>
                     </tr>
                     <tr>
-                      <th>Role</th>
-                      <td>{user.role}</td>
+                      <th>User</th>
+                      <td>{vendor.user_id}</td>
                     </tr>
                     {user.vendor && (
                       <tr>
@@ -134,3 +141,5 @@ export const UserShow = () => {
     </div>
   );
 };
+
+export default Vendor;

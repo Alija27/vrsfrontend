@@ -1,61 +1,60 @@
 import "./App.css";
-/* 
+
 import { Login } from "./components/auth/Login";
-import { Register } from "./components/auth/Register";
+/* import { Register } from "./components/auth/Register";
 import { ForgetPassword } from "./components/auth/ForgetPassword"; */
 
 /* import axios from "axios"; */
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-
-/* import UserContext from "./UserContext"; */
-/* import { useEffect, useState } from "react"; */
-/* import Logout from "./components/auth/Logout"; */
+import Logout from "./components/auth/Logout";
 import First from "./First";
 import { Admin } from "./components/admin/Admin";
-
-/* import axios from 'axios'; */
-/* import { BrowserRouter, Routes, Route } from "react-router-dom"; */
-/* import UserContext from './UserContext';
-import { useEffect, useState } from 'react'; */
+import axios from "axios";
+import UserContext from "./UserContext";
+import React, { useEffect, useState } from "react";
 
 function App() {
-  /*  const [user, setUser] = useState({});
+  const [user, setUser] = useState({});
+  const [userLoading, setUserLoading] = useState(false);
 
-  const fetchUser = async () => {
-    await axios
+  const fetchUser = () => {
+    let token = localStorage.getItem("token");
+    axios
       .get("http://localhost:8000/api/user", {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          Authorization: `Bearer ${token}`,
         },
       })
       .then((res) => {
         setUser(res.data);
-        console.log(res.data.role);
+        console.log(res.data);
       })
       .catch((err) => {
-        setUser({ error: true });
+        setUser({ error: true, role: "" });
       });
   };
 
   useEffect(() => {
-    fetchUser();
-  }, []); */
+    // fetchUser();
+  }, []);
 
   return (
     <div className="App">
-      {/*     <UserContext.Provider value={[user, fetchUser]}> */}
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<First />} />
-          <Route path="/admin/*" element={<Admin />} />
-          {/* <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/forgetpassword" element={<ForgetPassword />} />
-          <Route path="/logout" element={<Logout />} />
-          <Route path="/admin/*" element={<Admin />} /> */}
-        </Routes>
-      </BrowserRouter>
-      {/* </UserContext.Provider> */}
+      <UserContext.Provider value={[user, fetchUser, setUser, userLoading]}>
+        <React.StrictMode>
+          <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<First />} />
+              <Route path="/admin/*" element={<Admin />} />
+              <Route path="/login" element={<Login />} />
+              {/* <Route path="/register" element={<Register />} />
+            <Route path="/forgetpassword" element={<ForgetPassword />} /> */}
+              <Route path="/logout" element={<Logout />} />
+              <Route path="/admin/*" element={<Admin />} />
+            </Routes>
+          </BrowserRouter>
+        </React.StrictMode>
+      </UserContext.Provider>
     </div>
   );
 }

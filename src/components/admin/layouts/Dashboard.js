@@ -1,14 +1,17 @@
 //import React, { useContext } from 'react'
+import { useContext } from "react";
 import { Link } from "react-router-dom";
-/* import UserContext from '../../../UserContext' */
+import UserContext from "../../../UserContext";
 
 export const Dashboard = () => {
-  /* const [user, fetchUser] = useContext(UserContext); */
+  const [user, fetchUser] = useContext(UserContext);
 
   return (
     <div>
       <div className="content-wrapper">
         <section className="content-header">
+          {JSON.stringify(user)}
+          <button onClick={fetchUser}>Fetch</button>
           <div className="container-fluid">
             {/* Small boxes (Stat box) */}
             <div className="row m-1">

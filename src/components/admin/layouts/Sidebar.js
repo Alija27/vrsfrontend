@@ -34,7 +34,7 @@ export const Sidebar = () => {
               <li className="nav-item">
                 <NavLink
                   to="/admin"
-                  activeclassname="active"
+                  activeclassname="active--"
                   className="nav-link mt-2"
                 >
                   <i className="nav-icon fas fa-tachometer-alt" />
