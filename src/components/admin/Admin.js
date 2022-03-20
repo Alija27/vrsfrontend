@@ -18,6 +18,7 @@ import { RentalShow } from "./rentals/RentalShow";
 import { RentalCreate } from "./rentals/RentalCreate";
 import { RentalIndex } from "./rentals/RentalIndex";
 import RentalEdit from "./rentals/RentalEdit";
+import { ReviewIndex } from "./reviews/ReviewIndex";
 
 import TypeIndex from "./types/TypeIndex";
 import TypeCreate from "./types/TypeCreate";
@@ -96,6 +97,7 @@ const Admin = () => {
         <Route path="/vehicles/create" element={<VehicleCreate />} />
         <Route path="/vehicles/edit/:id" element={<VehicleEdit />} />
         <Route path="/vehicles/:id" element={<VehicleShow />} />
+        <Route path="/reviews" element={<ReviewIndex />} />
         {/* // <Route path="/vehicles/:id" element={<VehicleShow />} /> */}
       </Routes>
       <Footer />

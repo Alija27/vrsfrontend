@@ -70,16 +70,52 @@ export const VehicleShow = () => {
                       </td>
                     </tr>
                     <tr>
-                      <th>Email</th>
-                      <td>{vehicle.email}</td>
+                      <th>Vendor Name</th>
+                      <td>{vehicle.vendor_id}</td>
                     </tr>
                     <tr>
-                      <th>Phone</th>
-                      <td>{vehicle.phone}</td>
+                      <th>Vehicle Type</th>
+                      <td>{vehicle.type_id}</td>
                     </tr>
                     <tr>
-                      <th>Address</th>
-                      <td>{vehicle.address}</td>
+                      <th>Model</th>
+                      <td>{vehicle.model}</td>
+                    </tr>
+                    <tr>
+                      <th>Color</th>
+                      <td>{vehicle.color}</td>
+                    </tr>
+                    <tr>
+                      <th>Total Seats</th>
+                      <td>{vehicle.total_seats}</td>
+                    </tr>
+                    <tr>
+                      <th>Rental Price</th>
+                      <td>{vehicle.rental_price}</td>
+                    </tr>
+                    <tr>
+                      <th>Description</th>
+                      <td>{vehicle.description}</td>
+                    </tr>
+                    <tr>
+                      <th>Terms</th>
+                      <td>{vehicle.terms}</td>
+                    </tr>
+                    <tr>
+                      <th>Condition</th>
+                      <td>{vehicle.condition}</td>
+                    </tr>
+                    <tr>
+                      <th>Is Availble</th>
+                      <td>{vehicle.is_available === 1 ? "Yes" : "No"}</td>
+                    </tr>
+                    <tr>
+                      <th>Has Driver</th>
+                      <td>{vehicle.condition === 1 ? "Yes" : "No"}</td>
+                    </tr>
+                    <tr>
+                      <th>Is Approved</th>
+                      <td>{vehicle.is_approved === 1 ? "Yes" : "No"}</td>
                     </tr>
                     <tr>
                       <th>Created At</th>
@@ -88,10 +124,6 @@ export const VehicleShow = () => {
                     <tr>
                       <th>Updated At</th>
                       <td>{vehicle.updated_at}</td>
-                    </tr>
-                    <tr>
-                      <th>Role</th>
-                      <td>{vehicle.role}</td>
                     </tr>
                     {vehicle.vendor && (
                       <tr>

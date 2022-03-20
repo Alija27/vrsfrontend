@@ -69,7 +69,6 @@ export const VehicleCreate = () => {
     data.append("has_driver", vehicleData.has_driver);
     data.append("is_approved", vehicleData.is_approved);
     await axios
-
       .post("http://localhost:8000/api/vehicles", data)
 
       .then((res) => {

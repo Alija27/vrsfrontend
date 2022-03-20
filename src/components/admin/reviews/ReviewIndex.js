@@ -4,29 +4,19 @@ import { Link } from "react-router-dom";
 import { Spinner } from "../../Spinner";
 import Swal from "sweetalert2";
 
-export const VehicleIndex = () => {
-  const [vehicles, setVehicles] = useState([]);
+export const ReviewIndex = () => {
+  const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  const getVehicles = async () => {
+  const getReviews = async () => {
     setLoading(true);
-    console.log("Calling CLient");
-    let token = localStorage.getItem("token");
-
-    axios
-      .get("http://localhost:8000/api/vehicles", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((res) => {
-        setVehicles(res.data);
-        setLoading(false);
-      });
+    await axios.get("http://localhost:8000/api/Reviews").then((res) => {
+      setReviews(res.data);
+      setLoading(false);
+    });
   };
-
   useEffect(() => {
-    getVehicles();
+    getReviews();
   }, []);
 
   const handleDelete = async (id) => {
@@ -44,20 +34,20 @@ export const VehicleIndex = () => {
 
     if (isConfirmed) {
       await axios
-        .delete(`http://localhost:8000/api/vehicles/${id}`)
+        .delete(`http://localhost:8000/api/reviews/${id}`)
         .then((res) => {
           Swal.fire({
             icon: "success",
             title: res.data.message,
             timer: 2000,
           });
-          getVehicles();
+          getReviews();
         })
         .catch((error) => {
           Swal.fire({
             icon: "error",
-            title: /* res.response.data.errors */ "Cannot delete this vehicle",
-            text: "This vehicle is connected with others",
+            title: /* res.response.data.errors */ "Cannot delete this review",
+            text: "This review is connected with others",
           });
         });
     }
@@ -76,7 +66,7 @@ export const VehicleIndex = () => {
         }
          submitCategory= async (e)=>{
          e.preventDefault(); 
-          await axios.post("http://localhost:8000/api/vehicles",
+          await axios.post("http://localhost:8000/api/reviews",
          {name: this.state.name
         });
         console.log(this.state.name);
@@ -94,10 +84,10 @@ export const VehicleIndex = () => {
                 <div className="col-12">
                   <div className="card mt-2">
                     <div className="card-header">
-                      <h3 className="card-title">All vehicles</h3>
+                      <h3 className="card-title">All Reviews</h3>
                       <div className="card-tools">
                         <Link
-                          to="/admin/vehicles/create"
+                          to="/admin/reviews/create"
                           className="bg-indigo btn btn-link btn-sm "
                         >
                           <i className="fas fa-plus-circle mr-1"></i>Add New
@@ -115,46 +105,35 @@ export const VehicleIndex = () => {
                           <thead className="bg-indigo">
                             <tr>
                               <th>Id</th>
-                              <th>Name</th>
-                              <th>Vendor</th>
-                              <th>Vehicle Type</th>
-                              <th>Model</th>
-
-                              <th>Color</th>
-
-                              <th>Image</th>
-
-                              <th>Is Available</th>
-                              <th>Action</th>
+                              <th>Rental ID</th>
+                              <th>User ID</th>
+                              <th>Message</th>
+                              <th>Stars</th>
                             </tr>
                           </thead>
                           <tbody>
-                            {vehicles.map((vehicle, index) => (
+                            {reviews.map((review, index) => (
                               <tr key={index}>
-                                <td>{vehicle.id}</td>
-                                <td>{vehicle.name}</td>
-                                <td>{vehicle.vendor.name}</td>
-                                <td>{vehicle.type.name}</td>
-                                <td>{vehicle.model}</td>
-                                <td>{vehicle.color}</td>
-
+                                <td>{review.id}</td>
+                                <td>{review.rental_id}</td>
                                 <td>
-                                  {vehicle.image && (
+                                  {review.image && (
                                     <img
-                                      src={`http://localhost:8000/storage/${vehicle.image}`}
+                                      src={`http://localhost:8000/storage/${review.image}`}
                                       height={60}
                                       width={60}
                                       alt=""
                                     />
                                   )}
                                 </td>
-                                <td>
-                                  {vehicle.is_available === 1 ? "Yes" : "No"}
-                                </td>
+                                <td>{review.email}</td>
+                                <td>{review.phone}</td>
+
+                                <td>{review.role}</td>
 
                                 <td>
                                   <Link
-                                    to={`/admin/vehicles/edit/${vehicle.id}`}
+                                    to={`/admin/reviews/edit/${review.id}`}
                                     className="btn btn-link  bg-cyan btn-sm m-1"
                                   >
                                     <i className="fas fa-edit ml-1 mr-1"></i>
@@ -162,14 +141,14 @@ export const VehicleIndex = () => {
                                   </Link>
 
                                   <Link
-                                    to={`/admin/vehicles/${vehicle.id}`}
+                                    to={`/admin/reviews/${review.id}`}
                                     className="btn btn-link bg-success btn-sm m-1"
                                   >
                                     <i className="fas fa-eye ml-1 mr-1"></i>
                                     Show
                                   </Link>
                                   <span
-                                    onClick={() => handleDelete(vehicle.id)}
+                                    onClick={() => handleDelete(review.id)}
                                     className="btn btn-link bg-danger btn-sm m-1"
                                   >
                                     <i className="fas fa-trash ml-1 mr-1"></i>
