@@ -11,7 +11,7 @@ const TypeEdit = () => {
   const [type, setType] = useState({});
   const [loading, setLoading] = useState();
   const { id } = useParams();
-  const fetchUser = async () => {
+  const fetchType = async () => {
     await axios(`http://localhost:8000/api/types/${id}`).then((res) => {
       setType(res.data);
     });
@@ -25,15 +25,12 @@ const TypeEdit = () => {
     setType({ ...type, [e.target.name]: e.target.value });
     console.log(user);
   };
-  const handleImage = (files) => {
-    setImage(files[0]);
-    console.log(image);
-  };
+
   const updatetype = async (e) => {
     e.preventDefault();
     setLoading(true);
     await axios
-      .post(`http://localhost:8000/api/types/${id}`, data)
+      .put(`http://localhost:8000/api/types/${id}`, type)
       .then((res) => {
         Swal.fire({
           timer: 2000,
@@ -64,10 +61,10 @@ const TypeEdit = () => {
             <div className="container-fluid">
               <div className="card m-2">
                 <div className="card-header">
-                  <h3 className="card-title">Edit User</h3>
+                  <h3 className="card-title">Edit Type</h3>
                   <div className="card-tools">
                     <Link
-                      to="/admin/users"
+                      to="/admin/types"
                       className="btn-link btn-sm bg-indigo"
                     >
                       <span>
@@ -91,7 +88,7 @@ const TypeEdit = () => {
                         id="name"
                         className="form-control "
                         onChange={handleInputChange}
-                        value={user.name}
+                        value={type.name}
                       />
                       {validation.name ? (
                         <div className="text-danger">{validation.name} </div>
@@ -102,7 +99,7 @@ const TypeEdit = () => {
 
                     <div className="form-group my-2">
                       <button
-                        onClick={updateuser}
+                        onClick={updatetype}
                         type="submit"
                         id="btnSave"
                         className="btn bg-indigo"

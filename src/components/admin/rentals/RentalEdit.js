@@ -1,72 +1,31 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useEffect } from "react";
-import { useState } from "react";
 import axios from "axios";
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 
-export const RentalCreate = () => {
-  const [rentalData, setRentalData] = useState({
-    user_id: "",
-    vehicle_id: "",
-    start_date: "",
-    end_date: "",
-    destination: "",
-    is_approved: "",
-    is_complete: "",
-    total_amount: "",
-
-    remarks: "",
-  });
-
+const RentalEdit = () => {
   const navigate = useNavigate();
   const [validation, setValidationError] = useState({});
-  const [loading, setLoading] = useState(false);
+  const [rental, setRental] = useState([]);
   const [users, setUsers] = useState([]);
   const [vehicles, setVehicles] = useState([]);
+  const [loading, setLoading] = useState();
+  const { id } = useParams();
+  const fetchRental = async () => {
+    await axios(`http://localhost:8000/api/rentals/${id}`).then((res) => {
+      setRental(res.data);
+    });
+    console.log(rental);
+  };
+  useEffect(() => {
+    fetchRental(); /* eslint-disable */
+  }, []);
 
   const handleInputChange = (e) => {
-    console.log(e.target.name, e.target.value);
-    setRentalData({ ...rentalData, [e.target.name]: e.target.value });
-    console.log(rentalData);
-  };
-
-  const submitRentalData = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    // const data = new FormData();
-    // data.append("name", rentalData.user_id);
-    // data.append("phone", rentalData.vehicle_id);
-    // data.append("email", rentalData.start_date);
-    // data.append("password", rentalData.end_date);
-    // data.append("address", rentalData.destination);
-    // data.append("role", rentalData.is_approved);
-
-    await axios
-
-      .post("http://localhost:8000/api/rentals", rentalData)
-
-      .then((res) => {
-        Swal.fire({
-          timer: 2000,
-          icon: "success",
-          title: res.data.message,
-        });
-
-        navigate("/admin/rentals");
-      })
-      .catch((err) => {
-        if (err.response.status === 422) {
-          setValidationError(err.response.data.errors);
-        } else {
-          Swal.fire({
-            timer: 2000,
-            icon: "error",
-            title: err,
-          });
-        }
-      });
-    setLoading(false);
+    setRental({ ...rental, [e.target.name]: e.target.value });
+    console.log(user);
   };
   const getUsers = async () => {
     await axios.get("http://localhost:8000/api/users").then((res) => {
@@ -82,6 +41,32 @@ export const RentalCreate = () => {
     getUsers();
     getVehicles();
   }, []);
+  const updaterental = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+
+    await axios
+      .put(`http://localhost:8000/api/rentals/${id}`, rental)
+      .then((res) => {
+        Swal.fire({
+          timer: 2000,
+          icon: "success",
+        });
+        navigate("/admin/rentals");
+      })
+      .catch((err) => {
+        if (err.response.status == 422) {
+          setValidationError(err.response.data.errors);
+        } else {
+          Swal.fire({
+            timer: 2000,
+            icon: "error",
+            title: err,
+          });
+        }
+      });
+    setLoading(false);
+  };
 
   return (
     <div>
@@ -91,7 +76,7 @@ export const RentalCreate = () => {
             <div className="container-fluid">
               <div className="card m-2">
                 <div className="card-header">
-                  <h3 className="card-title">Add New Rental</h3>
+                  <h3 className="card-title">Edit Rental</h3>
                   <div className="card-tools">
                     <Link
                       to="/admin/rentals"
@@ -104,7 +89,7 @@ export const RentalCreate = () => {
                   </div>
                 </div>
                 <div className="card-body">
-                  <form onSubmit={submitRentalData} method="post">
+                  <form onSubmit={updaterental} method="post">
                     <div className="form-group">
                       <label htmlFor="user_id">
                         User
@@ -114,12 +99,15 @@ export const RentalCreate = () => {
                       </label>
                       <select
                         className="form-control"
+                        value={rental.user_id}
                         name="user_id"
                         onChange={handleInputChange}
                       >
                         <option value="">Select User</option>
                         {users.map((user, index) => (
-                          <option value={user.id}>{user.name}</option>
+                          <option key={index} value={user.id}>
+                            {user.name}
+                          </option>
                         ))}
                       </select>
                       {validation.name ? (
@@ -137,12 +125,15 @@ export const RentalCreate = () => {
                       </label>
                       <select
                         className="form-control"
+                        value={rental.vehicle_id}
                         name="vehicle_id"
                         onChange={handleInputChange}
                       >
                         <option value="">Select Vehicle</option>
                         {vehicles.map((vehicle, index) => (
-                          <option value={vehicle.id}>{vehicle.name}</option>
+                          <option key={index} value={vehicle.id}>
+                            {vehicle.name}
+                          </option>
                         ))}
                       </select>
                       {validation.name ? (
@@ -151,8 +142,9 @@ export const RentalCreate = () => {
                         ""
                       )}
                     </div>
+
                     <div className="form-group">
-                      <label htmlFor="email">
+                      <label htmlFor="start_date">
                         Start Date
                         <span className="text-danger" title="Required">
                           *
@@ -163,17 +155,17 @@ export const RentalCreate = () => {
                         name="start_date"
                         id="start_date"
                         className="form-control "
-                        value={rentalData.start_date}
+                        value={rental.start_date}
                         onChange={handleInputChange}
                       />
-                      {validation.email ? (
-                        <div className="text-danger">{validation.email}</div>
+                      {validation.phone ? (
+                        <div className="text-danger">{validation.phone}</div>
                       ) : (
                         ""
                       )}
                     </div>
                     <div className="form-group">
-                      <label htmlFor="phone">
+                      <label htmlFor="end_date">
                         End Date
                         <span className="text-danger" title="Required">
                           *
@@ -184,7 +176,7 @@ export const RentalCreate = () => {
                         name="end_date"
                         id="end_date"
                         className="form-control "
-                        value={rentalData.end_date}
+                        value={rental.end_date}
                         onChange={handleInputChange}
                       />
                       {validation.phone ? (
@@ -205,7 +197,7 @@ export const RentalCreate = () => {
                         name="destination"
                         id="destination"
                         className="form-control "
-                        value={rentalData.destination}
+                        value={rental.destination}
                         onChange={handleInputChange}
                       />
                       {validation.password ? (
@@ -226,6 +218,7 @@ export const RentalCreate = () => {
                       <select
                         className="form-control"
                         name="is_approved"
+                        value={rental.is_approved}
                         onChange={handleInputChange}
                       >
                         <option value="">Select</option>
@@ -249,6 +242,7 @@ export const RentalCreate = () => {
                       <select
                         className="form-control"
                         name="is_complete"
+                        value={rental.is_complete}
                         onChange={handleInputChange}
                       >
                         <option value="">Select</option>
@@ -274,7 +268,7 @@ export const RentalCreate = () => {
                         name="total_amount"
                         id="total_amount"
                         className="form-control "
-                        value={rentalData.confirmpassword}
+                        value={rental.total_amount}
                         onChange={handleInputChange}
                       />
                     </div>
@@ -290,7 +284,7 @@ export const RentalCreate = () => {
                         name="citizenship_number"
                         id="citizenship_number"
                         className="form-control "
-                        value={rentalData.citizenship_number}
+                        value={rental.citizenship_number}
                         onChange={handleInputChange}
                       />
                       {validation.address ? (
@@ -334,16 +328,16 @@ export const RentalCreate = () => {
                         name="remarks"
                         id="remarks"
                         className="form-control "
-                        value={rentalData.confirmpassword}
+                        value={rental.remarks}
                         onChange={handleInputChange}
                       />
                     </div>
                     <div className="form-group my-2">
                       <button
-                        onClick={submitRentalData}
                         type="submit"
                         id="btnSave"
                         className="btn bg-indigo"
+                        onClick={updaterental}
                       >
                         {loading ? (
                           <>
@@ -352,10 +346,10 @@ export const RentalCreate = () => {
                               role="status"
                               aria-hidden="true"
                             ></span>
-                            <span>Saving...</span>
+                            <span>Updating.....</span>
                           </>
                         ) : (
-                          "Create"
+                          "Update"
                         )}
                       </button>
                     </div>
@@ -369,3 +363,5 @@ export const RentalCreate = () => {
     </div>
   );
 };
+
+export default RentalEdit;

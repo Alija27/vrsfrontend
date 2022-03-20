@@ -1,30 +1,18 @@
-import React from "react";
-import { useParams } from "react-router-dom";
-import { useState } from "react";
 import axios from "axios";
-import { useEffect } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 
-const Vendor = () => {
-  const [vendor, setVendor] = useState({
-    user: {},
-  });
+import { useParams, Link } from "react-router-dom";
+
+export const VehicleShow = () => {
+  const [vehicle, setVehicle] = useState({});
   const { id } = useParams();
-  const [user, setUser] = useState([]);
-  const fetchVendor = async () => {
-    await axios(`http://localhost:8000/api/vendors/${id}`).then((res) => {
-      setVendor(res.data);
+  const fetchVehicle = async () => {
+    await axios(`http://localhost:8000/api/vehicles/${id}`).then((res) => {
+      setVehicle(res.data);
     });
   };
-  const fetchUser = async () => {
-    await axios(`http://localhost:8000/api/users/${id}`).then((res) => {
-      setUser(res.data);
-    });
-  };
-
   useEffect(() => {
-    fetchUser();
-    fetchVendor(); /* eslint-disable */
+    fetchVehicle(); /* eslint-disable */
   }, []);
   return (
     <div>
@@ -38,20 +26,20 @@ const Vendor = () => {
             <div className="col-12">
               <div className="card card-indigo card-outline m-2 mt-5">
                 <div className="card-header">
-                  <div className="card-title">Vendor Details</div>
+                  <div className="card-title">vehicle Details</div>
                   <div className="card-tools">
                     <Link
-                      to={`/admin/vendors/edit/${vendor.id}`}
+                      to={`/admin/vehicles/edit/${vehicle.id}`}
                       className="btn btn-link bg-cyan btn-sm mr-1"
                     >
-                      <i class="fas fa- mr-1"></i>
+                      <i className="fas fa- mr-1"></i>
                       Edit
                     </Link>
                     <Link
-                      to="/admin/vendors"
+                      to="/admin/vehicles"
                       className="btn btn-link bg-indigo btn-sm ml-1"
                     >
-                      <i class="fas fa-arrow-left mr-1"></i>
+                      <i className="fas fa-arrow-left mr-1"></i>
                       Go back
                     </Link>
                   </div>
@@ -64,14 +52,14 @@ const Vendor = () => {
                     </tr>
                     <tr>
                       <th>Name</th>
-                      <td>{vendor.name}</td>
+                      <td>{vehicle.name}</td>
                     </tr>
                     <tr>
                       <th>Image</th>
                       <td>
-                        {vendor.image ? (
+                        {vehicle.image ? (
                           <img
-                            src={`http://localhost:8000/storage/${vendor.image}`}
+                            src={`http://localhost:8000/storage/${vehicle.image}`}
                             height={200}
                             width={200}
                             alt=""
@@ -81,30 +69,33 @@ const Vendor = () => {
                         )}
                       </td>
                     </tr>
-
+                    <tr>
+                      <th>Email</th>
+                      <td>{vehicle.email}</td>
+                    </tr>
                     <tr>
                       <th>Phone</th>
-                      <td>{vendor.phone}</td>
+                      <td>{vehicle.phone}</td>
                     </tr>
                     <tr>
                       <th>Address</th>
-                      <td>{vendor.address}</td>
+                      <td>{vehicle.address}</td>
                     </tr>
                     <tr>
                       <th>Created At</th>
-                      <td>{vendor.created_at}</td>
+                      <td>{vehicle.created_at}</td>
                     </tr>
                     <tr>
                       <th>Updated At</th>
-                      <td>{vendor.updated_at}</td>
+                      <td>{vehicle.updated_at}</td>
                     </tr>
                     <tr>
-                      <th>User</th>
-                      <td>{vendor.user_id}</td>
+                      <th>Role</th>
+                      <td>{vehicle.role}</td>
                     </tr>
-                    {user.vendor && (
+                    {vehicle.vendor && (
                       <tr>
-                        <th>User</th>
+                        <th>Vendor</th>
 
                         <td className="p-0">
                           <table className="table table-bordered table-hover p-0">
@@ -114,18 +105,18 @@ const Vendor = () => {
                                 <th>Name</th>
                                 {/* <th>Address</th>
                               <th>Phone</th>
-                              <th>User ID</th>
+                              <th>vehicle ID</th>
                               <th>Image</th> */}
                               </tr>
                             </thead>
                             <tbody>
                               <tr>
-                                {/* <td>{user.vendor.id}</td> */}
-                                <td>{vendor.user.name}</td>
-                                {/*  <td>{user.vendor.address}</td>
-                                <td>{user.vendor.phone}</td>
-                                <td>{user.vendor.user_id}</td>
-                                <td>{user.vendor.image}</td> */}
+                                {/* <td>{vehicle.vendor.id}</td> */}
+                                <td>{vehicle.vendor.name}</td>
+                                {/*  <td>{vehicle.vendor.address}</td>
+                                <td>{vehicle.vendor.phone}</td>
+                                <td>{vehicle.vendor.vehicle_id}</td>
+                                <td>{vehicle.vendor.image}</td> */}
                               </tr>
                             </tbody>
                           </table>
@@ -142,5 +133,3 @@ const Vendor = () => {
     </div>
   );
 };
-
-export default Vendor;

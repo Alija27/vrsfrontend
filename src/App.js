@@ -8,10 +8,11 @@ import { ForgetPassword } from "./components/auth/ForgetPassword"; */
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Logout from "./components/auth/Logout";
 import First from "./First";
-import { Admin } from "./components/admin/Admin";
+import Admin from "./components/admin/Admin";
 import axios from "axios";
 import UserContext from "./UserContext";
 import React, { useEffect, useState } from "react";
+import Frontend from "./components/frontend/Frontend";
 
 function App() {
   const [user, setUser] = useState({});
@@ -44,7 +45,7 @@ function App() {
         <React.StrictMode>
           <BrowserRouter>
             <Routes>
-              <Route path="/" element={<First />} />
+              <Route path="/*" element={<Frontend />} />
               <Route path="/admin/*" element={<Admin />} />
               <Route path="/login" element={<Login />} />
               {/* <Route path="/register" element={<Register />} />

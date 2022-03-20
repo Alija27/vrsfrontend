@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 
 const VendorEdit = () => {
-  const [image, setImage] = useState("");
+  const [image, setImage] = useState(null);
   const navigate = useNavigate();
   const [validation, setValidationError] = useState({});
   const [vendor, setVendor] = useState({});
@@ -45,16 +45,14 @@ const VendorEdit = () => {
     setLoading(true);
     const data = new FormData();
     data.append("name", vendor.name);
-    if (image) {
-      data.append("image", image);
-    }
+    data.append("image", image);
     data.append("phone", vendor.phone);
 
     // data.append("password", vendor.password);
     data.append("address", vendor.address);
-    /*  data.append("user_id", vendor.user_id); */
+    data.append("user_id", vendor.user_id);
     data.append("_method", "PUT");
-    console.log(data.get("name"));
+    console.log(data.get("image"));
 
     await axios
       .post(`http://localhost:8000/api/vendors/${id}`, data)

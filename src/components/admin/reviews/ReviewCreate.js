@@ -3,21 +3,21 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 
-const TypeCreate = () => {
+const ReviewCreate = () => {
   const [loading, setLoading] = useState(false);
-  const [type, setType] = useState({
+  const [review, setreview] = useState({
     name: "",
   });
   const navigate = useNavigate();
   const handleInput = (e) => {
-    setType({ name: e.target.value });
+    setreview({ name: e.target.value });
   };
-  const submitType = async (e) => {
+  const submitreview = async (e) => {
     e.preventDefault();
     await axios
-      .post("http://localhost:8000/api/types", type)
+      .post("http://localhost:8000/api/reviews", review)
       .then((res) => {
-        navigate("/admin/types");
+        navigate("/admin/reviews");
       })
       .catch((err) => {});
   };
@@ -30,10 +30,10 @@ const TypeCreate = () => {
             <div className="container-fluid">
               <div className="card m-2">
                 <div className="card-header">
-                  <h3 className="card-title">Add New Vehicle Type</h3>
+                  <h3 className="card-title">Add New Vehicle review</h3>
                   <div className="card-tools">
                     <Link
-                      to="/admin/types"
+                      to="/admin/reviews"
                       className="btn-link btn-sm bg-indigo"
                     >
                       <span>
@@ -43,7 +43,7 @@ const TypeCreate = () => {
                   </div>
                 </div>
                 <div className="card-body">
-                  <form onSubmit={submitType}>
+                  <form onSubmit={submitreview}>
                     <div className="form-group">
                       <label htmlFor="name">
                         Name
@@ -52,7 +52,7 @@ const TypeCreate = () => {
                         </span>
                       </label>
                       <input
-                        type="text"
+                        review="text"
                         name="name"
                         onChange={handleInput}
                         id="name"
@@ -62,7 +62,7 @@ const TypeCreate = () => {
 
                     <div className="form-group my-2">
                       <button
-                        type="submit"
+                        review="submit"
                         id="btnSave"
                         className="btn bg-indigo"
                       >
@@ -91,4 +91,4 @@ const TypeCreate = () => {
   );
 };
 
-export default TypeCreate;
+export default ReviewCreate;

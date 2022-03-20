@@ -5,7 +5,9 @@ import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 
 export const RentalShow = () => {
-  const [rental, setRental] = useState({});
+  const [rental, setRental] = useState({
+    user: {},
+  });
   const { id } = useParams();
   const fetchRental = async () => {
     await axios(`http://localhost:8000/api/rentals/${id}`).then((res) => {
@@ -56,7 +58,7 @@ export const RentalShow = () => {
                       </tr>
                       <tr>
                         <th>Customer Name</th>
-                        <td>{rental.user_id}</td>
+                        <td>{rental.user.name}</td>
                       </tr>
                       <tr>
                         <th>Start_date</th>
@@ -73,47 +75,17 @@ export const RentalShow = () => {
                       </tr>
                       <tr>
                         <th>Is Approved</th>
-                        <td>{rental.is_approved}</td>
+                        <td>{rental.is_approved === 1 ? "Yes" : "No"}</td>
                       </tr>
                       <tr>
                         <th>Is Complete</th>
-                        <td>{rental.is_complete}</td>
+                        <td>{rental.is_complete === 1 ? "Yes" : "No"}</td>
                       </tr>
 
                       <tr>
                         <th>Remarks</th>
                         <td>{rental.remarks}</td>
                       </tr>
-                      {rental.vehicle && (
-                        <tr>
-                          <th>Rented Vehicle</th>
-
-                          <td className="p-0">
-                            <table className="table table-bordered table-hover p-0">
-                              <thead className="bg-indigo">
-                                <tr>
-                                  {/*  <th>Id</th> */}
-                                  <th>Name</th>
-                                  {/* <th>Address</th>
-                              <th>Phone</th>
-                              <th>rental ID</th>
-                              <th>Image</th> */}
-                                </tr>
-                              </thead>
-                              <tbody>
-                                <tr>
-                                  {/* <td>{rental.vendor.id}</td> */}
-                                  <td>{rental.vehicle.name}</td>
-                                  {/*  <td>{rental.vendor.address}</td>
-                                <td>{rental.vendor.phone}</td>
-                                <td>{rental.vendor.rental_id}</td>
-                                <td>{rental.vendor.image}</td> */}
-                                </tr>
-                              </tbody>
-                            </table>
-                          </td>
-                        </tr>
-                      )}
                     </table>
                   </div>
                 </div>
