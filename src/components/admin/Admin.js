@@ -19,6 +19,7 @@ import { RentalCreate } from "./rentals/RentalCreate";
 import { RentalIndex } from "./rentals/RentalIndex";
 import RentalEdit from "./rentals/RentalEdit";
 import { ReviewIndex } from "./reviews/ReviewIndex";
+import ReviewCreate from "./reviews/ReviewCreate";
 
 import TypeIndex from "./types/TypeIndex";
 import TypeCreate from "./types/TypeCreate";
@@ -79,7 +80,7 @@ const Admin = () => {
 
       <Sidebar />
       <Routes>
-        <Route index element={<Dashboard />} />
+        <Route path="/" element={<Dashboard />} />
         <Route path="/users/*" element={<UserMain />} />
         <Route path="/vendors/:id" element={<Vendor />} />
         <Route path="/vendors" element={<VendorIndex />} />
@@ -98,6 +99,7 @@ const Admin = () => {
         <Route path="/vehicles/edit/:id" element={<VehicleEdit />} />
         <Route path="/vehicles/:id" element={<VehicleShow />} />
         <Route path="/reviews" element={<ReviewIndex />} />
+        <Route path="/reviews/create" element={<ReviewCreate />} />
         {/* // <Route path="/vehicles/:id" element={<VehicleShow />} /> */}
       </Routes>
       <Footer />

@@ -10,7 +10,7 @@ export const ReviewIndex = () => {
 
   const getReviews = async () => {
     setLoading(true);
-    await axios.get("http://localhost:8000/api/Reviews").then((res) => {
+    await axios.get("http://localhost:8000/api/reviews").then((res) => {
       setReviews(res.data);
       setLoading(false);
     });
@@ -109,6 +109,7 @@ export const ReviewIndex = () => {
                               <th>User ID</th>
                               <th>Message</th>
                               <th>Stars</th>
+                              <th>Action</th>
                             </tr>
                           </thead>
                           <tbody>
@@ -116,21 +117,9 @@ export const ReviewIndex = () => {
                               <tr key={index}>
                                 <td>{review.id}</td>
                                 <td>{review.rental_id}</td>
-                                <td>
-                                  {review.image && (
-                                    <img
-                                      src={`http://localhost:8000/storage/${review.image}`}
-                                      height={60}
-                                      width={60}
-                                      alt=""
-                                    />
-                                  )}
-                                </td>
-                                <td>{review.email}</td>
-                                <td>{review.phone}</td>
-
-                                <td>{review.role}</td>
-
+                                <td>{review.user_id}</td>
+                                <td>{review.message}</td>
+                                <td>{review.stars}</td>
                                 <td>
                                   <Link
                                     to={`/admin/reviews/edit/${review.id}`}

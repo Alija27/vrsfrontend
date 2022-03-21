@@ -45,24 +45,102 @@ const ReviewCreate = () => {
                 <div className="card-body">
                   <form onSubmit={submitreview}>
                     <div className="form-group">
-                      <label htmlFor="name">
-                        Name
+                      <label htmlFor="rental_id">
+                        Rental ID
                         <span className="text-danger" title="Required">
                           *
                         </span>
                       </label>
                       <input
-                        review="text"
-                        name="name"
+                        type="text"
+                        name="rental_id"
                         onChange={handleInput}
-                        id="name"
+                        id="rental_id"
                         className="form-control "
                       />
+                    </div>
+                    <div className="form-group">
+                      <label htmlFor="rental_id">
+                        User ID
+                        <span className="text-danger" title="Required">
+                          *
+                        </span>
+                      </label>
+                      <input
+                        type="text"
+                        name="user_id"
+                        onChange={handleInput}
+                        id="user_id"
+                        className="form-control "
+                      />
+                    </div>
+                    <div className="form-group">
+                      <label htmlFor="message">
+                        Message
+                        <span className="text-danger" title="Required">
+                          *
+                        </span>
+                      </label>
+                      <textarea
+                        name="user_id"
+                        onChange={handleInput}
+                        id="user_id"
+                        className="form-control "
+                      ></textarea>
+                    </div>
+                    <div className="form-check form-check-inline ">
+                      <label htmlFor="rental_id">
+                        Stars
+                        <span className="text-danger" title="Required">
+                          *
+                        </span>
+                      </label>
+
+                      <div>
+                        <input
+                          className="form-check-input"
+                          type="checkbox"
+                          id="stars"
+                          defaultValue="1"
+                        />
+                      </div>
+                      <div>
+                        <input
+                          className="form-check-input"
+                          type="checkbox"
+                          id="stars"
+                          defaultValue="2"
+                        />
+                      </div>
+                      <div>
+                        <input
+                          className="form-check-input"
+                          type="checkbox"
+                          id="stars"
+                          defaultValue="3"
+                        />
+                      </div>
+                      <div>
+                        <input
+                          className="form-check-input"
+                          type="checkbox"
+                          id="stars"
+                          defaultValue="4"
+                        />
+                      </div>
+                      <div>
+                        <input
+                          className="form-check-input"
+                          type="checkbox"
+                          id="stars"
+                          defaultValue="5"
+                        />
+                      </div>
                     </div>
 
                     <div className="form-group my-2">
                       <button
-                        review="submit"
+                        type="submit"
                         id="btnSave"
                         className="btn bg-indigo"
                       >

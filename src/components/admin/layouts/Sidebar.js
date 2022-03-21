@@ -33,9 +33,10 @@ export const Sidebar = () => {
 
               <li className="nav-item">
                 <NavLink
-                  to="/admin"
-                  activeclassname="active--"
-                  className="nav-link mt-2"
+                  to="/admin/"
+                  className={(navData) =>
+                    navData.isActive ? "active nav-link mt-2" : " nav-link mt-2"
+                  }
                 >
                   <i className="nav-icon fas fa-tachometer-alt" />
                   <p>Dashboard</p>
@@ -44,8 +45,9 @@ export const Sidebar = () => {
               <li className="nav-item">
                 <NavLink
                   to="/admin/users"
-                  activeclassname="active"
-                  className="nav-link mt-2"
+                  className={(navData) =>
+                    navData.isActive ? "active nav-link mt-2" : " nav-link mt-2"
+                  }
                 >
                   <i className="nav-icon fas fa-users" />
                   <p>Users</p>
@@ -55,7 +57,9 @@ export const Sidebar = () => {
                 <NavLink
                   to="/admin/vendors"
                   activeclassname="active"
-                  className="nav-link mt-2"
+                  className={(navData) =>
+                    navData.isActive ? "active nav-link mt-2" : " nav-link mt-2"
+                  }
                 >
                   <i className="nav-icon fas fa-portrait" />
                   <p>Vendors</p>
@@ -65,7 +69,9 @@ export const Sidebar = () => {
                 <NavLink
                   to="/admin/types"
                   activeclassname="active"
-                  className="nav-link mt-2"
+                  className={(navData) =>
+                    navData.isActive ? "active nav-link mt-2" : " nav-link mt-2"
+                  }
                 >
                   <i className="nav-icon fas fa-truck-moving" />
                   <p>Types</p>
