@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Spinner } from "../../Spinner";
 import Swal from "sweetalert2";
+import useAxios from "../../../hooks/useAxios";
 
 export const UserIndex = () => {
   const [users, setUsers] = useState([]);
@@ -10,7 +11,7 @@ export const UserIndex = () => {
 
   const getUsers = async () => {
     setLoading(true);
-    await axios.get("http://localhost:8000/api/users").then((res) => {
+    await useAxios.get("/users").then((res) => {
       setUsers(res.data);
       setLoading(false);
     });
@@ -82,7 +83,7 @@ export const UserIndex = () => {
             <div className="container-fluid">
               <div className="row">
                 <div className="col-12">
-                  <div className="card mt-2">
+                  <div className="mt-2 card">
                     <div className="card-header">
                       <h3 className="card-title">All Users</h3>
                       <div className="card-tools">
@@ -90,12 +91,12 @@ export const UserIndex = () => {
                           to="/admin/users/create"
                           className="bg-indigo btn btn-link btn-sm "
                         >
-                          <i className="fas fa-plus-circle mr-1"></i>Add New
+                          <i className="mr-1 fas fa-plus-circle"></i>Add New
                         </Link>
                       </div>
                     </div>
                     {/* /.card-header */}
-                    <div className="card-body p-0">
+                    <div className="p-0 card-body">
                       {loading ? (
                         <div className=" row justify-content-center">
                           <Spinner />
@@ -138,24 +139,24 @@ export const UserIndex = () => {
                                 <td>
                                   <Link
                                     to={`/admin/users/edit/${user.id}`}
-                                    className="btn btn-link  bg-cyan btn-sm m-1"
+                                    className="m-1 btn btn-link bg-cyan btn-sm"
                                   >
-                                    <i className="fas fa-edit ml-1 mr-1"></i>
+                                    <i className="ml-1 mr-1 fas fa-edit"></i>
                                     Edit
                                   </Link>
 
                                   <Link
                                     to={`/admin/users/${user.id}`}
-                                    className="btn btn-link bg-success btn-sm m-1"
+                                    className="m-1 btn btn-link bg-success btn-sm"
                                   >
-                                    <i className="fas fa-eye ml-1 mr-1"></i>
+                                    <i className="ml-1 mr-1 fas fa-eye"></i>
                                     Show
                                   </Link>
                                   <span
                                     onClick={() => handleDelete(user.id)}
-                                    className="btn btn-link bg-danger btn-sm m-1"
+                                    className="m-1 btn btn-link bg-danger btn-sm"
                                   >
-                                    <i className="fas fa-trash ml-1 mr-1"></i>
+                                    <i className="ml-1 mr-1 fas fa-trash"></i>
                                     Delete
                                   </span>
                                 </td>

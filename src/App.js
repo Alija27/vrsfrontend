@@ -1,8 +1,8 @@
 import "./App.css";
 
 import { Login } from "./components/auth/Login";
-/* import { Register } from "./components/auth/Register";
-import { ForgetPassword } from "./components/auth/ForgetPassword"; */
+import { Register } from "./components/auth/Register";
+/* import { ForgetPassword } from "./components/auth/ForgetPassword"; */
 
 /* import axios from "axios"; */
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -15,7 +15,9 @@ import React, { useEffect, useState } from "react";
 import Frontend from "./components/frontend/Frontend";
 
 function App() {
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState({
+    vendor: {},
+  });
   const [userLoading, setUserLoading] = useState(false);
 
   const fetchUser = () => {
@@ -48,8 +50,8 @@ function App() {
               <Route path="/*" element={<Frontend />} />
               <Route path="/admin/*" element={<Admin />} />
               <Route path="/login" element={<Login />} />
-              {/* <Route path="/register" element={<Register />} />
-            <Route path="/forgetpassword" element={<ForgetPassword />} /> */}
+              <Route path="/register" element={<Register />} />
+              {/*  <Route path="/forgetpassword" element={<ForgetPassword />} />  */}
               <Route path="/logout" element={<Logout />} />
               <Route path="/admin/*" element={<Admin />} />
             </Routes>

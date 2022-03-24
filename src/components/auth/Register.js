@@ -1,128 +1,259 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-
+import React from "react";
+import { Link } from "react-router-dom";
+import "../../index.css";
+import useAxios from "../../hooks/useAxios";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import Swal from "sweetalert2";
 export const Register = () => {
+  const [userData, setUserData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    address: "",
+    password: "",
+    role: "",
+  });
+  const [image, setImage] = useState(null);
+  const navigate = useNavigate();
+  const [validation, setValidationError] = useState({});
+  const [loading, setLoading] = useState(false);
+
+  const handleInputChange = (e) => {
+    console.log(e.target.name, e.target.value);
+    setUserData({ ...userData, [e.target.name]: e.target.value });
+    console.log(userData);
+  };
+  const handleImage = (files) => {
+    setImage(files[0]);
+    console.log(image);
+  };
+
+  const submitUserData = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    const data = new FormData();
+    data.append("name", userData.name);
+    data.append("image", image);
+    data.append("phone", userData.phone);
+    data.append("email", userData.email);
+    data.append("password", userData.password);
+    data.append("address", userData.address);
+    data.append("role", userData.role);
+
+    await axios
+
+      .post("http://localhost:8000/api/register", data, {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      })
+      .then((res) => {
+        Swal.fire({
+          timer: 2000,
+          icon: "success",
+          title: res.data.message,
+        });
+
+        navigate("/login");
+      })
+      .catch((err) => {
+        if (err.response.status === 422) {
+          setValidationError(err.response.data.errors);
+        } else {
+          Swal.fire({
+            timer: 2000,
+            icon: "error",
+            title: err,
+          });
+        }
+      });
+    setLoading(false);
+  };
+
   return (
     <div>
-        <div className="register-box">
-  <div className="card card-outline card-indigo">
-    <div className="card-header text-center">
-      <Link to="#" className="h1"><b>Register</b></Link>
-    </div>
-    <div className="card-body">
-      
-      <form action="#" method="post">
-        <div className="input-group mb-3">
-          <input type="text" className="form-control required" placeholder="Full name" />
-          <div className="input-group-append">
-            <div className="input-group-text">
-              <span className="fas fa-user" />
+      <div class="flex justify-center w-full p-6 rounded-lg  bg-white ">
+        <div className="w-1/2 p-10 shadow-lg">
+          <form onSubmit={submitUserData}>
+            <div className="mb-6 form-group">
+              <input
+                type="text"
+                className="form-control block
+              w-full
+              px-3
+              py-1.5
+              text-base
+              font-normal
+              text-gray-700
+              bg-white bg-clip-padding
+              border border-solid border-gray-300
+              rounded
+              transition
+              ease-in-out
+              m-0
+              focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                name="name"
+                placeholder="Name"
+                value={userData.name}
+                onChange={handleInputChange}
+              />
             </div>
-          </div>
-        </div>
-        <div className="input-group mb-3">
-          <input type="email" className="form-control" placeholder="Email" />
-          <div className="input-group-append">
-            <div className="input-group-text">
-              <span className="fas fa-envelope" />
+            {/* <div className="mb-6 form-group">
+            <input
+              type="hidden"
+              name="vendor_id"
+              value={user.id}
+              onChange={handleInputChange}
+            />
+          </div> */}
+
+            <div className="mb-6 form-group">
+              <input
+                type="email"
+                className="form-control block
+  w-full
+  px-3
+  py-1.5
+  text-base
+  font-normal
+  text-gray-700
+  bg-white bg-clip-padding
+  border border-solid border-gray-300
+  rounded
+  transition
+  ease-in-out
+  m-0
+  focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                name="email"
+                placeholder="email"
+                value={userData.email}
+                onChange={handleInputChange}
+              />
             </div>
-          </div>
-        </div>
-        <div className="input-group mb-3">
-          <input type="text" className="form-control" placeholder="Address" />
-          <div className="input-group-append">
-            <div className="input-group-text">
-              <span className="fas fa-home" />
+            <div className="mb-6 form-group">
+              <input
+                type="phone"
+                className="form-control block
+  w-full
+  px-3
+  py-1.5
+  text-base
+  font-normal
+  text-gray-700
+  bg-white bg-clip-padding
+  border border-solid border-gray-300
+  rounded
+  transition
+  ease-in-out
+  m-0
+  focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                name="phone"
+                placeholder="Phone Number"
+                value={userData.phone}
+                onChange={handleInputChange}
+              />
             </div>
-          </div>
-        </div>
-        <div className="input-group mb-3">
-          <input type="text" className="form-control" placeholder="Phone" />
-          <div className="input-group-append">
-            <div className="input-group-text">
-              <span className="fas fa-phone" />
+            <div className="mb-6 form-group">
+              <input
+                type="password"
+                className="form-control block
+  w-full
+  px-3
+  py-1.5
+  text-base
+  font-normal
+  text-gray-700
+  bg-white bg-clip-padding
+  border border-solid border-gray-300
+  rounded
+  transition
+  ease-in-out
+  m-0
+  focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                name="password"
+                placeholder="Password"
+                value={userData.password}
+                onChange={handleInputChange}
+                s
+              />
             </div>
-          </div>
-        </div><div className="input-group mb-3">
-          <input type="file" className="form-control"/>
-          <div className="input-group-append">
-            <div className="input-group-text">
-              <span className="fas fa-image" />
+            <div className="mb-6 form-group">
+              <input
+                type="text"
+                className="form-control block
+  w-full
+  px-3
+  py-1.5
+  text-base
+  font-normal
+  text-gray-700
+  bg-white bg-clip-padding
+  border border-solid border-gray-300
+  rounded
+  transition
+  ease-in-out
+  m-0
+  focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                name="address"
+                placeholder="Address"
+                value={userData.address}
+                onChange={handleInputChange}
+              />
             </div>
-          </div>
-        </div>
-        <div className="input-group mb-3">
-          <input type="password" className="form-control" placeholder="Password" />
-          <div className="input-group-append">
-            <div className="input-group-text">
-              <span className="fas fa-lock" />
+            <div className="w-full mb-3 xl:w-1/5 ">
+              <select
+                name="role"
+                value={userData.role}
+                onChange={handleInputChange}
+                className="items-center block w-full px-3 m-0 my-2 font-normal text-gray-700 transition ease-in-out bg-white bg-no-repeat border border-gray-300 border-solid appearance-none form-select bg-clip-padding focus:text-grey-900 focus:bg-white focus:border-white focus:outline-none"
+              >
+                <option value="">Role</option>
+                <option value="2">Vendor</option>
+                <option value="3">Customer</option>
+              </select>
             </div>
-          </div>
-        </div>
-        <div className="input-group mb-3">
-          <input type="password" className="form-control" placeholder="Retype password" />
-          <div className="input-group-append">
-            <div className="input-group-text">
-              <span className="fas fa-lock" />
+            <div className="mb-3 w-96">
+              {/* <label
+              htmlFor="formFileSm"
+              className="inline-block mb-2 text-gray-700 form-label"
+            >
+              Small file input example
+            </label> */}
+              <input
+                className="block w-full px-2 py-1 m-0 text-sm font-normal text-gray-700 transition ease-in-out bg-white border border-gray-300 border-solid rounded form-control bg-clip-padding focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                name="image"
+                type="file"
+                onChange={(e) => handleImage(e.target.files)}
+              />
             </div>
-          </div>
-        </div>
-        <div className="row">
-          <div className="col-8">
-            <div className="icheck-primary">
-              <input type="checkbox" id="agreeTerms" name="terms" defaultValue="agree" />
-              <label htmlFor="agreeTerms">
-                I agree to the <Link to="#">terms</Link>
-              </label>
-            </div>
-          </div>
-         
-          <div className="col-12">
-            <button type="submit" className="btn btn-primary btn-block">Register</button>
-          </div>
-         
-        </div>
-      </form>
-      {/* <div className="social-auth-links text-center">
-        <Link to="#" className="btn btn-block btn-primary">
-          <i className="fab fa-facebook mr-2" />
-          Sign up using Facebook
-        </Link>
-        <Link to="#" className="btn btn-block btn-danger">
-          <i className="fab fa-google-plus mr-2" />
-          Sign up using Google+
-        </Link>
-      </div> */}
-      <Link to="/login" className="text-center">Already have an account? Login</Link>
-    </div>
-    
-  </div>
-</div>
-{/* <div className="container-fluid">
-  <div className="row no-gutter">
-    <div className="col-md-6 d-none d-md-flex bg-image" />
-    <div className="col-md-6 bg-light">
-      <div className="login d-flex align-items-center py-5">
-        <div className="container">
-          <div className="row">
-            <div className="col-lg-7 col-xl-6 mx-auto">
-              <h3 className="display-4">LOGIN!!</h3> <br />
-              <form>
-                <div className="form-group mb-3"> <input id="inputEmail" type="email" placeholder="Email address" required autofocus className="form-control rounded-pill border-0 shadow-sm px-4" /> </div>
-                <div className="form-group mb-3"> <input id="inputPassword" type="password" placeholder="Password" required className="form-control rounded-pill border-0 shadow-sm px-4 text-danger" /><br /> </div>
-                <div className="custom-control custom-checkbox mb-3"> <input id="customCheck1" type="checkbox" defaultChecked className="custom-control-input" /> <label htmlFor="customCheck1" className="custom-control-label">Remember password</label> </div> <button type="submit" className="btn btn-danger btn-block text-uppercase mb-2 rounded-pill shadow-sm">Sign in</button>
-                <div className="text-center d-flex justify-content-between mt-4">
-                  <p> OR &nbsp;<Link to=" " className="font-italic text-muted"> <u>Create Account</u></Link></p>
-                </div>
-              </form>
-            </div>
-          </div>
+            <button
+              type="submit"
+              className="
+w-full
+px-6
+py-2.5
+bg-blue-600
+text-white
+font-medium
+text-xs
+leading-tight
+uppercase
+rounded
+shadow-md
+hover:bg-blue-700 hover:shadow-lg
+focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0
+active:bg-blue-800 active:shadow-lg
+transition
+duration-150
+ease-in-out"
+            >
+              Send
+            </button>
+          </form>
         </div>
       </div>
     </div>
-  </div>
-</div> */}
-
-    </div>
-  )
-}
+  );
+};

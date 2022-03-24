@@ -1,6 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import logo from "./Frame1.png";
+// import logo from "./Frame1.png";
 
 export const Sidebar = () => {
   return (
@@ -9,7 +9,7 @@ export const Sidebar = () => {
         {/* Brand Logo */}
         <NavLink to="/admin" className="brand-link">
           <img
-            src={logo}
+            src="Frame1.png"
             alt="Logo"
             className="brand-image img-circle elevation-3"
             style={{ opacity: ".8" }}
@@ -81,7 +81,7 @@ export const Sidebar = () => {
                 <NavLink
                   to="/admin/vehicles"
                   activeclassname="active"
-                  className="nav-link mt-2"
+                  className="mt-2 nav-link"
                 >
                   <i className="nav-icon fas fa-car" />
                   <p>Vehicles</p>
@@ -91,7 +91,7 @@ export const Sidebar = () => {
                 <NavLink
                   to="/admin/rentals"
                   activeclassname="active"
-                  className="nav-link mt-2"
+                  className="mt-2 nav-link"
                 >
                   <i className="nav-icon fas fa-list" />
                   <p>Rentals</p>
@@ -101,7 +101,7 @@ export const Sidebar = () => {
                 <NavLink
                   to="/admin/reviews"
                   activeclassname="active"
-                  className="nav-link mt-2"
+                  className="mt-2 nav-link"
                 >
                   <i className="nav-icon fas fa-star" />
                   <p>Reviews</p>

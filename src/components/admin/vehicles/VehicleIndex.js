@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Spinner } from "../../Spinner";
 import Swal from "sweetalert2";
+import useAxios from "../../../hooks/useAxios";
 
 export const VehicleIndex = () => {
   const [vehicles, setVehicles] = useState([]);
@@ -13,16 +14,10 @@ export const VehicleIndex = () => {
     console.log("Calling CLient");
     let token = localStorage.getItem("token");
 
-    axios
-      .get("http://localhost:8000/api/vehicles", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((res) => {
-        setVehicles(res.data);
-        setLoading(false);
-      });
+    await useAxios.get("/admin/vehicles").then((res) => {
+      setVehicles(res.data);
+      setLoading(false);
+    });
   };
 
   useEffect(() => {
@@ -43,8 +38,8 @@ export const VehicleIndex = () => {
     });
 
     if (isConfirmed) {
-      await axios
-        .delete(`http://localhost:8000/api/vehicles/${id}`)
+      await useAxios
+        .delete(`/admin/vehicles/${id}`)
         .then((res) => {
           Swal.fire({
             icon: "success",
@@ -92,7 +87,7 @@ export const VehicleIndex = () => {
             <div className="container-fluid">
               <div className="row">
                 <div className="col-12">
-                  <div className="card mt-2">
+                  <div className="mt-2 card">
                     <div className="card-header">
                       <h3 className="card-title">All vehicles</h3>
                       <div className="card-tools">
@@ -100,12 +95,12 @@ export const VehicleIndex = () => {
                           to="/admin/vehicles/create"
                           className="bg-indigo btn btn-link btn-sm "
                         >
-                          <i className="fas fa-plus-circle mr-1"></i>Add New
+                          <i className="mr-1 fas fa-plus-circle"></i>Add New
                         </Link>
                       </div>
                     </div>
                     {/* /.card-header */}
-                    <div className="card-body p-0">
+                    <div className="p-0 card-body">
                       {loading ? (
                         <div className=" row justify-content-center">
                           <Spinner />
@@ -133,8 +128,8 @@ export const VehicleIndex = () => {
                               <tr key={index}>
                                 <td>{vehicle.id}</td>
                                 <td>{vehicle.name}</td>
-                                <td>{vehicle.vendor.name}</td>
-                                <td>{vehicle.type.name}</td>
+                                <td>{vehicle.vendor && vehicle.vendor.name}</td>
+                                <td>{vehicle.type && vehicle.type.name}</td>
                                 <td>{vehicle.model}</td>
                                 <td>{vehicle.color}</td>
 
@@ -155,24 +150,24 @@ export const VehicleIndex = () => {
                                 <td>
                                   <Link
                                     to={`/admin/vehicles/edit/${vehicle.id}`}
-                                    className="btn btn-link  bg-cyan btn-sm m-1"
+                                    className="m-1 btn btn-link bg-cyan btn-sm"
                                   >
-                                    <i className="fas fa-edit ml-1 mr-1"></i>
+                                    <i className="ml-1 mr-1 fas fa-edit"></i>
                                     Edit
                                   </Link>
 
                                   <Link
                                     to={`/admin/vehicles/${vehicle.id}`}
-                                    className="btn btn-link bg-success btn-sm m-1"
+                                    className="m-1 btn btn-link bg-success btn-sm"
                                   >
-                                    <i className="fas fa-eye ml-1 mr-1"></i>
+                                    <i className="ml-1 mr-1 fas fa-eye"></i>
                                     Show
                                   </Link>
                                   <span
                                     onClick={() => handleDelete(vehicle.id)}
-                                    className="btn btn-link bg-danger btn-sm m-1"
+                                    className="m-1 btn btn-link bg-danger btn-sm"
                                   >
-                                    <i className="fas fa-trash ml-1 mr-1"></i>
+                                    <i className="ml-1 mr-1 fas fa-trash"></i>
                                     Delete
                                   </span>
                                 </td>

@@ -42,8 +42,11 @@ export const UserCreate = () => {
 
     await axios
 
-      .post("http://localhost:8000/api/users", data)
-
+      .post("http://localhost:8000/api/users", data, {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      })
       .then((res) => {
         Swal.fire({
           timer: 2000,
@@ -73,7 +76,7 @@ export const UserCreate = () => {
         <div className="content-wrapper">
           <div className="content-header">
             <div className="container-fluid">
-              <div className="card m-2">
+              <div className="m-2 card">
                 <div className="card-header">
                   <h3 className="card-title">Add New User</h3>
                   <div className="card-tools">
@@ -234,6 +237,7 @@ export const UserCreate = () => {
                         className="form-control"
                         name="role"
                         onChange={handleInputChange}
+                        required
                       >
                         <option value="">Select Role</option>
                         <option value="Admin">Admin</option>
@@ -247,12 +251,12 @@ export const UserCreate = () => {
                       )}
                       {/*  <input
                         type="submit"
-                        className="btn btn-md bg-indigo mt-2"
+                        className="mt-2 btn btn-md bg-indigo"
                         id="btnSave"
                         value="Create"
                       /> */}
                     </div>
-                    <div className="form-group my-2">
+                    <div className="my-2 form-group">
                       <button
                         onClick={submitUserData}
                         type="submit"
@@ -262,7 +266,7 @@ export const UserCreate = () => {
                         {loading ? (
                           <>
                             <span
-                              className="spinner-border spinner-border-sm mr-2"
+                              className="mr-2 spinner-border spinner-border-sm"
                               role="status"
                               aria-hidden="true"
                             ></span>

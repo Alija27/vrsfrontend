@@ -30,7 +30,7 @@ export const Header = () => {
           </li>
         </ul>
         {/* Right navbar links */}
-        <ul className="navbar-nav ml-auto">
+        <ul className="ml-auto navbar-nav">
           {/* Navbar Search */}
           <li className="nav-item">
             <Link
@@ -74,15 +74,15 @@ export const Header = () => {
             </Link>
             <div className="dropdown-menu dropdown-menu-sm dropdown-menu-right">
               <Link to="" className="dropdown-item">
-                <i className="fas fa-user-tie mr-2" /> Profile
+                <i className="mr-2 fas fa-user-tie" /> Profile
               </Link>
               <div className="dropdown-divider" />
               <Link to="/" className="dropdown-item">
-                <i className="fas fa-home mr-2" /> Home
+                <i className="mr-2 fas fa-home" /> Home
               </Link>
               <div className="dropdown-divider" />
               <Link to="" className="dropdown-item">
-                <i className="fas fa-key mr-2" /> Logout
+                <i className="mr-2 fas fa-key" /> Logout
               </Link>
             </div>
           </li>

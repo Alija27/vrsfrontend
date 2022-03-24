@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { Spinner } from "../../Spinner";
 import Swal from "sweetalert2";
 import UserContext from "../../../UserContext";
+import useAxios from "../../../hooks/useAxios";
 
 export const VendorIndex = () => {
   const [vendors, setVendors] = useState([]);
@@ -12,7 +13,7 @@ export const VendorIndex = () => {
 
   const getVendors = async () => {
     setLoading(true);
-    await axios.get("http://localhost:8000/api/vendors").then((res) => {
+    await useAxios.get("/admin/vendors").then((res) => {
       setVendors(res.data);
       setLoading(false);
     });
@@ -35,8 +36,8 @@ export const VendorIndex = () => {
     });
 
     if (isConfirmed) {
-      await axios
-        .delete(`http://localhost:8000/api/vendors/${id}`)
+      await useAxios
+        .delete(`/vendors/${id}`)
         .then((res) => {
           Swal.fire({
             icon: "success",
@@ -84,22 +85,20 @@ export const VendorIndex = () => {
             <div className="container-fluid">
               <div className="row">
                 <div className="col-12">
-                  <div className="card mt-2">
+                  <div className="mt-2 card">
                     <div className="card-header">
-                      <h3 className="card-title">
-                        All Vendors {JSON.stringify(user)}
-                      </h3>
+                      <h3 className="card-title">All Vendors</h3>
                       <div className="card-tools">
                         <Link
                           to="/admin/Vendors/create"
                           className="bg-indigo btn btn-link btn-sm "
                         >
-                          <i className="fas fa-plus-circle mr-1"></i>Add New
+                          <i className="mr-1 fas fa-plus-circle"></i>Add New
                         </Link>
                       </div>
                     </div>
                     {/* /.card-header */}
-                    <div className="card-body p-0">
+                    <div className="p-0 card-body">
                       {loading ? (
                         <div className=" row justify-content-center">
                           <Spinner />
@@ -140,24 +139,24 @@ export const VendorIndex = () => {
                                 <td>
                                   <Link
                                     to={`/admin/vendors/edit/${vendor.id}`}
-                                    className="btn btn-link  bg-cyan btn-sm m-1"
+                                    className="m-1 btn btn-link bg-cyan btn-sm"
                                   >
-                                    <i className="fas fa-edit ml-1 mr-1"></i>
+                                    <i className="ml-1 mr-1 fas fa-edit"></i>
                                     Edit
                                   </Link>
 
                                   <Link
                                     to={`/admin/vendors/${vendor.id}`}
-                                    className="btn btn-link bg-success btn-sm m-1"
+                                    className="m-1 btn btn-link bg-success btn-sm"
                                   >
-                                    <i className="fas fa-eye ml-1 mr-1"></i>
+                                    <i className="ml-1 mr-1 fas fa-eye"></i>
                                     Show
                                   </Link>
                                   <span
                                     onClick={() => handleDelete(vendor.id)}
-                                    className="btn btn-link bg-danger btn-sm m-1"
+                                    className="m-1 btn btn-link bg-danger btn-sm"
                                   >
-                                    <i className="fas fa-trash ml-1 mr-1"></i>
+                                    <i className="ml-1 mr-1 fas fa-trash"></i>
                                     Delete
                                   </span>
                                 </td>

@@ -39,17 +39,17 @@ export const VehicleEdit = () => {
     console.log(image);
   };
   const getVehicles = async () => {
-    await axios.get(`http://localhost:8000/api/vehicles/${id}`).then((res) => {
+    await axios.get(`admin/vehicles/${id}`).then((res) => {
       setvehicleData(res.data);
     });
   };
   const getVendors = async () => {
-    await axios.get("http://localhost:8000/api/vendors").then((res) => {
+    await axios.get("admin/vendors").then((res) => {
       setVendors(res.data);
     });
   };
   const getTypes = async () => {
-    await axios.get("http://localhost:8000/api/types").then((res) => {
+    await axios.get("admin/types").then((res) => {
       setTypes(res.data);
     });
   };
@@ -81,7 +81,7 @@ export const VehicleEdit = () => {
     data.append("_method", "PUT");
     await axios
 
-      .post(`http://localhost:8000/api/vehicles/${id}`, data)
+      .post(`admin/vehicles/${id}`, data)
 
       .then((res) => {
         Swal.fire({
@@ -112,7 +112,7 @@ export const VehicleEdit = () => {
         <div className="content-wrapper">
           <div className="content-header">
             <div className="container-fluid">
-              <div className="card m-2">
+              <div className="m-2 card">
                 <div className="card-header">
                   <h3 className="card-title">Add New vehicle</h3>
                   <div className="card-tools">
@@ -384,7 +384,7 @@ export const VehicleEdit = () => {
                       )}
                       {/*  <input
                         type="submit"
-                        className="btn btn-md bg-indigo mt-2"
+                        className="mt-2 btn btn-md bg-indigo"
                         id="btnSave"
                         value="Create"
                       /> */}
@@ -413,7 +413,7 @@ export const VehicleEdit = () => {
                       )}
                       {/*  <input
                         type="submit"
-                        className="btn btn-md bg-indigo mt-2"
+                        className="mt-2 btn btn-md bg-indigo"
                         id="btnSave"
                         value="Create"
                       /> */}
@@ -442,13 +442,13 @@ export const VehicleEdit = () => {
                       )}
                       {/*  <input
                         type="submit"
-                        className="btn btn-md bg-indigo mt-2"
+                        className="mt-2 btn btn-md bg-indigo"
                         id="btnSave"
                         value="Create"
                       /> */}
                     </div>
 
-                    <div className="form-group my-2">
+                    <div className="my-2 form-group">
                       <button
                         onClick={submitvehicleData}
                         type="submit"
@@ -458,7 +458,7 @@ export const VehicleEdit = () => {
                         {loading ? (
                           <>
                             <span
-                              className="spinner-border spinner-border-sm mr-2"
+                              className="mr-2 spinner-border spinner-border-sm"
                               role="status"
                               aria-hidden="true"
                             ></span>

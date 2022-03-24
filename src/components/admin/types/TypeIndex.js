@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Spinner } from "../../Spinner";
 import Swal from "sweetalert2";
+import useAxios from "../../../hooks/useAxios";
 
 const TypeIndex = () => {
   const [types, setTypes] = useState([]);
@@ -11,7 +12,7 @@ const TypeIndex = () => {
 
   const getTypes = async () => {
     setLoading(true);
-    await axios.get("http://localhost:8000/api/types").then((res) => {
+    await useAxios.get("/types").then((res) => {
       setTypes(res.data);
       setLoading(false);
     });
@@ -33,8 +34,8 @@ const TypeIndex = () => {
     });
 
     if (isConfirmed) {
-      await axios
-        .delete(`http://localhost:8000/api/types/${id}`)
+      await useAxios
+        .delete(`/types/${id}`)
         .then((res) => {
           Swal.fire({
             icon: "success",
@@ -61,7 +62,7 @@ const TypeIndex = () => {
             <div className="container-fluid">
               <div className="row">
                 <div className="col-12">
-                  <div className="card mt-2">
+                  <div className="mt-2 card">
                     <div className="card-header">
                       <h3 className="card-title">All Types</h3>
                       <div className="card-tools">
@@ -69,12 +70,12 @@ const TypeIndex = () => {
                           to="/admin/types/create"
                           className="bg-indigo btn btn-link btn-sm "
                         >
-                          <i className="fas fa-plus-circle mr-1"></i>Add New
+                          <i className="mr-1 fas fa-plus-circle"></i>Add New
                         </Link>
                       </div>
                     </div>
                     {/* /.card-header */}
-                    <div className="card-body p-0">
+                    <div className="p-0 card-body">
                       {loading ? (
                         <div className=" row justify-content-center">
                           <Spinner />
@@ -98,24 +99,24 @@ const TypeIndex = () => {
                                 <td>
                                   <Link
                                     to={`/admin/types/edit/${type.id}`}
-                                    className="btn btn-link  bg-cyan btn-sm m-1"
+                                    className="m-1 btn btn-link bg-cyan btn-sm"
                                   >
-                                    <i className="fas fa-edit ml-1 mr-1"></i>
+                                    <i className="ml-1 mr-1 fas fa-edit"></i>
                                     Edit
                                   </Link>
 
                                   <Link
                                     to={`/admin/types/${type.id}`}
-                                    className="btn btn-link bg-success btn-sm m-1"
+                                    className="m-1 btn btn-link bg-success btn-sm"
                                   >
-                                    <i className="fas fa-eye ml-1 mr-1"></i>
+                                    <i className="ml-1 mr-1 fas fa-eye"></i>
                                     Show
                                   </Link>
                                   <span
                                     onClick={() => handleDelete(type.id)}
-                                    className="btn btn-link bg-danger btn-sm m-1"
+                                    className="m-1 btn btn-link bg-danger btn-sm"
                                   >
-                                    <i className="fas fa-trash ml-1 mr-1"></i>
+                                    <i className="ml-1 mr-1 fas fa-trash"></i>
                                     Delete
                                   </span>
                                 </td>

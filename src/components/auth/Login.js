@@ -57,7 +57,7 @@ export const Login = () => {
         <div className="m-2 login-page">
           <div className="login-box">
             <div className="card card-outline card-indigo">
-              <div className="card-header text-center">
+              <div className="text-center card-header">
                 <Link to="/login" className="h1">
                   <b>Login</b>
                 </Link>
@@ -66,7 +66,7 @@ export const Login = () => {
                 {error && <div className="alert alert-danger">{error}</div>}
 
                 <form method="post" onSubmit={login}>
-                  <div className="input-group mb-3">
+                  <div className="mb-3 input-group">
                     <input
                       type="email"
                       className="form-control"
@@ -80,7 +80,7 @@ export const Login = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="input-group mb-3">
+                  <div className="mb-3 input-group">
                     <input
                       type="password"
                       className="form-control"
