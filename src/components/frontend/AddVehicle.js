@@ -50,8 +50,8 @@ const AddVehicle = () => {
     });
   };
   const getLocations = async () => {
-    useAxios.get("http://localhost:8000/api/locations").then((res) => {
-      setTypes(res.data);
+    useAxios.get("/locations").then((res) => {
+      setLocations(res.data);
     });
   };
   useEffect(() => {
@@ -64,7 +64,7 @@ const AddVehicle = () => {
     setLoading(true);
     const data = new FormData();
     data.append("name", vehicleData.name);
-    data.append("vendor_id", vehicleData.vendor_id);
+    data.append("vendor_id", user.vendor.id);
     data.append("type_id", vehicleData.type_id);
     data.append("model", vehicleData.model);
     data.append("color", vehicleData.color);
@@ -74,12 +74,12 @@ const AddVehicle = () => {
     data.append("terms", vehicleData.terms);
     data.append("image", image);
     data.append("condition", vehicleData.condition);
-    data.append("location", vehicleData.location);
+    data.append("location_id", vehicleData.location_id);
     /*  data.append("is_available", vehicleData.is_available); */
     data.append("has_driver", vehicleData.has_driver);
     /* data.append("is_approved", vehicleData.is_approved); */
-    await useAxios
-      .post("vehicles", data)
+    useAxios
+      .post("/addvehicle", data)
 
       .then((res) => {
         Swal.fire({
@@ -88,7 +88,7 @@ const AddVehicle = () => {
           title: res.data.message,
         });
 
-        navigate("vehicles");
+        navigate("/registeredvehicle");
       })
       .catch((err) => {
         if (err.response.status === 422) {
@@ -142,7 +142,14 @@ const AddVehicle = () => {
                 onChange={handleInputChange}
               />
             </div>
-
+            <div>
+              <input
+                type="hidden"
+                className="form-control"
+                name="vendor_id"
+                value={user.vendor && user.vendor.id}
+              />
+            </div>
             <select
               name="type_id"
               className="items-center block w-full px-3 m-0 my-2 font-normal text-gray-700 transition ease-in-out bg-white bg-no-repeat border border-gray-300 border-solid appearance-none form-select bg-clip-padding focus:text-grey-900 focus:bg-white focus:border-white focus:outline-none"
@@ -158,7 +165,7 @@ const AddVehicle = () => {
               name="location_id"
               className="items-center block w-full px-3 m-0"
               onChange={handleInputChange}
-              value={vehicleData.location}
+              value={vehicleData.location_id}
             >
               <option value="">Location</option>
               {locations.map((location) => (
@@ -232,7 +239,6 @@ const AddVehicle = () => {
                 placeholder="Total Seats"
                 value={vehicleData.total_seats}
                 onChange={handleInputChange}
-                s
               />
             </div>
             <div className="mb-6 form-group">
@@ -339,8 +345,9 @@ const AddVehicle = () => {
               Small file input example
             </label> */}
               <input
+                onChange={(e) => handleImage(e.target.files)}
                 className="block w-full px-2 py-1 m-0 text-sm font-normal text-gray-700 transition ease-in-out bg-white border border-gray-300 border-solid rounded form-control bg-clip-padding focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                name="formFileSm"
+                name="image"
                 type="file"
               />
             </div>

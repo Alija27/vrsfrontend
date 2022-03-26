@@ -3,7 +3,7 @@ import React from "react";
 export const Spinner = () => {
   return (
     <div>
-      <div className="spinner-border m-5 text-indigo" role="status"></div>
+      <div className="m-5 spinner-border text-indigo" role="status"></div>
     </div>
   );
 };

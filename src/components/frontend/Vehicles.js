@@ -1,6 +1,7 @@
 import { useEffect, useState, useContext } from "react";
 import useAxios from "../../hooks/useAxios";
 import UserContext from "../../UserContext";
+import { Link } from "react-router-dom";
 
 function Vehicles() {
   const [user] = useContext(UserContext);
@@ -33,16 +34,16 @@ function Vehicles() {
   // Data Fetch
   useEffect(() => {
     useAxios
-      .get("/types")
+      .get("/availablevehicles")
       .then((res) => {
-        setTypes(res.data);
+        setVehicles(res.data);
       })
       .catch((err) => {
         alert("ERROR");
       });
 
     useAxios
-      .get("/vehicles")
+      .get("/types")
       .then((res) => {
         setTypes(res.data);
       })
@@ -71,7 +72,7 @@ function Vehicles() {
         }}
       >
         <div
-          className="w-full overflow-hidden bg-fixed"
+          className="z-50 w-full bg-fixed "
           style={{ backgroundColor: "rgba(0, 0, 0, 0.6)" }}
         >
           <form
@@ -80,7 +81,7 @@ function Vehicles() {
               submitForm();
             }}
           >
-            <div className="flex items-center justify-center h-full">
+            <div className="flex items-center justify-center h-full py-4 mx-10 bg-white rounded-full ">
               <div
                 className="w-full gap-2 mx-8 rounded-full xl:flex my-15"
                 style={{ height: "60px" }}
@@ -143,7 +144,7 @@ function Vehicles() {
         </div>
       )}
 
-      <div className="grid grid-cols-1 md:grid-cols-3">
+      <div className="grid justify-center grid-cols-1 md:grid-cols-3 sm:grid-cols-1">
         {/* {vehicles &&
           vehicles.map((item) => (
             <div className="bg-white rounded">
@@ -158,10 +159,11 @@ function Vehicles() {
           ))} */}
         {vehicles &&
           vehicles.map((item) => (
-            <div class="rounded-lg shadow-lg bg-white max-w-sm">
-              <a href="#!">
+            <div class="rounded-lg shadow-lg bg-white max-w-sm 1/3 mx-1 my-5">
+              <a>
                 <img
-                  class="rounded-t-lg"
+                  class="rounded-t-lg w-full"
+                  style={{ height: "290px" }}
                   src={`http://localhost:8000/storage/${item.image}`}
                   alt="img"
                 />
@@ -171,12 +173,18 @@ function Vehicles() {
                   {item.name}
                 </h5>
                 <p class="text-gray-700 text-base mb-4">{item.description}</p>
-                <button
-                  type="button"
+                <Link
+                  to={`/vehicles/${item.id}`}
                   class=" inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
                 >
-                  Button
-                </button>
+                  View
+                </Link>
+                <Link
+                  to="/"
+                  class=" inline-block px-6 py-2.5 bg-blue-600 mx-1 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
+                >
+                  Book
+                </Link>
               </div>
             </div>
           ))}
