@@ -10,6 +10,7 @@ export const RegisteredVehicle = () => {
   const [vehicleData, setvehicleData] = useState({
     is_available: false,
   });
+
   const handleInputChange = (e) => {
     console.log(e.target.name, e.target.value);
     setvehicleData({ ...vehicleData, [e.target.name]: e.target.value });

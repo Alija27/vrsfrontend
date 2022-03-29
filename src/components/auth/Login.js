@@ -64,55 +64,98 @@ export const Login = () => {
               </div>
               <div className="card-body">
                 {error && <div className="alert alert-danger">{error}</div>}
+                <div class="flex justify-center w-full p-6 rounded-lg  bg-white ">
+                  <div className="w-1/2 p-10 shadow-lg">
+                    <form method="post" onSubmit={login}>
+                      <div className="mb-6 form-group">
+                        <input
+                          type="email"
+                          className="form-control block
+              w-full
+              px-3
+              py-1.5
+              text-base
+              font-normal
+              text-gray-700
+              bg-white bg-clip-padding
+              border border-solid border-gray-300
+              rounded
+              transition
+              ease-in-out
+              m-0
+              focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                          name="name"
+                          placeholder="Email"
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)}
+                        />
+                      </div>
 
-                <form method="post" onSubmit={login}>
-                  <div className="mb-3 input-group">
-                    <input
-                      type="email"
-                      className="form-control"
-                      placeholder="Email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                    />
-                    <div className="input-group-append">
-                      <div className="input-group-text">
-                        <span className="fas fa-envelope" />
+                      <div className="mb-6 form-group">
+                        <input
+                          type="password"
+                          className="form-control block
+  w-full
+  px-3
+  py-1.5
+  text-base
+  font-normal
+  text-gray-700
+  bg-white bg-clip-padding
+  border border-solid border-gray-300
+  rounded
+  transition
+  ease-in-out
+  m-0
+  focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                          name="password"
+                          placeholder="password"
+                          value={password}
+                          onChange={(e) => setPassword(e.target.value)}
+                        />
                       </div>
-                    </div>
-                  </div>
-                  <div className="mb-3 input-group">
-                    <input
-                      type="password"
-                      className="form-control"
-                      placeholder="Password"
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                    />
-                    <div className="input-group-append">
-                      <div className="input-group-text">
-                        <span className="fas fa-lock" />
+
+                      <div className="col-12">
+                        <button
+                          type="submit"
+                          className="
+w-full
+px-6
+py-2.5
+bg-blue-600
+text-white
+font-medium
+text-xs
+leading-tight
+uppercase
+rounded
+shadow-md
+hover:bg-blue-700 hover:shadow-lg
+focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0
+active:bg-blue-800 active:shadow-lg
+transition
+duration-150
+ease-in-out"
+                        >
+                          Login
+                        </button>
                       </div>
-                    </div>
+                    </form>
+                    {/* /.social-auth-links */}
+                    <p className="mb-1">
+                      <Link to="forgot-password.html">
+                        I forgot my password
+                      </Link>
+                    </p>
+                    <p className="mb-0">
+                      <Link to="/register" className="text-center">
+                        Don't have an account? Register
+                      </Link>
+                    </p>
                   </div>
-                  <div className="col-12">
-                    <button type="submit" className="btn btn-primary btn-block">
-                      Login
-                    </button>
-                  </div>
-                </form>
-                {/* /.social-auth-links */}
-                <p className="mb-1">
-                  <Link to="forgot-password.html">I forgot my password</Link>
-                </p>
-                <p className="mb-0">
-                  <Link to="/register" className="text-center">
-                    Don't have an account? Register
-                  </Link>
-                </p>
+                </div>
               </div>
-              {/* /.card-body */}
             </div>
-            {/* /.card */}
           </div>
         </div>
       )}

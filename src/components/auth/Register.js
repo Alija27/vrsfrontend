@@ -14,8 +14,10 @@ export const Register = () => {
     address: "",
     password: "",
     role: "",
+    citizenship_number: "",
   });
   const [image, setImage] = useState(null);
+  const [citizenshipimage, setCitizenshipimage] = useState(null);
   const navigate = useNavigate();
   const [validation, setValidationError] = useState({});
   const [loading, setLoading] = useState(false);
@@ -29,6 +31,10 @@ export const Register = () => {
     setImage(files[0]);
     console.log(image);
   };
+  const handleCitizenshipImage = (files) => {
+    setCitizenshipimage(files[0]);
+    console.log(citizenshipimage);
+  };
 
   const submitUserData = async (e) => {
     e.preventDefault();
@@ -41,7 +47,8 @@ export const Register = () => {
     data.append("password", userData.password);
     data.append("address", userData.address);
     data.append("role", userData.role);
-
+    data.append("citizenship_number", userData.citizenship_number);
+    data.append("citizenship_image", citizenshipimage);
     await axios
 
       .post("http://localhost:8000/api/register", data, {
@@ -78,6 +85,12 @@ export const Register = () => {
         <div className="w-1/2 p-10 shadow-lg">
           <form onSubmit={submitUserData}>
             <div className="mb-6 form-group">
+              <label
+                htmlFor="formFileSm"
+                className="inline-block mb-2 text-gray-700 form-label"
+              >
+                Name
+              </label>
               <input
                 type="text"
                 className="form-control block
@@ -110,6 +123,12 @@ export const Register = () => {
           </div> */}
 
             <div className="mb-6 form-group">
+              <label
+                htmlFor="formFileSm"
+                className="inline-block mb-2 text-gray-700 form-label"
+              >
+                Email
+              </label>
               <input
                 type="email"
                 className="form-control block
@@ -133,6 +152,12 @@ export const Register = () => {
               />
             </div>
             <div className="mb-6 form-group">
+              <label
+                htmlFor="formFileSm"
+                className="inline-block mb-2 text-gray-700 form-label"
+              >
+                Phone
+              </label>
               <input
                 type="phone"
                 className="form-control block
@@ -156,30 +181,12 @@ export const Register = () => {
               />
             </div>
             <div className="mb-6 form-group">
-              <input
-                type="password"
-                className="form-control block
-  w-full
-  px-3
-  py-1.5
-  text-base
-  font-normal
-  text-gray-700
-  bg-white bg-clip-padding
-  border border-solid border-gray-300
-  rounded
-  transition
-  ease-in-out
-  m-0
-  focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                name="password"
-                placeholder="Password"
-                value={userData.password}
-                onChange={handleInputChange}
-                s
-              />
-            </div>
-            <div className="mb-6 form-group">
+              <label
+                htmlFor="formFileSm"
+                className="inline-block mb-2 text-gray-700 form-label"
+              >
+                Address
+              </label>
               <input
                 type="text"
                 className="form-control block
@@ -202,6 +209,80 @@ export const Register = () => {
                 onChange={handleInputChange}
               />
             </div>
+
+            <div className="mb-6 form-group">
+              <label
+                htmlFor="formFileSm"
+                className="inline-block mb-2 text-gray-700 form-label"
+              >
+                Password
+              </label>
+              <input
+                type="password"
+                className="form-control block
+  w-full
+  px-3
+  py-1.5
+  text-base
+  font-normal
+  text-gray-700
+  bg-white bg-clip-padding
+  border border-solid border-gray-300
+  rounded
+  transition
+  ease-in-out
+  m-0
+  focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                name="password"
+                placeholder="Password"
+                value={userData.password}
+                onChange={handleInputChange}
+              />
+            </div>
+            <div className="mb-3 w-96">
+              <label
+                htmlFor="citizenship_image"
+                className="inline-block mb-2 text-gray-700 form-label"
+              >
+                Citizenship Image
+              </label>
+              <input
+                className="block w-full px-2 py-1 m-0 text-sm font-normal text-gray-700 transition ease-in-out bg-white border border-gray-300 border-solid rounded form-control bg-clip-padding focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                name="citizenship_image"
+                type="file"
+                onChange={(e) => handleCitizenshipImage(e.target.files)}
+              />
+            </div>
+            <div className="mb-6 form-group">
+              <label
+                htmlFor="citizenship_number"
+                className="inline-block mb-2 text-gray-700 form-label"
+              >
+                Citizenship Number
+              </label>
+              <input
+                type="text"
+                className="form-control block
+  w-full
+  px-3
+  py-1.5
+  text-base
+  font-normal
+  text-gray-700
+  bg-white bg-clip-padding
+  border border-solid border-gray-300
+  rounded
+  transition
+  ease-in-out
+  m-0
+  focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                name="citizenship_number"
+                placeholder="Citizenship Number"
+                value={userData.citizenship_number}
+                onChange={handleInputChange}
+              />
+            </div>
+
             <div className="w-full mb-3 xl:w-1/5 ">
               <select
                 name="role"

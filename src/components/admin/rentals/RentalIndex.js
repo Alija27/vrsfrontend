@@ -59,7 +59,7 @@ export const RentalIndex = () => {
           <div className="container-fluid">
             <div className="row">
               <div className="col-12">
-                <div className="card mt-2">
+                <div className="mt-2 card">
                   <div className="card-header">
                     <h3 className="card-title text-bold">All rentals</h3>
                     <div className="card-tools">
@@ -67,12 +67,12 @@ export const RentalIndex = () => {
                         to="/admin/rentals/create"
                         className="bg-indigo btn btn-link btn-sm "
                       >
-                        <i className="fas fa-plus-circle mr-1"></i>Add New
+                        <i className="mr-1 fas fa-plus-circle"></i>Add New
                       </Link>
                     </div>
                   </div>
                   {/* /.card-header */}
-                  <div className="card-body p-0">
+                  <div className="p-0 card-body">
                     {loading ? (
                       <div className=" row justify-content-center">
                         <Spinner />
@@ -108,24 +108,24 @@ export const RentalIndex = () => {
                               <td>
                                 <Link
                                   to={`/admin/rentals/edit/${rental.id}`}
-                                  className="btn btn-link  bg-cyan btn-sm m-1"
+                                  className="m-1 btn btn-link bg-cyan btn-sm"
                                 >
-                                  <i className="fas fa-edit ml-1 mr-1"></i>
+                                  <i className="ml-1 mr-1 fas fa-edit"></i>
                                   Edit
                                 </Link>
 
                                 <Link
                                   to={`/admin/rentals/${rental.id}`}
-                                  className="btn btn-link bg-success btn-sm m-1"
+                                  className="m-1 btn btn-link bg-success btn-sm"
                                 >
-                                  <i className="fas fa-eye ml-1 mr-1"></i>
+                                  <i className="ml-1 mr-1 fas fa-eye"></i>
                                   Show
                                 </Link>
                                 <span
                                   onClick={() => handleDelete(rental.id)}
-                                  className="btn btn-link bg-danger btn-sm m-1"
+                                  className="m-1 btn btn-link bg-danger btn-sm"
                                 >
-                                  <i className="fas fa-trash ml-1 mr-1"></i>
+                                  <i className="ml-1 mr-1 fas fa-trash"></i>
                                   Delete
                                 </span>
                               </td>
