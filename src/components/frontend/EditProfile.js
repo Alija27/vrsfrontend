@@ -1,13 +1,28 @@
 import React from "react";
+
 import { Link } from "react-router-dom";
 import "../../index.css";
 import useAxios from "../../hooks/useAxios";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
-export const Register = () => {
-  const [userData, setUserData] = useState({
+
+import { useContext } from "react";
+
+import UserContext from "../../UserContext";
+
+export const EditProfile = () => {
+  const [user, fetchUser] = useContext(UserContext);
+
+  useEffect(() => {
+    fetchUser();
+
+    console.log(user);
+    console.log(user.vendor.id);
+  }, []);
+
+  /* const [userData, setUserData] = useState({
     name: "",
     email: "",
     phone: "",
@@ -15,17 +30,16 @@ export const Register = () => {
     password: "",
     role: "",
     citizenship_number: "",
-  });
+  }); */
   const [image, setImage] = useState(null);
   const [citizenshipimage, setCitizenshipimage] = useState(null);
   const navigate = useNavigate();
   const [validation, setValidationError] = useState({});
   const [loading, setLoading] = useState(false);
-
   const handleInputChange = (e) => {
     console.log(e.target.name, e.target.value);
-    setUserData({ ...userData, [e.target.name]: e.target.value });
-    console.log(userData);
+    /* setUser({ ...user, [e.target.name]: e.target.value }); */
+    console.log(user);
   };
   const handleImage = (files) => {
     setImage(files[0]);
@@ -40,18 +54,18 @@ export const Register = () => {
     e.preventDefault();
     setLoading(true);
     const data = new FormData();
-    data.append("name", userData.name);
+    data.append("name", user.name);
     data.append("image", image);
-    data.append("phone", userData.phone);
-    data.append("email", userData.email);
-    data.append("password", userData.password);
-    data.append("address", userData.address);
-    data.append("role", userData.role);
-    data.append("citizenship_number", userData.citizenship_number);
+    data.append("phone", user.phone);
+    data.append("email", user.email);
+    data.append("password", user.password);
+    data.append("address", user.address);
+    data.append("role", user.role);
+    data.append("citizenship_number", user.citizenship_number);
     data.append("citizenship_image", citizenshipimage);
     await axios
 
-      .post("http://localhost:8000/api/register", data, {
+      .post("http://localhost:8000/api/updateProfile", data, {
         headers: {
           Authorization: "Bearer " + localStorage.getItem("token"),
         },
@@ -81,6 +95,7 @@ export const Register = () => {
 
   return (
     <div>
+      Edit
       <div class="flex justify-center w-full p-6 rounded-lg  bg-white ">
         <div className="w-1/2 p-10 shadow-lg">
           <form onSubmit={submitUserData}>
@@ -109,7 +124,7 @@ export const Register = () => {
               focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                 name="name"
                 placeholder="Name"
-                value={userData.name}
+                value={user.name}
                 onChange={handleInputChange}
               />
             </div>
@@ -147,7 +162,7 @@ export const Register = () => {
   focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                 name="email"
                 placeholder="email"
-                value={userData.email}
+                value={user.email}
                 onChange={handleInputChange}
               />
             </div>
@@ -176,7 +191,7 @@ export const Register = () => {
   focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                 name="phone"
                 placeholder="Phone Number"
-                value={userData.phone}
+                value={user.phone}
                 onChange={handleInputChange}
               />
             </div>
@@ -205,40 +220,11 @@ export const Register = () => {
   focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                 name="address"
                 placeholder="Address"
-                value={userData.address}
+                value={user.address}
                 onChange={handleInputChange}
               />
             </div>
 
-            <div className="mb-6 form-group">
-              <label
-                htmlFor="formFileSm"
-                className="inline-block mb-2 text-gray-700 form-label"
-              >
-                Password
-              </label>
-              <input
-                type="password"
-                className="form-control block
-  w-full
-  px-3
-  py-1.5
-  text-base
-  font-normal
-  text-gray-700
-  bg-white bg-clip-padding
-  border border-solid border-gray-300
-  rounded
-  transition
-  ease-in-out
-  m-0
-  focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                name="password"
-                placeholder="Password"
-                value={userData.password}
-                onChange={handleInputChange}
-              />
-            </div>
             <div className="mb-3 w-96">
               <label
                 htmlFor="citizenship_image"
@@ -278,7 +264,7 @@ export const Register = () => {
   focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                 name="citizenship_number"
                 placeholder="Citizenship Number"
-                value={userData.citizenship_number}
+                value={user.citizenship_number}
                 onChange={handleInputChange}
               />
             </div>
@@ -286,7 +272,7 @@ export const Register = () => {
             <div className="w-full mb-3 xl:w-1/5 ">
               <select
                 name="role"
-                value={userData.role}
+                value={user.role}
                 onChange={handleInputChange}
                 className="items-center block w-full px-3 m-0 my-2 font-normal text-gray-700 transition ease-in-out bg-white bg-no-repeat border border-gray-300 border-solid appearance-none form-select bg-clip-padding focus:text-grey-900 focus:bg-white focus:border-white focus:outline-none"
               >

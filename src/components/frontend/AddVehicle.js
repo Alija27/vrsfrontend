@@ -14,7 +14,7 @@ const AddVehicle = () => {
 
   const [vehicleData, setvehicleData] = useState({
     name: "",
-    vendor_id: user.vendor.id,
+    vendor_id: "",
     type_id: "",
     model: "",
     color: "",

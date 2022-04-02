@@ -1,14 +1,13 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import useAxios from "../../hooks/useAxios";
-import axios from "axios";
 import { useParams } from "react-router-dom";
 import UserContext from "../../UserContext";
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 
 export const ViewVehicle = () => {
+  const navigate = useNavigate();
   const [vehicle, setVehicle] = useState({});
   const { id } = useParams();
   const [isLoading, setLoading] = useState(false);
@@ -39,6 +38,7 @@ export const ViewVehicle = () => {
       .then((res) => {
         setRequestVehicle(res.data);
         alert("Requested Sucessfully");
+        navigate("/myBookings");
       })
       .catch((err) => {
         alert("Cannot send request");

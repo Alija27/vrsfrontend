@@ -7,12 +7,13 @@ import AddVehicle from "./AddVehicle";
 import "../../index.css";
 import "flowbite";
 import { RegisteredVehicle } from "./RegisteredVehicle";
-import BookVehiclePage from "./BookVehiclePage";
 import { VendorDashboard } from "./VendorDashboard";
 import { VehicleRequest } from "./VehicleRequest";
 import { MyBookings } from "./MyBookings";
 import { ViewVehicle } from "./ViewVehicle";
 import { Profile } from "./Profile";
+import { EditProfile } from "./EditProfile";
+import VendorRegister from "./VendorRegister";
 
 const Frontend = () => {
   return (
@@ -23,12 +24,13 @@ const Frontend = () => {
         <Route path="/addvehicle" element={<AddVehicle />} />
         <Route path="/vehicles" element={<Vehicles />} />
         <Route path="/registeredvehicle" element={<RegisteredVehicle />} />
-        <Route path="/book" element={<BookVehiclePage />} />
         <Route path="/vendordashboard" element={<VendorDashboard />} />
         <Route path="/vehiclerequest" element={<VehicleRequest />} />
         <Route path="/mybookings" element={<MyBookings />} />
         <Route path="/vehicles/:id" element={<ViewVehicle />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/edit-profile" element={<EditProfile />} />
+        <Route path="/vendor-register" element={<VendorRegister />} />
       </Routes>
     </div>
   );

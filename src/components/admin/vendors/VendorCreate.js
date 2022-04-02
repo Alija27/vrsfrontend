@@ -83,7 +83,7 @@ const VendorCreate = () => {
         <div className="content-wrapper">
           <div className="content-header">
             <div className="container-fluid">
-              <div className="card m-2">
+              <div className="m-2 card">
                 <div className="card-header">
                   <h3 className="card-title">Add New vendor</h3>
                   <div className="card-tools">
@@ -200,12 +200,12 @@ const VendorCreate = () => {
 
                     {/*  <input
                         type="submit"
-                        className="btn btn-md bg-indigo mt-2"
+                        className="mt-2 btn btn-md bg-indigo"
                         id="btnSave"
                         value="Create"
                       /> */}
 
-                    <div className="form-group my-2">
+                    <div className="my-2 form-group">
                       <button
                         onClick={submitVendorData}
                         type="submit"
@@ -215,7 +215,7 @@ const VendorCreate = () => {
                         {loading ? (
                           <>
                             <span
-                              className="spinner-border spinner-border-sm mr-2"
+                              className="mr-2 spinner-border spinner-border-sm"
                               role="status"
                               aria-hidden="true"
                             ></span>

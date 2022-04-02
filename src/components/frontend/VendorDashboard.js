@@ -4,9 +4,12 @@ import { Link } from "react-router-dom";
 export const VendorDashboard = () => {
   return (
     <div>
-      <section>
-        <header className="flex text-white bg-indigo-600">
-          <ul>
+      <div class="navbar bg-base-100 h-full">
+        <div class="navbar-start">
+          <ul
+            tabindex="0"
+            class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
+          >
             <li>
               <Link to="/registeredvehicle">My Vehicles</Link>
             </li>
@@ -20,8 +23,8 @@ export const VendorDashboard = () => {
               <Link to="/profile">Profile</Link>
             </li>
           </ul>
-        </header>
-      </section>
+        </div>
+      </div>
     </div>
   );
 };
