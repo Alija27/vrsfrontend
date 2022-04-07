@@ -11,13 +11,30 @@ import Swal from "sweetalert2";
 import { useContext } from "react";
 
 import UserContext from "../../UserContext";
+import { useParams } from "react-router-dom";
 
 export const EditProfile = () => {
+  const { id } = useParams();
   const [user, fetchUser] = useContext(UserContext);
+
+  const [userData, setUserData] = useState({
+    // name: "",
+    // email: "",
+    // phone: "",
+    // address: "",
+    // password: "",
+    // role: "",
+    // citizenship_number: "",
+  });
+  const getUser = async () => {
+    useAxios.get(`/userId/${id}`).then((res) => {
+      setUserData(res.data);
+    });
+  };
 
   useEffect(() => {
     fetchUser();
-
+    getUser();
     console.log(user);
     console.log(user.vendor.id);
   }, []);
@@ -38,8 +55,8 @@ export const EditProfile = () => {
   const [loading, setLoading] = useState(false);
   const handleInputChange = (e) => {
     console.log(e.target.name, e.target.value);
-    /* setUser({ ...user, [e.target.name]: e.target.value }); */
-    console.log(user);
+    setUserData({ ...userData, [e.target.name]: e.target.value });
+    console.log(userData);
   };
   const handleImage = (files) => {
     setImage(files[0]);
@@ -54,18 +71,18 @@ export const EditProfile = () => {
     e.preventDefault();
     setLoading(true);
     const data = new FormData();
-    data.append("name", user.name);
+    data.append("name", userData.name);
     data.append("image", image);
-    data.append("phone", user.phone);
-    data.append("email", user.email);
-    data.append("password", user.password);
-    data.append("address", user.address);
-    data.append("role", user.role);
-    data.append("citizenship_number", user.citizenship_number);
+    data.append("phone", userData.phone);
+    data.append("email", userData.email);
+    data.append("password", userData.password);
+    data.append("address", userData.address);
+    data.append("role", userData.role);
+    data.append("citizenship_number", userData.citizenship_number);
     data.append("citizenship_image", citizenshipimage);
+    // data.append("_method", "PUT");
     await axios
-
-      .post("http://localhost:8000/api/updateProfile", data, {
+      .put(`http://localhost:8000/api/updateProfile/${id}`, data, {
         headers: {
           Authorization: "Bearer " + localStorage.getItem("token"),
         },
@@ -124,7 +141,7 @@ export const EditProfile = () => {
               focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                 name="name"
                 placeholder="Name"
-                value={user.name}
+                value={userData.name}
                 onChange={handleInputChange}
               />
             </div>
@@ -162,7 +179,7 @@ export const EditProfile = () => {
   focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                 name="email"
                 placeholder="email"
-                value={user.email}
+                value={userData.email}
                 onChange={handleInputChange}
               />
             </div>
@@ -191,7 +208,7 @@ export const EditProfile = () => {
   focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                 name="phone"
                 placeholder="Phone Number"
-                value={user.phone}
+                value={userData.phone}
                 onChange={handleInputChange}
               />
             </div>
@@ -220,7 +237,7 @@ export const EditProfile = () => {
   focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                 name="address"
                 placeholder="Address"
-                value={user.address}
+                value={userData.address}
                 onChange={handleInputChange}
               />
             </div>
@@ -264,7 +281,7 @@ export const EditProfile = () => {
   focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                 name="citizenship_number"
                 placeholder="Citizenship Number"
-                value={user.citizenship_number}
+                value={userData.citizenship_number}
                 onChange={handleInputChange}
               />
             </div>
@@ -272,7 +289,7 @@ export const EditProfile = () => {
             <div className="w-full mb-3 xl:w-1/5 ">
               <select
                 name="role"
-                value={user.role}
+                value={userData.role}
                 onChange={handleInputChange}
                 className="items-center block w-full px-3 m-0 my-2 font-normal text-gray-700 transition ease-in-out bg-white bg-no-repeat border border-gray-300 border-solid appearance-none form-select bg-clip-padding focus:text-grey-900 focus:bg-white focus:border-white focus:outline-none"
               >

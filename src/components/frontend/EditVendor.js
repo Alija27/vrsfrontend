@@ -7,23 +7,26 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import { useContext } from "react";
 import UserContext from "../../UserContext";
+import { useParams } from "react-router-dom";
 
-const VendorRegister = () => {
+const EditVendor = () => {
+  const { id } = useParams();
   const [user, fetchUser] = useContext(UserContext);
 
   useEffect(() => {
+    getVendor();
     fetchUser();
 
     console.log(user);
     console.log(user.vendor.id);
   }, []);
 
-  const [vendor, setVendor] = useState({
-    user_id: user.id,
-    name: "",
-    address: "",
-    phone: "",
-  });
+  const [vendor, setVendor] = useState({});
+  const getVendor = async () => {
+    useAxios.get(`/vendorId/${id}`).then((res) => {
+      setVendor(res.data);
+    });
+  };
   const handleInputChange = (e) => {
     console.log(e.target.name, e.target.value);
     setVendor({ ...vendor, [e.target.name]: e.target.value });
@@ -43,9 +46,10 @@ const VendorRegister = () => {
     data.append("address", vendor.address);
     data.append("phone", vendor.phone);
     data.append("image", image);
+    data.append("_method", "PUT");
 
     useAxios
-      .post("/vendor-register", data)
+      .post(`/vendor-edit/${id}`, data)
 
       .then((res) => {
         Swal.fire({
@@ -72,7 +76,7 @@ const VendorRegister = () => {
         <div className="w-1/2 p-10 shadow-lg">
           <form onSubmit={submit}>
             <span className="flex justify-center text-2xl text-gray-900">
-              Register Vendor
+              Edit Vendor Profile
             </span>
             <div className="mb-6 form-group">
               <label
@@ -215,4 +219,4 @@ ease-in-out"
   );
 };
 
-export default VendorRegister;
+export default EditVendor;

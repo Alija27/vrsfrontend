@@ -1,13 +1,12 @@
-import { FaStar } from "react-icons/fa";
 import React from "react";
+import { FaStar } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import useAxios from "../../hooks/useAxios";
 import { useParams } from "react-router-dom";
 import UserContext from "../../UserContext";
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
-
-export const ViewVehicle = () => {
+const VehicleDetails = () => {
   const navigate = useNavigate();
   const [rating, setRating] = useState(0);
   const [hover, setHover] = useState(null);
@@ -16,6 +15,7 @@ export const ViewVehicle = () => {
     location: {},
     type: {},
   });
+  const [reviews, setReview] = useState([]);
   const [eligibleForReview, setEligibleForReview] = useState(false);
   const { id } = useParams();
   const [isLoading, setLoading] = useState(false);
@@ -83,9 +83,7 @@ export const ViewVehicle = () => {
       [e.target.name]: e.target.value,
     });
   };
-  function Review() {
-    useAxios.post(`/giveReview/`);
-  }
+
   const getTypes = async () => {
     useAxios.get("http://localhost:8000/api/types").then((res) => {
       setTypes(res.data);
@@ -118,6 +116,12 @@ export const ViewVehicle = () => {
     });
     console.log(vehicle);
   };
+  const getReview = async () => {
+    await useAxios.get(`/review/${id}`).then((res) => {
+      setReview(res.data);
+    });
+    console.log();
+  };
 
   const saveReview = (e) => {
     e.preventDefault();
@@ -137,6 +141,7 @@ export const ViewVehicle = () => {
   };
 
   useEffect(() => {
+    getReview();
     fetchVehicle();
     fetchUser();
     getTypes();
@@ -144,17 +149,26 @@ export const ViewVehicle = () => {
     checkEligible();
   }, []);
   return (
-    <div>
-      <div className="gap-8 mx-auto md:mx-10 lg:flex my-14">
-        <div className="w-full p-20 bg-white md:w-1/2">
+    <>
+      <div className="relative overflow-hidden text-center h-96 p-50">
+        <img
+          alt="Jeremy S."
+          className="object-fill"
+          src={`http://localhost:8000/storage/${vehicle.image}`}
+        />
+      </div>
+      <div className="gap-8 px-20 py-12 mx-auto md:mx-10 lg:flex ">
+        <div className="w-full bg-white md:w-1/2">
           <div className="w-full ">
-            <img
-              src={`http://localhost:8000/storage/${vehicle.image}`}
-              className="w-full"
-            />
-            <h1 className="mt-1 text-lg font-semibold text-white sm:text-slate-900 md:text-2xl dark:sm:text-white">
-              {vehicle.name}
+            <h1 className="text-3xl font-bold text-white sm:text-slate-900 dark:sm:text-white ">
+              {vehicle.name} Bentley Continental GT 2012
             </h1>
+            <p className="col-start-1 mt-4 text-sm leading-6 sm:col-span-2 lg:mt-6 lg:row-start-4 lg:col-span-1 dark:text-slate-400">
+              <p className="mt-1 text-lg text-gray-500 ">
+                <i class="fa-solid fa-location-pin ml-1"></i>{" "}
+                {vehicle.location.name}
+              </p>
+            </p>
             <p className="col-start-1 text-sm leading-6 sm:col-span-2 lg:mt-6 lg:row-start-4 lg:col-span-1 dark:text-slate-400">
               <p className="mt-1 text-lg text-gray-500">Description</p>{" "}
               {vehicle.description}
@@ -167,40 +181,17 @@ export const ViewVehicle = () => {
               <p className="mt-1 text-lg text-gray-500">Vehicle Conditon</p>{" "}
               {vehicle.condition}
             </p>
-            <p className="col-start-1 mt-4 text-sm leading-6 sm:col-span-2 lg:mt-6 lg:row-start-4 lg:col-span-1 dark:text-slate-400">
-              <p className="mt-1 text-lg text-gray-500">Location</p>{" "}
-              {vehicle.location.name}
-            </p>
-            <p className="col-start-1 mt-4 text-sm leading-6 sm:col-span-2 lg:mt-6 lg:row-start-4 lg:col-span-1 dark:text-slate-400">
-              <p className="mt-1 text-lg text-gray-500">Rental Price</p>{" "}
-              {vehicle.rental_price}
-            </p>{" "}
-            <br />
-            Vendor Details
-            <div className="flex max-w-md mx-auto overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800">
-              <img
-                src={`http://localhost:8000/storage/${vehicle.vendor.image}`}
-                className="w-1/3 bg-cover"
-              />
-              <div className="w-2/3 p-4 md:p-4">
-                <h1 className="text-2xl font-bold text-gray-800 dark:text-white">
-                  {vehicle.vendor.name}
-                </h1>
-                <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
-                  {vehicle.vendor.phone}
-                </p>
 
-                <div className="flex justify-between mt-3 item-center">
-                  <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
-                    {vehicle.vendor.address}
-                  </p>
-                  <h1 className="text-lg font-bold text-gray-700 dark:text-gray-200 md:text-xl"></h1>
-                </div>
-              </div>
-            </div>
+            <br />
           </div>
         </div>
-        <div className="p-20 bg-white lg:mt-10 md:w-1/2 ">
+        <div className="bg-white md:w-1/2">
+          <p className="col-start-1 mt-4 text-sm leading-6 sm:col-span-2 lg:mt-6 lg:row-start-4 lg:col-span-1 dark:text-slate-400">
+            <p className="mt-1 text-lg text-gray-500">Rental Price</p>
+            <h2 className="mt-1 text-lg text-black text-bold">
+              Rs. {vehicle.rental_price}/day
+            </h2>
+          </p>
           <div className="p-5 border border-indigo-600 border-6">
             <form
               onSubmit={(e) => {
@@ -319,117 +310,138 @@ export const ViewVehicle = () => {
           </div>
         </div>
       </div>
-
-      {/* <div classname="flex justify-start">
-        <span className="fa fa-star" />
-        <span className="fa fa-star " />
-        <span className="fa fa-star " />
-        <span className="fa fa-star" />
-        <span className="fa fa-star" />
-      </div>
-      <div className="flex max-w-md mx-auto overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800">
-        <div
-          className="w-1/3 bg-cover"
-          style={{
-            backgroundImage:
-              'url("https://images.unsplash.com/photo-1494726161322-5360d4d0eeae?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80")',
-          }}
-        />
-        <div className="w-2/3 p-4 md:p-4">
-          <h1 className="text-2xl font-bold text-gray-800 dark:text-white">
-            Backpack
-          </h1>
-          <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit In odit
-          </p>
-          <div className="flex mt-2 item-center">
-            <span className="fa fa-star" />
-            <span className="fa fa-star " />
-            <span className="fa fa-star " />
-            <span className="fa fa-star" />
-            <span className="fa fa-star" />
-          </div>
-          <div className="flex justify-between mt-3 item-center">
-            <h1 className="text-lg font-bold text-gray-700 dark:text-gray-200 md:text-xl">
-              $220
+      <div>
+        <div className="flex max-w-md mx-24 overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800">
+          <img
+            src={`http://localhost:8000/storage/${vehicle.vendor.image}`}
+            className="w-1/3 bg-cover"
+          />
+          <div className="w-2/3 p-4 md:p-4">
+            <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
+              Hosted By:
+            </p>
+            <h1 className="text-2xl font-bold text-gray-800 dark:text-white">
+              {vehicle.vendor.name}
             </h1>
-            <button className="px-2 py-1 text-xs font-bold text-white uppercase transition-colors duration-200 transform bg-gray-800 rounded dark:bg-gray-700 hover:bg-gray-700 dark:hover:bg-gray-600 focus:outline-none focus:bg-gray-700 dark:focus:bg-gray-600">
-              Comment
-            </button>
+            <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
+              {vehicle.vendor.phone}
+            </p>
+
+            <div className="flex justify-between mt-3 item-center">
+              <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
+                {vehicle.vendor.address}
+              </p>
+              <h1 className="text-lg font-bold text-gray-700 dark:text-gray-200 md:text-xl"></h1>
+            </div>
           </div>
         </div>
-      </div> */}
-      {/* arko custome rbata hnna id 3 bahek */}
-      {eligibleForReview && (
-        <section className="max-w-4xl p-6 mx-auto bg-gray-700 rounded-md shadow-lg dark:bg-gray-800">
-          <h2 className="text-lg font-semibold text-gray-100 capitalize dark:text-white">
-            Review
-          </h2>
-          <form onSubmit={saveReview}>
-            <div className="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
-              <div>
-                <label
-                  className="text-gray-100 dark:text-gray-200"
-                  htmlFor="rating"
-                >
-                  Rate
-                </label>
+        <div>
+          <section class="text-gray-600 body-font overflow-hidden">
+            <div class="container px-5 py-24 w-8/12 mx-24">
+              Reviews
+              {reviews.map((item) => (
+                <div class="divide-y-2 divide-gray-100">
+                  <div class="py-8 flex flex-wrap md:flex-nowrap">
+                    <div class="flex gap-5 border-b border-gray-500 pb-8">
+                      <div class="md:mb-0 mb-6 flex-shrink-0 flex flex-col">
+                        <img
+                          className="inline-block w-32 rounded-full ring-2 ring-white"
+                          src="https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                          alt
+                        />
+                      </div>
+                      <div>
+                        <h2 class=" flex text-2xl font-medium text-gray-900 title-font mb-2">
+                          <FaStar className="star" />
+                          <FaStar className="star" />
+                          <FaStar className="star" />
+                          <FaStar className="star" />
+                          <FaStar className="star" />
+                        </h2>
+                        <span class="mt-1 text-gray-500 text-sm">
+                          {item.user_id.name}, {item.created_at}
+                        </span>
+                        <p class="leading-relaxed">{item.message}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+        </div>
+        {eligibleForReview && (
+          <section className="max-w-4xl p-6 mx-auto bg-gray-700 rounded-md shadow-lg dark:bg-gray-800">
+            <h2 className="text-lg font-semibold text-gray-100 capitalize dark:text-white">
+              Review
+            </h2>
+            <form onSubmit={saveReview}>
+              <div className="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
+                <div>
+                  <label
+                    className="text-gray-100 dark:text-gray-200"
+                    htmlFor="rating"
+                  >
+                    Rate
+                  </label>
 
-                <div
-                  name="stars"
-                  className="flex flex-row w-full px-4 py-2 mt-2 text-gray-100 rounded-md app dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
-                >
-                  {[...Array(5)].map((star, i) => {
-                    const ratingValue = i + 1;
-                    return (
-                      <label>
-                        <input
-                          type="radio"
-                          name="stars"
-                          value={ratingValue}
-                          onClick={() => setRating(ratingValue)}
-                        />
-                        <FaStar
-                          className="star"
-                          color={
-                            ratingValue <= (hover || rating)
-                              ? "yellow"
-                              : "white"
-                          }
-                          size={70}
-                          onMouseEnter={() => setHover(ratingValue)}
-                          onMouseLeave={() => setHover(null)}
-                        />
-                      </label>
-                    );
-                  })}
+                  <div
+                    name="stars"
+                    className="flex flex-row w-full px-4 py-2 mt-2 text-gray-100 rounded-md app dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
+                  >
+                    {[...Array(5)].map((star, i) => {
+                      const ratingValue = i + 1;
+                      return (
+                        <label>
+                          <input
+                            type="radio"
+                            name="stars"
+                            value={ratingValue}
+                            onClick={() => setRating(ratingValue)}
+                          />
+                          <FaStar
+                            className="star"
+                            color={
+                              ratingValue <= (hover || rating)
+                                ? "yellow"
+                                : "white"
+                            }
+                            size={70}
+                            onMouseEnter={() => setHover(ratingValue)}
+                            onMouseLeave={() => setHover(null)}
+                          />
+                        </label>
+                      );
+                    })}
+                  </div>
+                </div>
+                <div>
+                  <label
+                    className="text-gray-100 dark:text-gray-200"
+                    htmlFor="comment"
+                  >
+                    Comment
+                  </label>
+                  <textarea
+                    name="message"
+                    onChange={handleInput}
+                    className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
+                  ></textarea>
                 </div>
               </div>
-              <div>
-                <label
-                  className="text-gray-100 dark:text-gray-200"
-                  htmlFor="comment"
+              <div className="flex justify-end mt-6">
+                <button
+                  onClick={saveReview}
+                  className="px-6 py-2 leading-5 text-white transition-colors duration-200 transform bg-indigo-700 rounded-md hover:bg-indigo-600 focus:outline-none focus:bg-gray-600"
                 >
-                  Comment
-                </label>
-                <textarea
-                  name="message"
-                  onChange={handleInput}
-                  className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
-                ></textarea>
+                  Submit
+                </button>
               </div>
-            </div>
-            <div className="flex justify-end mt-6">
-              <button
-                onClick={saveReview}
-                className="px-6 py-2 leading-5 text-white transition-colors duration-200 transform bg-indigo-700 rounded-md hover:bg-indigo-600 focus:outline-none focus:bg-gray-600"
-              >
-                Submit
-              </button>
-            </div>
-          </form>
-        </section>
-      )}
-    </div>
+            </form>
+          </section>
+        )}
+      </div>
+    </>
   );
 };
+export default VehicleDetails;

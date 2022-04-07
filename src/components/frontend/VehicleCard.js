@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useState } from "react";
 import useAxios from "../../hooks/useAxios";
+import { Link } from "react-router-dom";
 
 function VehicleCard(props) {
   let registeredVehicle = props.vehicle;
@@ -60,6 +61,12 @@ function VehicleCard(props) {
             </div>
           </div>
         </span>
+        <Link
+          to={`/editvehicle/${registeredVehicle.id}`}
+          class=" inline-block px-6 py-2.5 bg-indigo-500 text-white font-medium text-xs leading-tight uppercase rounded-full shadow-md hover:bg-indigo-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
+        >
+          Edit
+        </Link>
       </div>
     </div>
   );

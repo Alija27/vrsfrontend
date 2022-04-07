@@ -14,6 +14,10 @@ import { ViewVehicle } from "./ViewVehicle";
 import { Profile } from "./Profile";
 import { EditProfile } from "./EditProfile";
 import VendorRegister from "./VendorRegister";
+import { EditVehicle } from "./EditVehicle";
+import EditVendor from "./EditVendor";
+import { VendorProfile } from "./VendorProfile";
+import VehicleDetails from "./VehicleDetails";
 
 const Frontend = () => {
   return (
@@ -29,8 +33,12 @@ const Frontend = () => {
         <Route path="/mybookings" element={<MyBookings />} />
         <Route path="/vehicles/:id" element={<ViewVehicle />} />
         <Route path="/profile" element={<Profile />} />
-        <Route path="/edit-profile" element={<EditProfile />} />
+        <Route path="/edit-profile/:id" element={<EditProfile />} />
         <Route path="/vendor-register" element={<VendorRegister />} />
+        <Route path="/editvehicle/:id" element={<EditVehicle />} />
+        <Route path="/edit-vendor/:id" element={<EditVendor />} />
+        <Route path="/vendorprofile" element={<VendorProfile />} />
+        <Route path="/vehicledetails/:id" element={<VehicleDetails />} />
       </Routes>
     </div>
   );

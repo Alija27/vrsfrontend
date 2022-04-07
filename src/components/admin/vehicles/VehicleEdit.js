@@ -16,7 +16,6 @@ export const VehicleEdit = () => {
     rental_price: "",
     description: "",
     terms: "",
-
     condition: "",
     is_available: "",
     has_driver: "",
@@ -65,6 +64,7 @@ export const VehicleEdit = () => {
     data.append("name", vehicleData.name);
     data.append("vendor_id", vehicleData.vendor_id);
     data.append("type_id", vehicleData.type_id);
+    data.append("location_id", vehicleData.location_id);
     data.append("model", vehicleData.model);
     data.append("color", vehicleData.color);
     data.append("total_seats", vehicleData.total_seats);

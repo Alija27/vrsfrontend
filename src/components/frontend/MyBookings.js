@@ -4,6 +4,7 @@ import UserContext from "../../UserContext";
 import { useContext } from "react";
 import { useEffect } from "react";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 export const MyBookings = () => {
   const [user, fetchUser] = useContext(UserContext);
@@ -51,6 +52,9 @@ export const MyBookings = () => {
                         <td>{item.vehicle.image}</td>
                         <td>{item.is_approved}</td>
                         <td>{item.total_amount}</td>
+                        <td>
+                          <Link to={`/review/${item.id}`}>Review</Link>
+                        </td>
                       </tr>
                     ))}
                   </tbody>

@@ -1,20 +1,19 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
+import { useState } from "react";
 import useAxios from "../../hooks/useAxios";
 import { useContext } from "react";
-import Swal from "sweetalert2";
-import UserContext from "../../UserContext";
-import { VendorDashboard } from "./VendorDashboard";
 
-const AddVehicle = () => {
+import UserContext from "../../UserContext";
+import { useNavigate, useParams } from "react-router-dom";
+import Swal from "sweetalert2";
+
+export const EditVehicle = () => {
+  const { id } = useParams();
   const [user, fetchUser] = useContext(UserContext);
-  useEffect(() => {
-    fetchUser();
-  }, []);
 
   const [vehicleData, setvehicleData] = useState({
-    name: "",
+    /*  name: "",
     vendor_id: "",
     type_id: "",
     model: "",
@@ -26,7 +25,7 @@ const AddVehicle = () => {
 
     condition: "",
 
-    has_driver: "",
+    has_driver: "", */
   });
   const [image, setImage] = useState(null);
   const navigate = useNavigate();
@@ -40,9 +39,16 @@ const AddVehicle = () => {
     setvehicleData({ ...vehicleData, [e.target.name]: e.target.value });
     console.log(vehicleData);
   };
+
   const handleImage = (files) => {
     setImage(files[0]);
     console.log(image);
+  };
+
+  const getVehicles = async () => {
+    useAxios.get(`/registeredvehicles/${id}`).then((res) => {
+      setvehicleData(res.data);
+    });
   };
 
   const getTypes = async () => {
@@ -50,6 +56,7 @@ const AddVehicle = () => {
       setTypes(res.data);
     });
   };
+
   const getLocations = async () => {
     useAxios.get("/locations").then((res) => {
       setLocations(res.data);
@@ -59,6 +66,8 @@ const AddVehicle = () => {
     getLocations();
 
     getTypes();
+    fetchUser();
+    getVehicles();
   }, []);
   const submitvehicleData = async (e) => {
     e.preventDefault();
@@ -78,9 +87,10 @@ const AddVehicle = () => {
     data.append("location_id", vehicleData.location_id);
     /*  data.append("is_available", vehicleData.is_available); */
     data.append("has_driver", vehicleData.has_driver);
+    data.append("_method", "PUT");
     /* data.append("is_approved", vehicleData.is_approved); */
     useAxios
-      .post("/addvehicle", data)
+      .post(`/updatevehicle/${id}`, data)
 
       .then((res) => {
         Swal.fire({
@@ -106,7 +116,6 @@ const AddVehicle = () => {
   };
   return (
     <div>
-      <VendorDashboard />
       <div>
         <div
           className="relative overflow-hidden text-center bg-center bg-no-repeat bg-cover h-96 p-50"
@@ -119,7 +128,6 @@ const AddVehicle = () => {
       <div class="flex justify-center w-full p-6 rounded-lg  bg-white ">
         <div className="w-1/2 p-10 shadow-lg">
           <h1>Hello, {user && user.vendor && user.vendor.name}</h1>
-
           <form onSubmit={submitvehicleData}>
             <div className="mb-6 form-group">
               <input
@@ -428,5 +436,3 @@ ease-in-out"
     </div>
   );
 };
-
-export default AddVehicle;

@@ -4,6 +4,7 @@ import { useContext } from "react";
 import useAxios from "../../hooks/useAxios";
 import UserContext from "../../UserContext";
 import VehicleCard from "./VehicleCard";
+import { VendorDashboard } from "./VendorDashboard";
 export const RegisteredVehicle = () => {
   const [user, fetchUser] = useContext(UserContext);
   const [registeredVehicles, setRegisteredVehicles] = useState([]);
@@ -35,6 +36,7 @@ export const RegisteredVehicle = () => {
 
   return (
     <div>
+      <VendorDashboard />
       {user && user.vendor && user.vendor.name}
       <div className="grid grid-cols-1 gap-5 p-10 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3">
         {/* {JSON.stringify(registeredVehicles)} */}
