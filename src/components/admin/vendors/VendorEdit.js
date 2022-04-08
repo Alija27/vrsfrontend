@@ -4,6 +4,7 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Swal from "sweetalert2";
+import useAxios from "../../../hooks/useAxios";
 
 const VendorEdit = () => {
   const [image, setImage] = useState(null);
@@ -15,7 +16,7 @@ const VendorEdit = () => {
 
   const { id } = useParams();
   const fetchVendor = async () => {
-    await axios(`http://localhost:8000/api/vendors/${id}`).then((res) => {
+    await useAxios.get(`/admin/vendors/${id}`).then((res) => {
       setVendor(res.data);
     });
     console.log(vendor);
@@ -83,7 +84,7 @@ const VendorEdit = () => {
         <div className="content-wrapper">
           <div className="content-header">
             <div className="container-fluid">
-              <div className="card m-2">
+              <div className="m-2 card">
                 <div className="card-header">
                   <h3 className="card-title">Edit Vendor</h3>
                   <div className="card-tools">
@@ -92,7 +93,7 @@ const VendorEdit = () => {
                       className="btn-link btn-sm bg-indigo"
                     >
                       <span>
-                        <i className="fas fa-arrow-left mr-1"></i>Go Back
+                        <i className="mr-1 fas fa-arrow-left"></i>Go Back
                       </span>
                     </Link>
                   </div>
@@ -201,7 +202,7 @@ const VendorEdit = () => {
                         <div className="text-danger">{validation.user_id} </div>
                       )}
                     </div>
-                    <div className="form-group my-2">
+                    <div className="my-2 form-group">
                       <button
                         onClick={updatevendor}
                         type="submit"
@@ -211,7 +212,7 @@ const VendorEdit = () => {
                         {loading ? (
                           <>
                             <span
-                              className="spinner-border spinner-border-sm mr-2"
+                              className="mr-2 spinner-border spinner-border-sm"
                               role="status"
                               aria-hidden="true"
                             ></span>

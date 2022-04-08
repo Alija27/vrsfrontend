@@ -83,6 +83,7 @@ export const EditVehicle = () => {
     data.append("description", vehicleData.description);
     data.append("terms", vehicleData.terms);
     data.append("image", image);
+    data.append("brand", vehicleData.brand);
     data.append("condition", vehicleData.condition);
     data.append("location_id", vehicleData.location_id);
     /*  data.append("is_available", vehicleData.is_available); */
@@ -300,6 +301,7 @@ export const EditVehicle = () => {
                 onChange={handleInputChange}
               />
             </div>
+
             <div className="mb-6 form-group">
               <input
                 type="text"
@@ -317,9 +319,9 @@ export const EditVehicle = () => {
   ease-in-out
   m-0
   focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                name="color"
-                placeholder="Color"
-                value={vehicleData.color}
+                name="brand"
+                placeholder="Brand"
+                value={vehicleData.brand}
                 onChange={handleInputChange}
               />
             </div>

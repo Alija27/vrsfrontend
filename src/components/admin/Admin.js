@@ -25,6 +25,10 @@ import TypeIndex from "./types/TypeIndex";
 import TypeCreate from "./types/TypeCreate";
 import TypeEdit from "./types/TypeEdit";
 import TypeShow from "./types/TypeShow";
+import LocationIndex from "./locations/LocationIndex";
+import LocationCreate from "./locations/LocationCreate";
+import LocationEdit from "./locations/LocationEdit";
+import LocationShow from "./locations/LocationShow";
 import { VehicleIndex } from "./vehicles/VehicleIndex";
 import UserContext from "../../UserContext";
 import { VehicleCreate } from "./vehicles/VehicleCreate";
@@ -92,8 +96,13 @@ const Admin = () => {
         <Route path="/rentals/edit/:id" element={<RentalEdit />} />
         <Route path="/types" element={<TypeIndex />} />
         <Route path="/types/create" element={<TypeCreate />} />
-        <Route path="/types/edit/:id" element={<TypeEdit />} />{" "}
+        <Route path="/types/edit/:id" element={<TypeEdit />} />
         <Route path="/types/:id" element={<TypeShow />} />
+        <Route path="/locations" element={<LocationIndex />} />
+        <Route path="/locations/:id" element={<LocationShow />} />
+        <Route path="/locations/edit/:id" element={<LocationEdit />} />
+        <Route path="/locations/create" element={<LocationCreate />} />
+        <Route path="/location/create" element={<LocationCreate />} />
         <Route path="/vehicles" element={<VehicleIndex />} />
         <Route path="/vehicles/create" element={<VehicleCreate />} />
         <Route path="/vehicles/edit/:id" element={<VehicleEdit />} />

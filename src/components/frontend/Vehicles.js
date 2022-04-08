@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 function Vehicles() {
   const [user] = useContext(UserContext);
   const [types, setTypes] = useState([]);
+  const [typeId, setTypeId] = useState(null);
   const [locations, setLocations] = useState([]);
   const [vehicles, setVehicles] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -18,7 +19,7 @@ function Vehicles() {
     setLoading(true);
     useAxios
       .post("/vehicles", {
-        type: type,
+        type_id: typeId,
         location_id: location_id,
       })
       .then((res) => {
@@ -87,7 +88,10 @@ function Vehicles() {
                 style={{ height: "60px" }}
               >
                 <div className="w-full mb-3 xl:w-1/5 ">
-                  <select className="items-center block w-full px-3 m-0 my-2 font-normal text-gray-700 transition ease-in-out bg-white bg-no-repeat border border-gray-300 border-solid rounded-full appearance-none form-select bg-clip-padding focus:text-grey-900 focus:bg-white focus:border-white focus:outline-none">
+                  <select
+                    onChange={(e) => setTypeId(e.target.value)}
+                    className="items-center block w-full px-3 m-0 my-2 font-normal text-gray-700 transition ease-in-out bg-white bg-no-repeat border border-gray-300 border-solid rounded-full appearance-none form-select bg-clip-padding focus:text-grey-900 focus:bg-white focus:border-white focus:outline-none"
+                  >
                     <option value="">Vehicle Type</option>
                     {types.map((type) => (
                       <option value={type.id}>{type.name}</option>
@@ -134,7 +138,9 @@ function Vehicles() {
       </div>
 
       {/* VEHICLE LIST */}
-      <h3 className="mt-6 mb-4 text-3xl font-bold text-center">Vehicles</h3>
+      <h3 className="w-3/12 p-2 pb-3 mx-auto mb-5 text-4xl font-bold text-center text-gray-500 border-b-4 border-indigo-400 rounded-md md:w-3/12 mt-11">
+        Available Vehicles
+      </h3>
 
       {loading && <div>Loading...</div>}
 
@@ -144,7 +150,7 @@ function Vehicles() {
         </div>
       )}
 
-      <div className="grid justify-center grid-cols-1 md:grid-cols-3 sm:grid-cols-1">
+      <div className="flex justify-center gap-6 mx-10 my-10">
         {/* {vehicles &&
           vehicles.map((item) => (
             <div className="bg-white rounded">
@@ -159,33 +165,34 @@ function Vehicles() {
           ))} */}
         {vehicles &&
           vehicles.map((item) => (
-            <div class="rounded-lg shadow-lg bg-white max-w-sm 1/3 mx-1 my-5">
-              <a>
-                <img
-                  class="rounded-t-lg w-full"
-                  style={{ height: "290px" }}
-                  src={`http://localhost:8000/storage/${item.image}`}
-                  alt="img"
-                />
-              </a>
-              <div class="p-6">
-                <h5 class="text-gray-900 text-xl font-medium mb-2">
-                  {item.name}
-                </h5>
-                <p class="text-gray-700 text-base mb-4">{item.description}</p>
-                <Link
-                  to={`/vehicles/${item.id}`}
-                  class=" inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
-                >
-                  View
-                </Link>
-                {/* <Link
+            <div class="rounded-lg  bg-white hover:scale-105 transition-transform duration-300 ">
+              <Link to={`/vehicleDetails/${item.id}`}>
+                <a>
+                  <img
+                    class="rounded-t-lg w-full object-cover  hover:overflow-hidden"
+                    style={{ height: "270px", width: "400px" }}
+                    src={`http://localhost:8000/storage/${item.image}`}
+                    alt="img"
+                  />
+                </a>
+                <div class="py-6 px-3 border-x-2 border-b-2 border-gray-400">
+                  <div className="flex flex-row justify-between">
+                    <p class="text-gray-900 text-xl font-medium mb-2">
+                      {item.name}{" "}
+                    </p>
+                    <p class="text-gray-700 text-base mb-4">
+                      Rs. {item.rental_price}/day
+                    </p>
+                  </div>
+
+                  {/* <Link
                   to="/"
                   class=" inline-block px-6 py-2.5 bg-blue-600 mx-1 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
                 >
                   Book
                 </Link> */}
-              </div>
+                </div>
+              </Link>
             </div>
           ))}
       </div>

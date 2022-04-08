@@ -2,6 +2,7 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
+import useAxios from "../../../hooks/useAxios";
 
 const TypeCreate = () => {
   const [loading, setLoading] = useState(false);
@@ -14,8 +15,8 @@ const TypeCreate = () => {
   };
   const submitType = async (e) => {
     e.preventDefault();
-    await axios
-      .post("http://localhost:8000/api/types", type)
+    await useAxios
+      .post("/admin/types", type)
       .then((res) => {
         navigate("/admin/types");
       })
@@ -28,7 +29,7 @@ const TypeCreate = () => {
         <div className="content-wrapper">
           <div className="content-header">
             <div className="container-fluid">
-              <div className="card m-2">
+              <div className="m-2 card">
                 <div className="card-header">
                   <h3 className="card-title">Add New Vehicle Type</h3>
                   <div className="card-tools">
@@ -60,7 +61,7 @@ const TypeCreate = () => {
                       />
                     </div>
 
-                    <div className="form-group my-2">
+                    <div className="my-2 form-group">
                       <button
                         type="submit"
                         id="btnSave"
@@ -69,7 +70,7 @@ const TypeCreate = () => {
                         {loading ? (
                           <>
                             <span
-                              className="spinner-border spinner-border-sm mr-2"
+                              className="mr-2 spinner-border spinner-border-sm"
                               role="status"
                               aria-hidden="true"
                             ></span>

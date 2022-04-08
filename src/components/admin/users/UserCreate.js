@@ -42,7 +42,7 @@ export const UserCreate = () => {
 
     await axios
 
-      .post("http://localhost:8000/api/users", data, {
+      .post("/admin/users", data, {
         headers: {
           Authorization: "Bearer " + localStorage.getItem("token"),
         },

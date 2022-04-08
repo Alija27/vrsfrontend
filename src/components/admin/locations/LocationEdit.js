@@ -6,42 +6,50 @@ import { useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 import useAxios from "../../../hooks/useAxios";
 
-const TypeEdit = () => {
+const LocationEdit = () => {
+  const [locationData, setLocationData] = useState({
+    name: "",
+    latitude: "",
+    longitude: "",
+  });
+
   const navigate = useNavigate();
   const [validation, setValidationError] = useState({});
-  const [type, setType] = useState({});
-  const [loading, setLoading] = useState();
+  const [loading, setLoading] = useState(false);
   const { id } = useParams();
-  const fetchType = async () => {
-    await useAxios.get(`admin/types/${id}`).then((res) => {
-      setType(res.data);
-    });
-    console.log(type);
-  };
-  useEffect(() => {
-    fetchType(); /* eslint-disable */
-  }, []);
 
   const handleInputChange = (e) => {
-    setType({ ...type, [e.target.name]: e.target.value });
-    console.log(user);
+    console.log(e.target.name, e.target.value);
+    setLocationData({ ...locationData, [e.target.name]: e.target.value });
+    console.log(locationData);
   };
-
-  const updatetype = async (e) => {
+  const getLocation = async () => {
+    await useAxios.get(`/admin/locations/${id}`).then((res) => {
+      setLocationData(res.data);
+    });
+  };
+  useEffect(() => {
+    getLocation();
+  }, []);
+  const submitLocationData = async (e) => {
     e.preventDefault();
     setLoading(true);
+
     await useAxios
-      .put(`admin/types/${id}`, type)
+
+      .put(`/admin/locations/${id}`, locationData)
+
       .then((res) => {
         Swal.fire({
           timer: 2000,
           icon: "success",
           title: res.data.message,
         });
-        navigate("/admin/types");
+
+        navigate("/admin/locations");
       })
       .catch((err) => {
-        if (err.response.status == 422) {
+        if (err.response.status === 422) {
           setValidationError(err.response.data.errors);
         } else {
           Swal.fire({
@@ -62,20 +70,20 @@ const TypeEdit = () => {
             <div className="container-fluid">
               <div className="m-2 card">
                 <div className="card-header">
-                  <h3 className="card-title">Edit Type</h3>
+                  <h3 className="card-title">Add New Location</h3>
                   <div className="card-tools">
                     <Link
-                      to="/admin/types"
+                      to="/admin/locations"
                       className="btn-link btn-sm bg-indigo"
                     >
                       <span>
-                        <i class="fas fa-arrow-left mr-1"></i>Go Back
+                        <i className="mr-1 fas fa-arrow-left"></i>Go Back
                       </span>
                     </Link>
                   </div>
                 </div>
                 <div className="card-body">
-                  <form onSubmit={updatetype} method="post">
+                  <form onSubmit={submitLocationData} method="post">
                     <div className="form-group">
                       <label htmlFor="name">
                         Name
@@ -88,19 +96,46 @@ const TypeEdit = () => {
                         name="name"
                         id="name"
                         className="form-control "
+                        value={locationData.name}
                         onChange={handleInputChange}
-                        value={type.name}
                       />
-                      {validation.name ? (
-                        <div className="text-danger">{validation.name} </div>
-                      ) : (
-                        ""
-                      )}
+                    </div>
+                    <div className="form-group">
+                      <label htmlFor="latitude">
+                        Latitude
+                        <span className="text-danger" title="Required">
+                          *
+                        </span>
+                      </label>
+                      <input
+                        type="text"
+                        name="latitude"
+                        id="latitude"
+                        className="form-control "
+                        value={locationData.latitude}
+                        onChange={handleInputChange}
+                      />
+                    </div>
+                    <div className="form-group">
+                      <label htmlFor="longitude">
+                        Longitude
+                        <span className="text-danger" title="Required">
+                          *
+                        </span>
+                      </label>
+                      <input
+                        type="text"
+                        name="longitude"
+                        id="longitude"
+                        className="form-control "
+                        value={locationData.longitude}
+                        onChange={handleInputChange}
+                      />
                     </div>
 
                     <div className="my-2 form-group">
                       <button
-                        onClick={updatetype}
+                        onClick={submitLocationData}
                         type="submit"
                         id="btnSave"
                         className="btn bg-indigo"
@@ -112,10 +147,10 @@ const TypeEdit = () => {
                               role="status"
                               aria-hidden="true"
                             ></span>
-                            <span>Updating...</span>
+                            <span>Saving...</span>
                           </>
                         ) : (
-                          "Update"
+                          "Create"
                         )}
                       </button>
                     </div>
@@ -130,4 +165,4 @@ const TypeEdit = () => {
   );
 };
 
-export default TypeEdit;
+export default LocationEdit;

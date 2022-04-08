@@ -1,3 +1,4 @@
+import useAxios from "../../../hooks/useAxios";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 
@@ -7,7 +8,7 @@ export const UserShow = () => {
   const [user, setUser] = useState({});
   const { id } = useParams();
   const fetchUser = async () => {
-    await axios(`http://localhost:8000/api/users/${id}`).then((res) => {
+    await useAxios.get(`/admin/users/${id}`).then((res) => {
       setUser(res.data);
     });
     console.log(user);

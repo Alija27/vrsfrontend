@@ -79,6 +79,18 @@ export const Sidebar = () => {
               </li>
               <li className="nav-item">
                 <NavLink
+                  to="/admin/locations"
+                  activeclassname="active"
+                  className={(navData) =>
+                    navData.isActive ? "active nav-link mt-2" : " nav-link mt-2"
+                  }
+                >
+                  <i className="nav-icon fas fa-truck-moving" />
+                  <p>Locations</p>
+                </NavLink>
+              </li>
+              <li className="nav-item">
+                <NavLink
                   to="/admin/vehicles"
                   activeclassname="active"
                   className="mt-2 nav-link"

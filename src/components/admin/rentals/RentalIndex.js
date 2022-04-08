@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Spinner } from "../../Spinner";
 import Swal from "sweetalert2";
+import useAxios from "../../../hooks/useAxios";
 
 export const RentalIndex = () => {
   const [rentals, setRentals] = useState([]);
@@ -10,7 +11,7 @@ export const RentalIndex = () => {
 
   const getRentals = async () => {
     setLoading(true);
-    await axios.get("http://localhost:8000/api/rentals").then((res) => {
+    await useAxios.get("/admin/rentals").then((res) => {
       setRentals(res.data);
       setLoading(false);
     });
@@ -34,7 +35,7 @@ export const RentalIndex = () => {
 
     if (isConfirmed) {
       await axios
-        .delete(`http://localhost:8000/api/rentals/${id}`)
+        .delete(`/admin/rentals/${id}`)
         .then((res) => {
           Swal.fire({
             icon: "success",
@@ -83,7 +84,7 @@ export const RentalIndex = () => {
                           <tr>
                             <th>ID</th>
                             <th>User</th>
-                            <th>Vehicle_ID</th>
+                            <th>Vehicle</th>
                             <th>Start Date</th>
                             <th>End Date</th>
 

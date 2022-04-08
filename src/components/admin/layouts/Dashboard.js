@@ -10,11 +10,9 @@ export const Dashboard = () => {
     <div>
       <div className="content-wrapper">
         <section className="content-header">
-          {JSON.stringify(user)}
-          <button onClick={fetchUser}>Fetch</button>
           <div className="container-fluid">
             {/* Small boxes (Stat box) */}
-            <div className="row m-1">
+            <div className="m-1 row">
               <div className="col-lg-3 col-6">
                 {/* small box */}
                 <div className="small-box bg-info">

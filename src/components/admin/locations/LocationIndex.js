@@ -1,23 +1,22 @@
-import axios from "axios";
-import React, { useState, useEffect } from "react";
+import React from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Spinner } from "../../Spinner";
 import Swal from "sweetalert2";
 import useAxios from "../../../hooks/useAxios";
-
-export const UserIndex = () => {
-  const [users, setUsers] = useState([]);
+import { Spinner } from "../../Spinner";
+const LocationIndex = () => {
+  const [locations, setLocations] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  const getUsers = async () => {
+  const getLocations = async () => {
     setLoading(true);
-    await useAxios.get("/admin/users").then((res) => {
-      setUsers(res.data);
+    await useAxios.get("/admin/locations").then((res) => {
+      setLocations(res.data);
       setLoading(false);
     });
   };
   useEffect(() => {
-    getUsers();
+    getLocations();
   }, []);
 
   const handleDelete = async (id) => {
@@ -35,46 +34,24 @@ export const UserIndex = () => {
 
     if (isConfirmed) {
       await useAxios
-        .delete(`/users/${id}`)
+        .delete(`/admin/locations/${id}`)
         .then((res) => {
           Swal.fire({
             icon: "success",
             title: res.data.message,
             timer: 2000,
           });
-          getUsers();
+          getLocations();
         })
         .catch((error) => {
           Swal.fire({
             icon: "error",
-            title: /* res.response.data.errors */ "Cannot delete this user",
-            text: "This user is connected with others",
+            title: /* res.response.data.errors */ "Cannot delete this location",
+            text: "This location is connected with others",
           });
         });
     }
   };
-
-  /* state={
-         name:'',
-      
-        };
-        handleInput =(e)=>{
-          this.setState({
-           name: e.target.value
-           
-          })
-          console.log(this.state.name);
-        }
-         submitCategory= async (e)=>{
-         e.preventDefault(); 
-          await axios.post("http://localhost:8000/api/users",
-         {name: this.state.name
-        });
-        console.log(this.state.name);
-        this.setState({
-            name:'',
-          }); */
-
   return (
     <div>
       <div>
@@ -85,10 +62,10 @@ export const UserIndex = () => {
                 <div className="col-12">
                   <div className="mt-2 card">
                     <div className="card-header">
-                      <h3 className="card-title">All Users</h3>
+                      <h3 className="card-title">All Reviews</h3>
                       <div className="card-tools">
                         <Link
-                          to="/admin/users/create"
+                          to="/admin/locations/create"
                           className="bg-indigo btn btn-link btn-sm "
                         >
                           <i className="mr-1 fas fa-plus-circle"></i>Add New
@@ -107,53 +84,35 @@ export const UserIndex = () => {
                             <tr>
                               <th>Id</th>
                               <th>Name</th>
-                              <th>Image</th>
-                              <th>Email</th>
-                              <th>Phone</th>
-
-                              <th>Role</th>
-
-                              <th>Action</th>
+                              <th>Latitude</th>
+                              <th>Longitude</th>
+                              <th>Actions</th>
                             </tr>
                           </thead>
                           <tbody>
-                            {users.map((user, index) => (
+                            {locations.map((location, index) => (
                               <tr key={index}>
-                                <td>{user.id}</td>
-                                <td>{user.name}</td>
-                                <td>
-                                  {user.image && (
-                                    <img
-                                      src={`http://localhost:8000/storage/${user.image}`}
-                                      height={60}
-                                      width={60}
-                                      alt=""
-                                    />
-                                  )}
-                                </td>
-                                <td>{user.email}</td>
-                                <td>{user.phone}</td>
-
-                                <td>{user.role}</td>
-
+                                <td>{location.id}</td>
+                                <td>{location.name}</td>
+                                <td>{location.longitude}</td>
+                                <td>{location.latitude}</td>
                                 <td>
                                   <Link
-                                    to={`/admin/users/edit/${user.id}`}
+                                    to={`/admin/locations/edit/${location.id}`}
                                     className="m-1 btn btn-link bg-cyan btn-sm"
                                   >
                                     <i className="ml-1 mr-1 fas fa-edit"></i>
                                     Edit
                                   </Link>
-
                                   <Link
-                                    to={`/admin/users/${user.id}`}
+                                    to={`/admin/locations/${location.id}`}
                                     className="m-1 btn btn-link bg-success btn-sm"
                                   >
                                     <i className="ml-1 mr-1 fas fa-eye"></i>
                                     Show
                                   </Link>
                                   <span
-                                    onClick={() => handleDelete(user.id)}
+                                    onClick={() => handleDelete(location.id)}
                                     className="m-1 btn btn-link bg-danger btn-sm"
                                   >
                                     <i className="ml-1 mr-1 fas fa-trash"></i>
@@ -184,3 +143,5 @@ export const UserIndex = () => {
     </div>
   );
 };
+
+export default LocationIndex;
