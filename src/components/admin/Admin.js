@@ -41,39 +41,78 @@ const Admin = () => {
 
   const [user, fetchUser] = useContext(UserContext);
 
-  const jquery = document.createElement("link");
-  jquery.src = "/adminlte/js/jquery.min.js";
-  document.body.appendChild(jquery);
-
-  const css = document.createElement("link");
-  css.href = "/adminlte/css/adminlte.min.css";
-  css.rel = "stylesheet";
-  document.head.appendChild(css);
-
-  const bootstrapbundle = document.createElement("link");
-  bootstrapbundle.src = "/adminlte/js/bootstrap.bundle.min.js";
-  document.body.appendChild(bootstrapbundle);
-
-  const adminltejs = document.createElement("link");
-  adminltejs.src = "/adminlte/js/adminlte.min.js";
-  document.body.appendChild(adminltejs);
-
-  document.body.classList.add(
-    "hold-transition",
-    "sidebar-mini",
-    "layout-fixed",
-    "layout-avabr-fixed"
-  );
+  const addLinks = () => {
+    const jquery = document.createElement("script");
+    jquery.id = "jquery";
+    jquery.src = "/adminlte/js/jquery.min.js";
+    document.body.appendChild(jquery);
+    const css = document.createElement("link");
+    css.id = "css";
+    css.href = "/adminlte/css/adminlte.min.css";
+    css.rel = "stylesheet";
+    document.head.appendChild(css);
+    const bootstrapbundle = document.createElement("script");
+    bootstrapbundle.id = "bootstrapbundle";
+    bootstrapbundle.src = "/adminlte/js/bootstrap.bundle.min.js";
+    document.body.appendChild(bootstrapbundle);
+    const adminltejs = document.createElement("script");
+    adminltejs.id = "adminltejs";
+    adminltejs.src = "/adminlte/js/adminlte.min.js";
+    document.body.appendChild(adminltejs);
+    document.body.classList.add(
+      "hold-transition",
+      "sidebar-mini",
+      "layout-fixed",
+      "layout-avabr-fixed"
+    );
+  };
 
   useEffect(() => {
     fetchUser();
+    addLinks();
   }, []);
 
   useEffect(() => {
     if (user.role === "") {
+      let jquery = document.getElementById("jquery");
+      document.body.removeChild(jquery);
+
+      let css = document.getElementById("css");
+      document.head.removeChild(css);
+
+      let bootstrapbundle = document.getElementById("bootstrapbundle");
+      document.body.removeChild(bootstrapbundle);
+
+      let adminltejs = document.getElementById("adminltejs");
+      document.body.removeChild(adminltejs);
+
+      document.body.classList.remove(
+        "hold-transition",
+        "sidebar-mini",
+        "layout-fixed",
+        "layout-avabr-fixed"
+      );
       navigate("/");
     }
     if (user.role && user.role !== "Admin") {
+      let jquery = document.getElementById("jquery");
+      document.body.removeChild(jquery);
+
+      let css = document.getElementById("css");
+      document.head.removeChild(css);
+
+      let bootstrapbundle = document.getElementById("bootstrapbundle");
+      document.body.removeChild(bootstrapbundle);
+
+      let adminltejs = document.getElementById("adminltejs");
+      document.body.removeChild(adminltejs);
+
+      document.body.classList.remove(
+        "hold-transition",
+        "sidebar-mini",
+        "layout-fixed",
+        "layout-avabr-fixed"
+      );
       navigate("/");
     }
   }, [user]);

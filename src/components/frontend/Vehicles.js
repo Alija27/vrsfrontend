@@ -23,18 +23,20 @@ function Vehicles() {
         location_id: location_id,
       })
       .then((res) => {
-        setLoading(false);
         setVehicles(res.data);
       })
       .catch((err) => {
         setLoading(false);
         alert("Cannot fetch vehicles");
       });
+    setLoading(false);
   }
 
   // Data Fetch
+
   useEffect(() => {
     useAxios
+
       .get("/availablevehicles")
       .then((res) => {
         setVehicles(res.data);
@@ -65,6 +67,7 @@ function Vehicles() {
   return (
     <div>
       {/* SEARCH FORM */}
+
       <div
         className="flex items-center justify-center overflow-hidden text-center bg-center bg-no-repeat bg-cover h-96 p-50"
         style={{
@@ -142,16 +145,23 @@ function Vehicles() {
         Available Vehicles
       </h3>
 
-      {loading && <div>Loading...</div>}
-
-      {!loading && vehicles.length == 0 && (
-        <div className="text-center">
-          <p>No vehicles found!</p>
+      {loading && (
+        <div className="text-4xl text-center text-indigo-500 text-bold">
+          Loading...
         </div>
       )}
 
-      <div className="flex justify-center gap-6 mx-10 my-10">
-        {/* {vehicles &&
+      {!loading && vehicles.length == 0 && (
+        <div className="text-center">
+          <p className="py-5 mx-40 text-xl text-white bg-red-900 text-bold">
+            No vehicles found!
+          </p>
+        </div>
+      )}
+
+      {!loading && (
+        <div className="flex justify-center gap-6 mx-10 my-10">
+          {/* {vehicles &&
           vehicles.map((item) => (
             <div className="bg-white rounded">
               <img
@@ -163,39 +173,40 @@ function Vehicles() {
               </div>
             </div>
           ))} */}
-        {vehicles &&
-          vehicles.map((item) => (
-            <div class="rounded-lg  bg-white hover:scale-105 transition-transform duration-300 ">
-              <Link to={`/vehicleDetails/${item.id}`}>
-                <a>
-                  <img
-                    class="rounded-t-lg w-full object-cover  hover:overflow-hidden"
-                    style={{ height: "270px", width: "400px" }}
-                    src={`http://localhost:8000/storage/${item.image}`}
-                    alt="img"
-                  />
-                </a>
-                <div class="py-6 px-3 border-x-2 border-b-2 border-gray-400">
-                  <div className="flex flex-row justify-between">
-                    <p class="text-gray-900 text-xl font-medium mb-2">
-                      {item.name}{" "}
-                    </p>
-                    <p class="text-gray-700 text-base mb-4">
-                      Rs. {item.rental_price}/day
-                    </p>
-                  </div>
+          {vehicles &&
+            vehicles.map((item) => (
+              <div class="rounded-lg  bg-white hover:scale-105 transition-transform duration-300 ">
+                <Link to={`/vehicleDetails/${item.id}`}>
+                  <a>
+                    <img
+                      class="rounded-t-lg w-full object-cover  hover:overflow-hidden"
+                      style={{ height: "270px", width: "400px" }}
+                      src={`http://localhost:8000/storage/${item.image}`}
+                      alt="img"
+                    />
+                  </a>
+                  <div class="py-6 px-3 border-x-2 border-b-2 border-gray-400">
+                    <div className="flex flex-row justify-between">
+                      <p class="text-gray-900 text-xl font-medium mb-2">
+                        {item.name}{" "}
+                      </p>
+                      <p class="text-gray-700 text-base mb-4">
+                        Rs. {item.rental_price}/day
+                      </p>
+                    </div>
 
-                  {/* <Link
+                    {/* <Link
                   to="/"
                   class=" inline-block px-6 py-2.5 bg-blue-600 mx-1 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
                 >
                   Book
                 </Link> */}
-                </div>
-              </Link>
-            </div>
-          ))}
-      </div>
+                  </div>
+                </Link>
+              </div>
+            ))}
+        </div>
+      )}
     </div>
   );
 }

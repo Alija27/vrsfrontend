@@ -81,39 +81,28 @@ export const Register = () => {
 
   return (
     <div>
-      <div class="flex justify-center w-full p-6 rounded-lg  bg-white ">
-        <div className="w-1/2 p-10 shadow-lg">
-          <form onSubmit={submitUserData}>
-            <div className="mb-6 form-group">
-              <label
-                htmlFor="formFileSm"
-                className="inline-block mb-2 text-gray-700 form-label"
-              >
-                Name
-              </label>
-              <input
-                type="text"
-                className="form-control block
-              w-full
-              px-3
-              py-1.5
-              text-base
-              font-normal
-              text-gray-700
-              bg-white bg-clip-padding
-              border border-solid border-gray-300
-              rounded
-              transition
-              ease-in-out
-              m-0
-              focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                name="name"
-                placeholder="Name"
-                value={userData.name}
-                onChange={handleInputChange}
-              />
-            </div>
-            {/* <div className="mb-6 form-group">
+      <div className="w-full max-w-sm p-6 m-20 mx-auto bg-white rounded-md shadow-lg dark:bg-gray-800">
+        <h1 className="text-3xl font-semibold text-center text-gray-700 dark:text-white">
+          Register
+        </h1>
+        <form onSubmit={submitUserData}>
+          <div className="mt-4">
+            <label
+              htmlFor="formFileSm"
+              className="inline-block text-gray-700 form-label"
+            >
+              Name
+            </label>
+            <input
+              type="text"
+              className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
+              name="name"
+              placeholder="Name"
+              value={userData.name}
+              onChange={handleInputChange}
+            />
+          </div>
+          {/* <div className="mb-6 form-group">
             <input
               type="hidden"
               name="vendor_id"
@@ -122,218 +111,141 @@ export const Register = () => {
             />
           </div> */}
 
-            <div className="mb-6 form-group">
-              <label
-                htmlFor="formFileSm"
-                className="inline-block mb-2 text-gray-700 form-label"
-              >
-                Email
-              </label>
-              <input
-                type="email"
-                className="form-control block
-  w-full
-  px-3
-  py-1.5
-  text-base
-  font-normal
-  text-gray-700
-  bg-white bg-clip-padding
-  border border-solid border-gray-300
-  rounded
-  transition
-  ease-in-out
-  m-0
-  focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                name="email"
-                placeholder="email"
-                value={userData.email}
-                onChange={handleInputChange}
-              />
-            </div>
-            <div className="mb-6 form-group">
-              <label
-                htmlFor="formFileSm"
-                className="inline-block mb-2 text-gray-700 form-label"
-              >
-                Phone
-              </label>
-              <input
-                type="phone"
-                className="form-control block
-  w-full
-  px-3
-  py-1.5
-  text-base
-  font-normal
-  text-gray-700
-  bg-white bg-clip-padding
-  border border-solid border-gray-300
-  rounded
-  transition
-  ease-in-out
-  m-0
-  focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                name="phone"
-                placeholder="Phone Number"
-                value={userData.phone}
-                onChange={handleInputChange}
-              />
-            </div>
-            <div className="mb-6 form-group">
-              <label
-                htmlFor="formFileSm"
-                className="inline-block mb-2 text-gray-700 form-label"
-              >
-                Address
-              </label>
-              <input
-                type="text"
-                className="form-control block
-  w-full
-  px-3
-  py-1.5
-  text-base
-  font-normal
-  text-gray-700
-  bg-white bg-clip-padding
-  border border-solid border-gray-300
-  rounded
-  transition
-  ease-in-out
-  m-0
-  focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                name="address"
-                placeholder="Address"
-                value={userData.address}
-                onChange={handleInputChange}
-              />
-            </div>
-
-            <div className="mb-6 form-group">
-              <label
-                htmlFor="formFileSm"
-                className="inline-block mb-2 text-gray-700 form-label"
-              >
-                Password
-              </label>
-              <input
-                type="password"
-                className="form-control block
-  w-full
-  px-3
-  py-1.5
-  text-base
-  font-normal
-  text-gray-700
-  bg-white bg-clip-padding
-  border border-solid border-gray-300
-  rounded
-  transition
-  ease-in-out
-  m-0
-  focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                name="password"
-                placeholder="Password"
-                value={userData.password}
-                onChange={handleInputChange}
-              />
-            </div>
-            <div className="mb-3 w-96">
-              <label
-                htmlFor="citizenship_image"
-                className="inline-block mb-2 text-gray-700 form-label"
-              >
-                Citizenship Image
-              </label>
-              <input
-                className="block w-full px-2 py-1 m-0 text-sm font-normal text-gray-700 transition ease-in-out bg-white border border-gray-300 border-solid rounded form-control bg-clip-padding focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                name="citizenship_image"
-                type="file"
-                onChange={(e) => handleCitizenshipImage(e.target.files)}
-              />
-            </div>
-            <div className="mb-6 form-group">
-              <label
-                htmlFor="citizenship_number"
-                className="inline-block mb-2 text-gray-700 form-label"
-              >
-                Citizenship Number
-              </label>
-              <input
-                type="text"
-                className="form-control block
-  w-full
-  px-3
-  py-1.5
-  text-base
-  font-normal
-  text-gray-700
-  bg-white bg-clip-padding
-  border border-solid border-gray-300
-  rounded
-  transition
-  ease-in-out
-  m-0
-  focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                name="citizenship_number"
-                placeholder="Citizenship Number"
-                value={userData.citizenship_number}
-                onChange={handleInputChange}
-              />
-            </div>
-
-            <div className="w-full mb-3 xl:w-1/5 ">
-              <select
-                name="role"
-                value={userData.role}
-                onChange={handleInputChange}
-                className="items-center block w-full px-3 m-0 my-2 font-normal text-gray-700 transition ease-in-out bg-white bg-no-repeat border border-gray-300 border-solid appearance-none form-select bg-clip-padding focus:text-grey-900 focus:bg-white focus:border-white focus:outline-none"
-              >
-                <option value="">Role</option>
-                <option value="Vendor">Vendor</option>
-                <option value="Customer">Customer</option>
-              </select>
-            </div>
-            <div className="mb-3 w-96">
-              {/* <label
+          <div className="mt-4">
+            <label
               htmlFor="formFileSm"
-              className="inline-block mb-2 text-gray-700 form-label"
+              className="inline-block text-gray-700 form-label"
             >
-              Small file input example
-            </label> */}
-              <input
-                className="block w-full px-2 py-1 m-0 text-sm font-normal text-gray-700 transition ease-in-out bg-white border border-gray-300 border-solid rounded form-control bg-clip-padding focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                name="image"
-                type="file"
-                onChange={(e) => handleImage(e.target.files)}
-              />
-            </div>
-            <button
-              type="submit"
-              className="
-w-full
-px-6
-py-2.5
-bg-blue-600
-text-white
-font-medium
-text-xs
-leading-tight
-uppercase
-rounded
-shadow-md
-hover:bg-blue-700 hover:shadow-lg
-focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0
-active:bg-blue-800 active:shadow-lg
-transition
-duration-150
-ease-in-out"
+              Email
+            </label>
+            <input
+              type="email"
+              className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
+              name="email"
+              placeholder="email"
+              value={userData.email}
+              onChange={handleInputChange}
+            />
+          </div>
+          <div className="mt-4">
+            <label
+              htmlFor="formFileSm"
+              className="inline-block text-gray-700 form-label"
             >
-              Send
-            </button>
-          </form>
-        </div>
+              Phone
+            </label>
+            <input
+              type="phone"
+              className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
+              name="phone"
+              placeholder="Phone Number"
+              value={userData.phone}
+              onChange={handleInputChange}
+            />
+          </div>
+          <div className="mt-4">
+            <label
+              htmlFor="formFileSm"
+              className="inline-block text-gray-700 form-label"
+            >
+              Address
+            </label>
+            <input
+              type="text"
+              className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
+              name="address"
+              placeholder="Address"
+              value={userData.address}
+              onChange={handleInputChange}
+            />
+          </div>
+
+          <div className="mt-4">
+            <label
+              htmlFor="formFileSm"
+              className="inline-block text-gray-700 form-label"
+            >
+              Password
+            </label>
+            <input
+              type="password"
+              className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
+              name="password"
+              placeholder="Password"
+              value={userData.password}
+              onChange={handleInputChange}
+            />
+          </div>
+          <div className="mt-4">
+            <label
+              htmlFor="citizenship_image"
+              className="inline-block text-gray-700 form-label"
+            >
+              Citizenship Image
+            </label>
+            <input
+              className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
+              name="citizenship_image"
+              type="file"
+              onChange={(e) => handleCitizenshipImage(e.target.files)}
+            />
+          </div>
+          <div className="mt-4">
+            <label
+              htmlFor="citizenship_number"
+              className="inline-block text-gray-700 form-label"
+            >
+              Citizenship Number
+            </label>
+            <input
+              type="text"
+              className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
+              name="citizenship_number"
+              placeholder="Citizenship Number"
+              value={userData.citizenship_number}
+              onChange={handleInputChange}
+            />
+          </div>
+
+          <div className="mt-4 ">
+            <label
+              htmlFor="formFileSm"
+              className="inline-block text-gray-700 form-label"
+            >
+              Role
+            </label>
+            <select
+              name="role"
+              value={userData.role}
+              onChange={handleInputChange}
+              className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
+            >
+              <option value="">Role</option>
+              <option value="Vendor">Vendor</option>
+              <option value="Customer">Customer</option>
+            </select>
+          </div>
+          <div className="mt-4">
+            <label
+              htmlFor="image"
+              className="inline-block text-gray-700 form-label"
+            >
+              Image
+            </label>
+            <input
+              className="block w-full px-2 py-1 m-0 text-sm font-normal text-gray-700 transition ease-in-out bg-white border border-gray-300 border-solid rounded form-control bg-clip-padding focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+              name="image"
+              type="file"
+              onChange={(e) => handleImage(e.target.files)}
+            />
+          </div>
+          <button
+            type="submit"
+            className="w-full px-5 py-2 mt-4 tracking-wide text-white transition-colors duration-200 transform bg-indigo-700 rounded-md hover:bg-indigo-600 focus:outline-none focus:bg-gray-600"
+          >
+            Register
+          </button>
+        </form>
       </div>
     </div>
   );

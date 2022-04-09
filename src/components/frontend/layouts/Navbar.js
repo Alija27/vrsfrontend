@@ -1,7 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+
+import UserContext from "../../../UserContext";
 
 export const Navbar = () => {
+  const [user, fetchUser] = useContext(UserContext);
   return (
     <div>
       <nav className=" bg-white shadow-md border-gray-200 px-2 sm:px-4 py-2.5 rounded  dark:bg-gray-800">
@@ -143,21 +147,13 @@ export const Navbar = () => {
 
               <li>
                 <Link
-                  to="/vendordashboard"
-                  className="block py-2 pl-3 pr-4 text-gray-700 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
-                >
-                  Vedor Dashboard
-                </Link>
-              </li>
-
-              <li>
-                <Link
                   to="/login"
                   className="block py-2 pl-3 pr-4 text-gray-700 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
                 >
                   Login
                 </Link>
               </li>
+
               <li>
                 <Link
                   to="/register"
@@ -166,10 +162,112 @@ export const Navbar = () => {
                   Register
                 </Link>
               </li>
+
+              {/*  {user && user.vendor && (
+                <li>
+                  <Link
+                    to="/vendordashboard"
+                    className="block py-2 pl-3 pr-4 text-gray-700 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+                  >
+                    Vendor Dashboard
+                  </Link>
+                </li>
+              )} */}
             </ul>
           </div>
         </div>
       </nav>
+      <header class="text-gray-600 body-font shadow-lg">
+        <div class="container mx-auto flex flex-wrap p-2 flex-col md:flex-row items-center">
+          <a class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
+            <img
+              className="w-8 h-8 rounded-full"
+              src="Frame1.png"
+              alt="user photo"
+            />
+            <span class="ml-3 text-xl">VRS</span>
+          </a>
+          <nav class="md:ml-auto flex flex-wrap items-center text-base justify-center">
+            <Link to="/" class="mr-5 hover:text-gray-900">
+              Home
+            </Link>
+            <Link to="/about" class="mr-5 hover:text-gray-900">
+              About
+            </Link>
+            <Link to="/vehicles" class="mr-5 hover:text-gray-900">
+              Vehicles
+            </Link>
+            <Link to="/" class="mr-5 hover:text-gray-900">
+              Fourth Link
+            </Link>
+            {user.role && user.role === "Vendor" && (
+              <Link to="/vendordashboard" className="mr-5 hover:text-gray-900">
+                Vendor Dashboard
+              </Link>
+            )}
+          </nav>
+          {!user.role && (
+            <Link
+              to="/login"
+              class="inline-flex items-center text-white bg-indigo-500
+            border-0 py-1 px-3 focus:outline-none hover:bg-indigo-600 rounded
+            text-base mt-4 md:mt-0"
+            >
+              Login
+            </Link>
+          )}
+          {user.role && (
+            <Link
+              to="/logout"
+              class="inline-flex items-center text-white bg-indigo-500
+            border-0 py-1 px-3 focus:outline-none hover:bg-indigo-600 rounded
+            text-base mt-4 md:mt-0"
+            >
+              Logout
+            </Link>
+          )}
+        </div>
+      </header>
+      {/* <header className="text-white bg-indigo-500">
+        <div className="container flex flex-wrap items-center p-2 mx-auto">
+          <a
+            to="/"
+            className="flex items-center font-medium text-white title-font "
+          >
+            <span className="items-center ml-3 text-xl">WorldNews</span>
+          </a>
+          <nav className="flex flex-wrap items-center justify-center md:ml-auto">
+            <a
+              to="/"
+              className="mr-5 rounded hover:border-b-4 hover:border-white"
+            >
+              Home
+            </a>
+            <a
+              to="/"
+              className="mr-5 rounded hover:border-b-4 hover:border-white"
+            >
+              About
+            </a>
+          </nav>
+          <span className="cursor-pointer lg:hidden md:hidden hover:bg-gray-100">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="w-6 h-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4 6h16M4 12h16M4 18h16"
+              />
+            </svg>
+          </span>
+        </div>
+      </header> */}
     </div>
   );
 };
