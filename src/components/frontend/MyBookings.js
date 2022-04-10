@@ -30,30 +30,43 @@ export const MyBookings = () => {
     <div>
       <section className="bg-white py-20 lg:py-[120px]">
         <div className="container">
-          <div className="flex flex-wrap -mx-4">
+          <div className="flex flex-wrap w-1/2 mx-auto ">
             <div className="w-full px-4">
               <div className="max-w-full overflow-x-auto">
                 <table className="w-full table-auto">
-                  <thead>
-                    <tr className="text-center bg-primary">
-                      <th>SN</th>
+                  <thead className="py-2">
+                    <tr className="text-center bg-indigo-300">
+                      <th className="py-2">SN</th>
                       <th>Vehicle</th>
                       <th>Image</th>
 
                       <th>Status</th>
                       <th>Total Amount</th>
+                      <th>Give Review</th>
                     </tr>
                   </thead>
                   <tbody>
                     {rentals.map((item, index) => (
-                      <tr className="text-center bg-primary">
-                        <td>{index}</td>
+                      <tr className="w-1/2 text-center bg-gray-300 ">
+                        <td className="py-2">{index}</td>
                         <td>{item.vehicle.name}</td>
-                        <td>{item.vehicle.image}</td>
+                        <td>
+                          <img
+                            alt="image"
+                            src={`http://localhost:8000/storage/${item.vehicle.image}`}
+                            className="py-2 align-middle border-none shadow-xl lg:-ml-16"
+                            style={{ maxWidth: 200, maxHeight: 200 }}
+                          />
+                        </td>
                         <td>{item.is_approved}</td>
                         <td>{item.total_amount}</td>
                         <td>
-                          <Link to={`/review/${item.id}`}>Review</Link>
+                          <Link
+                            className="p-1 text-white bg-indigo-500"
+                            to={`/vehicledetails/${item.vehicle.id}`}
+                          >
+                            Review
+                          </Link>
                         </td>
                       </tr>
                     ))}

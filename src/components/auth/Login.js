@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import UserContext from "../../UserContext";
+import { Navbar } from "../frontend/layouts/Navbar";
 export const Login = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
@@ -58,6 +59,7 @@ export const Login = () => {
   }
   return (
     <div>
+      <Navbar />
       {loading && <div>Loading...</div>}
 
       {!loading && (
@@ -143,12 +145,12 @@ export const Login = () => {
         </div> */}
             <p className="mt-8 text-xs font-light text-center text-gray-700">
               Don't have an account?{" "}
-              <a
-                href="#"
+              <Link
+                to="/register"
                 className="font-medium text-blue-700 dark:text-gray-200 hover:underline"
               >
-                Create One
-              </a>
+                Register
+              </Link>
             </p>
           </div>
         </>

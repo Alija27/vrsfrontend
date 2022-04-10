@@ -6,6 +6,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
+import { Navbar } from "../frontend/layouts/Navbar";
 export const Register = () => {
   const [userData, setUserData] = useState({
     name: "",
@@ -81,6 +82,7 @@ export const Register = () => {
 
   return (
     <div>
+      <Navbar />
       <div className="w-full max-w-sm p-6 m-20 mx-auto bg-white rounded-md shadow-lg dark:bg-gray-800">
         <h1 className="text-3xl font-semibold text-center text-gray-700 dark:text-white">
           Register

@@ -25,6 +25,7 @@ const VehicleDetails = () => {
   const [locations, setLocations] = useState({});
   const [book_data, setBookData] = useState({});
   const [user, fetchUser] = useContext(UserContext);
+  const [message, setMessage] = useState("");
   const [requestVehicle, setRequestVehicle] = useState({
     user_id: user.id,
     vehicle_id: vehicle.id,
@@ -145,13 +146,16 @@ const VehicleDetails = () => {
     e.preventDefault();
     useAxios
       .post(`/review/${id}`, {
-        ...requestVehicle,
+        message: message,
         stars: rating,
         vehicle_id: id,
         user_id: user.id,
       })
       .then((res) => {
         alert(res.data);
+        getReview();
+        setMessage("");
+        setRating(0);
       })
       .catch((err) => {
         alert(err);
@@ -161,7 +165,6 @@ const VehicleDetails = () => {
 
   useEffect(() => {
     setLoading(true);
-
     getReview();
     fetchVehicle();
     fetchUser();
@@ -500,7 +503,8 @@ const VehicleDetails = () => {
                       </label>
                       <textarea
                         name="message"
-                        onChange={handleInput}
+                        value={message}
+                        onChange={(e) => setMessage(e.target.value)}
                         className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
                       ></textarea>
                     </div>

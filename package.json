@@ -16,6 +16,7 @@
     "react-scripts": "5.0.0",
     "react-spinner": "^0.2.7",
     "sweetalert2": "^11.4.4",
+    "swiper": "^8.1.0",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
