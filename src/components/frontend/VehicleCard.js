@@ -35,7 +35,7 @@ function VehicleCard(props) {
       />
       <div className="px-6 py-4">
         <div className="mb-2 text-xl font-bold">{registeredVehicle.name}</div>
-        <p className="text-base text-gray-700">
+        <p className="text-base text-gray-700 truncate">
           {registeredVehicle.description}
         </p>
       </div>

@@ -6,6 +6,7 @@ import UserContext from "../../UserContext";
 import VehicleCard from "./VehicleCard";
 import { VendorDashboard } from "./VendorDashboard";
 export const RegisteredVehicle = () => {
+  const [validationError, setValidationError] = useState({});
   const [user, fetchUser] = useContext(UserContext);
   const [registeredVehicles, setRegisteredVehicles] = useState([]);
   const [vehicleData, setvehicleData] = useState({
@@ -30,10 +31,9 @@ export const RegisteredVehicle = () => {
         setRegisteredVehicles(res.data);
       })
       .catch((err) => {
-        alert("Error");
+        setValidationError(err.response.data.errors);
       });
   };
-
   return (
     <div>
       <VendorDashboard />

@@ -1,40 +1,60 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import axios from "axios";
+import React from "react";
+import { useState } from "react";
+import { Link, Navigate, useNavigate } from "react-router-dom";
+import useAxios from "../../hooks/useAxios";
 
 export const ForgetPassword = () => {
+  const [email, setEmail] = useState("");
+  const navigate = useNavigate();
+  const postEmail = async (e) => {
+    e.preventDefault();
+    console.log(email);
+    await axios
+    // yo link ma jada tyo email hanesi
+      .post(`http://localhost:8000/api/forgotpassword`, {
+        email,
+      })
+      .then((res) => {
+        sessionStorage.setItem("user_id", res.data);
+        // js ma session banauni yesari ho k ah lina lai getItem 
+        console.log(res.data);
+        navigate("/OTPverification");
+      })
+      .catch();
+  };
+
   return (
     <div>
-        <div className="login-box">
-  <div className="card card-outline card-primary">
-    <div className="card-header text-center">
-      <Link to="../../index2.html" className="h1"><b>Forget Password</b>LTE</Link>
-    </div>
-    <div className="card-body">
-      <p className="login-box-msg">You forgot your password? Here you can easily retrieve a new password.</p>
-      <form action="recover-password.html" method="post">
-        <div className="input-group mb-3">
-          <input type="email" className="form-control" placeholder="Email" />
-          <div className="input-group-append">
-            <div className="input-group-text">
-              <span className="fas fa-envelope" />
-            </div>
+      <div className="w-full max-w-sm p-6 m-20 mx-auto bg-white rounded-md shadow-lg dark:bg-gray-800">
+        <h1 className="text-3xl font-semibold text-center text-gray-700 dark:text-white">
+          Forgot Password
+        </h1>
+        <form onSubmit={postEmail}>
+          <div className="mt-4">
+            <label
+              htmlFor="formFileSm"
+              className="inline-block text-gray-700 form-label"
+            >
+              Email
+            </label>
+            <input
+              onChange={(e) => setEmail(e.target.value)}
+              type="text"
+              className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
+              name="email"
+              placeholder="Email"
+            />
           </div>
-        </div>
-        <div className="row">
-          <div className="col-12">
-            <button type="submit" className="btn btn-primary btn-block">Request new password</button>
-          </div>
-          {/* /.col */}
-        </div>
-      </form>
-      <p className="mt-3 mb-1">
-        <Link to="#">Login</Link>
-      </p>
-    </div>
-    {/* /.login-card-body */}
-  </div>
-</div>
 
+          <button
+            type="submit"
+            className="w-full px-5 py-2 mt-4 tracking-wide text-white transition-colors duration-200 transform bg-indigo-700 rounded-md hover:bg-indigo-600 focus:outline-none focus:bg-gray-600"
+          >
+            Send OTP to Email
+          </button>
+        </form>
+      </div>
     </div>
-  )
-}
+  );
+};

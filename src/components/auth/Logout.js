@@ -1,10 +1,11 @@
 import axios from "axios";
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import UserContext from "../../UserContext";
 
 function Logout() {
   const naviagte = useNavigate();
-
+  const [user, setUser] = useContext(UserContext);
   useEffect(async () => {
     let token = localStorage.getItem("token");
     if (token) {
@@ -12,6 +13,7 @@ function Logout() {
     }
 
     localStorage.setItem("token", "");
+    setUser({});
     naviagte("/login");
   });
 

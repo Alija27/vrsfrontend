@@ -103,6 +103,11 @@ export const Register = () => {
               value={userData.name}
               onChange={handleInputChange}
             />
+            {validation.name ? (
+              <div className="text-red-500">{validation.name} </div>
+            ) : (
+              ""
+            )}
           </div>
           {/* <div className="mb-6 form-group">
             <input
@@ -128,6 +133,11 @@ export const Register = () => {
               value={userData.email}
               onChange={handleInputChange}
             />
+            {validation.email ? (
+              <div className="text-red-500">{validation.email} </div>
+            ) : (
+              ""
+            )}
           </div>
           <div className="mt-4">
             <label
@@ -144,6 +154,11 @@ export const Register = () => {
               value={userData.phone}
               onChange={handleInputChange}
             />
+            {validation.phone ? (
+              <div className="text-red-500">{validation.phone} </div>
+            ) : (
+              ""
+            )}
           </div>
           <div className="mt-4">
             <label
@@ -160,6 +175,11 @@ export const Register = () => {
               value={userData.address}
               onChange={handleInputChange}
             />
+            {validation.address ? (
+              <div className="text-red-500">{validation.address} </div>
+            ) : (
+              ""
+            )}
           </div>
 
           <div className="mt-4">
@@ -177,6 +197,11 @@ export const Register = () => {
               value={userData.password}
               onChange={handleInputChange}
             />
+            {validation.password ? (
+              <div className="text-red-500">{validation.password} </div>
+            ) : (
+              ""
+            )}
           </div>
           <div className="mt-4">
             <label
@@ -191,6 +216,13 @@ export const Register = () => {
               type="file"
               onChange={(e) => handleCitizenshipImage(e.target.files)}
             />
+            {validation.citizenship_image ? (
+              <div className="text-red-500">
+                {validation.citizenship_image}{" "}
+              </div>
+            ) : (
+              ""
+            )}
           </div>
           <div className="mt-4">
             <label
@@ -207,6 +239,13 @@ export const Register = () => {
               value={userData.citizenship_number}
               onChange={handleInputChange}
             />
+            {validation.citizenship_number ? (
+              <div className="text-red-500">
+                {validation.citizenship_number}{" "}
+              </div>
+            ) : (
+              ""
+            )}
           </div>
 
           <div className="mt-4 ">
@@ -226,6 +265,11 @@ export const Register = () => {
               <option value="Vendor">Vendor</option>
               <option value="Customer">Customer</option>
             </select>
+            {validation.role ? (
+              <div className="text-red-500">{validation.role} </div>
+            ) : (
+              ""
+            )}
           </div>
           <div className="mt-4">
             <label
@@ -240,6 +284,11 @@ export const Register = () => {
               type="file"
               onChange={(e) => handleImage(e.target.files)}
             />
+            {validation.image ? (
+              <div className="text-red-500">{validation.image} </div>
+            ) : (
+              ""
+            )}
           </div>
           <button
             type="submit"

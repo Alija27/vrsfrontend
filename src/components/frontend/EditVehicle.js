@@ -152,6 +152,11 @@ export const EditVehicle = () => {
                 value={vehicleData.name}
                 onChange={handleInputChange}
               />
+              {validation.name ? (
+                <div className="text-red-500">{validation.name} </div>
+              ) : (
+                ""
+              )}
             </div>
             <div>
               <input
@@ -172,6 +177,11 @@ export const EditVehicle = () => {
                 <option value={type.id}>{type.name}</option>
               ))}
             </select>
+            {validation.type_id ? (
+              <div className="text-red-500">{validation.type_id} </div>
+            ) : (
+              ""
+            )}
             <select
               name="location_id"
               className="items-center block w-full px-3 m-0"
@@ -183,97 +193,70 @@ export const EditVehicle = () => {
                 <option value={location.id}>{location.name}</option>
               ))}
             </select>
+            {validation.location_id ? (
+              <div className="text-red-500">{validation.location_id} </div>
+            ) : (
+              ""
+            )}
             <div className="mb-6 form-group">
               <input
                 type="text"
-                className="form-control block
-  w-full
-  px-3
-  py-1.5
-  text-base
-  font-normal
-  text-gray-700
-  bg-white bg-clip-padding
-  border border-solid border-gray-300
-  rounded
-  transition
-  ease-in-out
-  m-0
-  focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
                 name="model"
                 placeholder="Model"
                 value={vehicleData.model}
                 onChange={handleInputChange}
               />
+              {validation.model ? (
+                <div className="text-red-500">{validation.model} </div>
+              ) : (
+                ""
+              )}
             </div>
             <div className="mb-6 form-group">
               <input
                 type="text"
-                className="form-control block
-  w-full
-  px-3
-  py-1.5
-  text-base
-  font-normal
-  text-gray-700
-  bg-white bg-clip-padding
-  border border-solid border-gray-300
-  rounded
-  transition
-  ease-in-out
-  m-0
-  focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
                 name="color"
                 placeholder="Color"
                 value={vehicleData.color}
                 onChange={handleInputChange}
               />
+              {validation.color ? (
+                <div className="text-red-500">{validation.color} </div>
+              ) : (
+                ""
+              )}
             </div>
             <div className="mb-6 form-group">
               <input
                 type="text"
-                className="form-control block
-  w-full
-  px-3
-  py-1.5
-  text-base
-  font-normal
-  text-gray-700
-  bg-white bg-clip-padding
-  border border-solid border-gray-300
-  rounded
-  transition
-  ease-in-out
-  m-0
-  focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
                 name="total_seats"
                 placeholder="Total Seats"
                 value={vehicleData.total_seats}
                 onChange={handleInputChange}
               />
+              {validation.total_seats ? (
+                <div className="text-red-500">{validation.total_seats} </div>
+              ) : (
+                ""
+              )}
             </div>
             <div className="mb-6 form-group">
               <input
                 type="text"
-                className="form-control block
-  w-full
-  px-3
-  py-1.5
-  text-base
-  font-normal
-  text-gray-700
-  bg-white bg-clip-padding
-  border border-solid border-gray-300
-  rounded
-  transition
-  ease-in-out
-  m-0
-  focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
                 name="rental_price"
                 placeholder="Rental Price"
                 value={vehicleData.rental_price}
                 onChange={handleInputChange}
               />
+              {validation.rental_price ? (
+                <div className="text-red-500">{validation.rental_price} </div>
+              ) : (
+                ""
+              )}
             </div>
             <div className="mb-6 form-group">
               <textarea
@@ -300,53 +283,42 @@ export const EditVehicle = () => {
                 value={vehicleData.description}
                 onChange={handleInputChange}
               />
+              {validation.description ? (
+                <div className="text-red-500">{validation.description} </div>
+              ) : (
+                ""
+              )}
             </div>
 
             <div className="mb-6 form-group">
               <input
                 type="text"
-                className="form-control block
-  w-full
-  px-3
-  py-1.5
-  text-base
-  font-normal
-  text-gray-700
-  bg-white bg-clip-padding
-  border border-solid border-gray-300
-  rounded
-  transition
-  ease-in-out
-  m-0
-  focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
                 name="brand"
                 placeholder="Brand"
                 value={vehicleData.brand}
                 onChange={handleInputChange}
               />
+              {validation.brand ? (
+                <div className="text-red-500">{validation.brand} </div>
+              ) : (
+                ""
+              )}
             </div>
             <div className="mb-6 form-group">
               <input
                 name="terms"
                 type="text"
-                className="form-control block
-  w-full
-  px-3
-  py-1.5
-  text-base
-  font-normal
-  text-gray-700
-  bg-white bg-clip-padding
-  border border-solid border-gray-300
-  rounded
-  transition
-  ease-in-out
-  m-0
-  focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
                 placeholder="Terms"
                 value={vehicleData.terms}
                 onChange={handleInputChange}
               />
+              {validation.terms ? (
+                <div className="text-red-500">{validation.terms} </div>
+              ) : (
+                ""
+              )}
             </div>
 
             <div className="mb-3 w-96">
@@ -362,52 +334,41 @@ export const EditVehicle = () => {
                 name="image"
                 type="file"
               />
+              {validation.image ? (
+                <div className="text-red-500">{validation.image} </div>
+              ) : (
+                ""
+              )}
             </div>
             <div className="mb-6 form-group">
               <input
                 type="text"
-                className="form-control block
-  w-full
-  px-3
-  py-1.5
-  text-base
-  font-normal
-  text-gray-700
-  bg-white bg-clip-padding
-  border border-solid border-gray-300
-  rounded
-  transition
-  ease-in-out
-  m-0
-  focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
                 name="condition"
                 placeholder="Condition"
                 value={vehicleData.condition}
                 onChange={handleInputChange}
               />
+              {validation.condition ? (
+                <div className="text-red-500">{validation.condition} </div>
+              ) : (
+                ""
+              )}
             </div>
             <div className="mb-6 form-group">
               <input
                 type="text"
-                className="form-control block
-  w-full
-  px-3
-  py-1.5
-  text-base
-  font-normal
-  text-gray-700
-  bg-white bg-clip-padding
-  border border-solid border-gray-300
-  rounded
-  transition
-  ease-in-out
-  m-0
-  focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
                 name="has_driver"
                 placeholder="Has Driver"
                 value={vehicleData.has_driver}
                 onChange={handleInputChange}
               />
+              {validation.has_driver ? (
+                <div className="text-red-500">{validation.has_driver} </div>
+              ) : (
+                ""
+              )}
             </div>
             <button
               type="submit"

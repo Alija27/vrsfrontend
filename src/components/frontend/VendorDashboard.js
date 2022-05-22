@@ -22,7 +22,9 @@ export const VendorDashboard = () => {
             <Link to="/vendorprofile">Vendor Profile</Link>
           </button>
         </div>
-        <h1>Welcome</h1>
+        <span className="text-5xl text-gray-500 my-96 mx-96">
+          Welcome Vendor
+        </span>
         {/* <div class="navbar-start">
           <ul
             tabindex="0"

@@ -1,3 +1,4 @@
+import Swal from "sweetalert2";
 import { useEffect, useState, useContext } from "react";
 import useAxios from "../../hooks/useAxios";
 import UserContext from "../../UserContext";
@@ -27,7 +28,10 @@ function Vehicles() {
       })
       .catch((err) => {
         setLoading(false);
-        alert("Cannot fetch vehicles");
+        Swal.fire({
+          icon: "error",
+          title: "Cannot fetch Vehicle",
+        });
       });
     setLoading(false);
   }
@@ -42,7 +46,10 @@ function Vehicles() {
         setVehicles(res.data);
       })
       .catch((err) => {
-        alert("ERROR");
+        Swal.fire({
+          icon: "error",
+          title: "Cannot fetch Vehicle ",
+        });
       });
 
     useAxios
@@ -51,7 +58,10 @@ function Vehicles() {
         setTypes(res.data);
       })
       .catch((err) => {
-        alert("ERROR");
+        Swal.fire({
+          icon: "error",
+          title: "Cannot fetch Vehicle types",
+        });
       });
 
     useAxios
@@ -60,7 +70,10 @@ function Vehicles() {
         setLocations(res.data);
       })
       .catch((err) => {
-        alert("ERROR");
+        Swal.fire({
+          icon: "error",
+          title: "Cannot fetch locations",
+        });
       });
   }, []);
 
@@ -160,7 +173,7 @@ function Vehicles() {
       )}
 
       {!loading && (
-        <div className="flex justify-center gap-6 mx-10 my-10">
+        <div className="grid grid-cols-3 gap-4 mx-10 my-10 ">
           {/* {vehicles &&
           vehicles.map((item) => (
             <div className="bg-white rounded">
@@ -175,17 +188,18 @@ function Vehicles() {
           ))} */}
           {vehicles &&
             vehicles.map((item) => (
-              <div class="rounded-lg  bg-white hover:scale-105 transition-transform duration-300 ">
+              <div className="transition-transform duration-300 bg-white rounded-lg shadow-lg hover:scale-105">
+                {/* <div className="transition-transform duration-300 bg-white rounded-lg shadow-lg hover:-rotate-180"> */}
                 <Link to={`/vehicleDetails/${item.id}`}>
                   <a>
                     <img
-                      class="rounded-t-lg w-full object-cover  hover:overflow-hidden"
+                      class="rounded-t-lg w-full   hover:overflow-hidden"
                       style={{ height: "270px", width: "400px" }}
                       src={`http://localhost:8000/storage/${item.image}`}
                       alt="img"
                     />
                   </a>
-                  <div class="py-6 px-3 border-x-2 border-b-2 border-gray-400">
+                  <div class="py-6 px-3 border-x-2 border-b-2 border-gray-100">
                     <div className="flex flex-row justify-between">
                       <p class="text-gray-900 text-xl font-medium mb-2">
                         {item.name}{" "}

@@ -1,7 +1,26 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import useAxios from "../../hooks/useAxios";
+import Swal from "sweetalert2";
+import p from "./p.mp4";
 
 const Home = () => {
+  const [types, setTypes] = useState([]);
+  useEffect(() => {
+    useAxios
+      .get("/types")
+      .then((res) => {
+        setTypes(res.data);
+      })
+      .catch((err) => {
+        Swal.fire({
+          icon: "error",
+          title: "Cannot fetch Vehicle types",
+        });
+      });
+  }, []);
+
   return (
     <>
       <div>
@@ -94,24 +113,30 @@ const Home = () => {
           }}
         ></div> */}
         <div
-          className="relative overflow-hidden bg-no-repeat bg-cover"
-          style={{
+          className="relative object-center overflow-hidden bg-cover "
+          /* style={{
             backgroundPosition: "50%",
             backgroundImage:
               'url("https://images.unsplash.com/photo-1502161254066-6c74afbf07aa?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=871&q=80")',
-            height: 500,
-          }}
+            height: 610,
+          }} */
         >
+          <div>
+            <video loop autoPlay muted>
+              <source src={p} type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+          </div>
           <div
-            className="absolute top-0 bottom-0 left-0 right-0 w-full h-full overflow-hidden bg-fixed"
-            style={{ backgroundColor: "rgba(0, 0, 0, 0.75)" }}
+            className="absolute top-0 bottom-0 left-0 right-0 w-full overflow-hidden "
+            style={{ backgroundColor: "rgba(0, 0, 0, 0.35)" }}
           >
             <div className="flex items-center justify-center h-full">
               <div className="px-6 text-center text-white md:px-12">
-                <h1 className="mt-0 mb-6 text-5xl font-bold">
+                <h1 className="mt-0 mb-6 text-4xl font-bold lg:text-5xl md:text-5xl">
                   Let your vehicle work while you work
                 </h1>
-                <h3 className="mb-8 text-3xl font-bold">
+                <h3 className="mb-8 text-2xl font-semibold text-gray-300 lg:text-3xl">
                   The best place for your dream vehicle.
                 </h3>
                 <Link
@@ -152,13 +177,102 @@ const Home = () => {
             </section>
           </div>
         </section> */}
+        <div>
+          <h1 className="justify-center w-1/2 pb-4 mx-auto my-10 text-2xl font-bold text-center border-b-4 border-indigo-600 md:text-4xl md:w-1/3 mt-15 ">
+            Vehicle Types
+          </h1>
+          {/* <h1 className="flex w-3/12 p-2 pb-3 mx-auto mb-5 text-4xl font-bold text-center border-indigo-400 rounded-md border-b-4e mt-11">
+            Vehicle Types
+          </h1> */}
+          <section className="flex flex-wrap justify-center gap-3 my-5 mt-8 space-y-4">
+            {types.map((type) => (
+              <div className="w-[350px] h-[300px] rounded shadow-xl mx-5">
+                <div>
+                  <img
+                    className="w-full h-[250px] border-b-2"
+                    src={`http://localhost:8000/storage/${type.image}`}
+                    alt="avatar"
+                  />
+                  <div class="flex flex-wrap justify-center px-2 py-4">
+                    <span class="font-bold text-xl mb-2">{type.name}</span>
+                  </div>
+                </div>
+              </div>
+            ))}
 
-        <div className="flex flex-wrap justify-center gap-4 mt-8 "></div>
+            {/* <div className="max-w-xs mx-auto overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800">
+              <img
+                className="object-cover w-full h-56"
+                src="https://images.pexels.com/photos/6011503/pexels-photo-6011503.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                alt="avatar"
+              />
+              <div className="py-5 text-center">
+                <a
+                  href="#"
+                  className="block text-2xl font-bold text-gray-800 dark:text-white"
+                >
+                  Scooter
+                </a>
+              </div>
+            </div>
+            <div className="max-w-xs mx-auto overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800">
+              <img
+                className="object-cover w-full h-56"
+                src="https://images.pexels.com/photos/2611690/pexels-photo-2611690.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                alt="avatar"
+              />
+              <div className="py-5 text-center">
+                <a
+                  href="#"
+                  className="block text-2xl font-bold text-gray-800 dark:text-white"
+                >
+                  Bike
+                </a>
+              </div>
+            </div>
+
+            <div className="max-w-xs mx-auto overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800">
+              <img
+                className="object-cover w-full h-56"
+                src="https://images.pexels.com/photos/5093029/pexels-photo-5093029.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                alt="avatar"
+              />
+              <div className="py-5 text-center">
+                <a
+                  href="#"
+                  className="block text-2xl font-bold text-gray-800 dark:text-white"
+                >
+                  Van
+                </a>
+              </div>
+            </div>
+            <div className="max-w-xs mx-auto overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800">
+              <img
+                className="object-cover w-full h-56"
+                src="https://images.pexels.com/photos/3608967/pexels-photo-3608967.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                alt="avatar"
+              />
+              <div className="py-5 text-center">
+                <a
+                  href="#"
+                  className="block text-2xl font-bold text-gray-800 dark:text-white"
+                >
+                  Bus
+                </a>
+              </div>
+            </div>
+            */}
+          </section>
+        </div>
+        <div className="flex flex-wrap justify-center gap-4 mt-5"></div>
 
         <section className="text-gray-600 body-font">
-          <div className="container flex flex-wrap px-5 py-24 mx-auto">
-            <div className="flex flex-wrap w-full">
-              <div className="lg:w-2/5 md:w-1/2 md:pr-10 md:py-6">
+          <div className="container flex flex-wrap px-5 py-8 mx-auto">
+            <h1 className="mx-auto text-2xl font-bold text-center text-gray-500 lg:w-7/12 mt-11 mb-11 lg:text-4xl ">
+              How Sharing Your Vehicle Works
+            </h1>
+            <div className="flex flex-wrap justify-center">
+              <div className="lg:w-2/5 md:w-full md:pr-10 md:py-6">
                 <div className="relative flex pb-12">
                   <div className="absolute inset-0 flex items-center justify-center w-10 h-full">
                     <div className="w-1 h-full bg-gray-200 pointer-events-none" />
@@ -236,136 +350,114 @@ const Home = () => {
                 className="object-cover object-center mt-12 rounded-lg lg:w-3/5 md:w-1/2 md:mt-0"
                 src="https://images.unsplash.com/photo-1580273916550-e323be2ae537?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1528&q=80"
                 alt="step"
+                style={{ height: "600px", width: "600px" }}
               />
             </div>
           </div>
         </section>
-        <div>
-          <h1 className="w-3/12 p-2 pb-3 mx-auto mb-5 text-4xl font-bold text-center text-gray-500 border-b-4 border-indigo-400 rounded-md md:w-3/12 mt-11">
-            Vehicle Types
-          </h1>
-          <section className="flex gap-5 mx-5 my-5 mt-8">
-            <div className="max-w-xs mx-auto overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800">
-              <img
-                className="object-cover w-full h-56"
-                src="https://images.pexels.com/photos/10566898/pexels-photo-10566898.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                alt="avatar"
-              />
-              <div className="py-5 text-center">
-                <a
-                  href="#"
-                  className="block text-2xl font-bold text-gray-800 dark:text-white"
-                >
-                  Car
-                </a>
-              </div>
-            </div>
-            <div className="max-w-xs mx-auto overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800">
-              <img
-                className="object-cover w-full h-56"
-                src="https://images.pexels.com/photos/6011503/pexels-photo-6011503.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                alt="avatar"
-              />
-              <div className="py-5 text-center">
-                <a
-                  href="#"
-                  className="block text-2xl font-bold text-gray-800 dark:text-white"
-                >
-                  Scooter
-                </a>
-              </div>
-            </div>
-            <div className="max-w-xs mx-auto overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800">
-              <img
-                className="object-cover w-full h-56"
-                src="https://images.unsplash.com/photo-1542156822-6924d1a71ace?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
-                alt="avatar"
-              />
-              <div className="py-5 text-center">
-                <a
-                  href="#"
-                  className="block text-2xl font-bold text-gray-800 dark:text-white"
-                >
-                  Bike
-                </a>
-              </div>
-            </div>
-          </section>
-          <section className="flex gap-5 mx-5 my-5">
-            <div className="max-w-xs mx-auto overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800">
-              <img
-                className="object-cover w-full h-56"
-                src="https://images.unsplash.com/photo-1542156822-6924d1a71ace?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
-                alt="avatar"
-              />
-              <div className="py-5 text-center">
-                <a
-                  href="#"
-                  className="block text-2xl font-bold text-gray-800 dark:text-white"
-                >
-                  Van
-                </a>
-              </div>
-            </div>
-            <div className="max-w-xs mx-auto overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800">
-              <img
-                className="object-cover w-full h-56"
-                src="https://images.unsplash.com/photo-1542156822-6924d1a71ace?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
-                alt="avatar"
-              />
-              <div className="py-5 text-center">
-                <a
-                  href="#"
-                  className="block text-2xl font-bold text-gray-800 dark:text-white"
-                >
-                  Bus
-                </a>
-              </div>
-            </div>
-            <div className="max-w-xs mx-auto overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800">
-              <img
-                className="object-cover w-full h-56"
-                src="https://images.unsplash.com/photo-1542156822-6924d1a71ace?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
-                alt="avatar"
-              />
-              <div className="py-5 text-center">
-                <a
-                  href="#"
-                  className="block text-2xl font-bold text-gray-800 dark:text-white"
-                >
-                  Bolero
-                </a>
-              </div>
-            </div>
-          </section>
-        </div>
+
         <section>
           <div
-            className="relative overflow-hidden text-center bg-fixed bg-center bg-no-repeat bg-cover h-60 p-50"
+            className="relative overflow-hidden text-center bg-fixed bg-center bg-no-repeat bg-cover h-70 p-50"
             style={{
               backgroundImage:
                 'url("https://images.unsplash.com/photo-1502161254066-6c74afbf07aa?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=871&q=80")',
             }}
           >
-            <section class="text-gray-600 body-font">
+            <section class="text-gray-200 body-font">
               <div class="container px-5 py-24 mx-auto">
-                <div class="lg:w-2/3 flex flex-col sm:flex-row sm:items-center items-start mx-auto">
+                <div class="lg:w-2/3 flex flex-col sm:flex-row sm:items-center items-center mx-auto">
                   <h1 class="flex-grow sm:pr-16 text-4xl font-medium title-font ">
-                    List your car today
+                    Be a vendor <br></br>&<br></br>List your vehicle today
                   </h1>
                   <Link
-                    to="/addvehicle"
+                    to="/vendor-register"
                     class="flex-shrink-0 text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg mt-10 sm:mt-0"
                   >
-                    Get Started
+                    Register Here
                   </Link>
                 </div>
               </div>
             </section>
           </div>
         </section>
+        <div className="flex flex-wrap justify-center gap-4 mt-8">
+          <section className="text-gray-600 body-font">
+            <div className="container flex flex-wrap justify-center px-5 py-6 mx-auto">
+              <h1 className="w-6/12 p-2 mx-auto text-xl font-bold text-center text-gray-600 md:text-3xl lg:text-5xl mb-11">
+                How VRS Works
+              </h1>
 
-        <section class="text-gray-600 body-font">
+              <div className="flex flex-wrap justify-center w-full">
+                <img
+                  className="object-cover object-center mb-16 rounded-lg mr-11 lg:w-3/5 md:w-1/2 md:mt-0"
+                  src="https://images.unsplash.com/photo-1580273916550-e323be2ae537?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1528&q=80"
+                  alt="step"
+                  style={{ height: "400px", width: "600px" }}
+                />
+
+                {/*  <video loop autoPlay muted>
+                  <source src={key} type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video> */}
+
+                <div className="lg:w-2/5 md:w-1/2 md:pr-10 md:py-6">
+                  <div className="relative flex pb-12">
+                    <div className="absolute inset-0 flex items-center justify-center w-10 h-full">
+                      <div className="w-1 h-full bg-gray-200 pointer-events-none" />
+                    </div>
+                    <div className="relative z-10 inline-flex items-center justify-center flex-shrink-0 w-10 h-10 text-white bg-indigo-500 rounded-full">
+                      1
+                    </div>
+                    <div className="flex-grow pl-4">
+                      <h2 className="mb-1 text-sm font-medium tracking-wider text-gray-900 title-font">
+                        Find the Perfect Vehicle
+                      </h2>
+                      <p className="leading-relaxed">
+                        Enter a location and date and browse thousands of cars
+                        shared by local hosts
+                      </p>
+                    </div>
+                  </div>
+                  <div className="relative flex pb-12">
+                    <div className="absolute inset-0 flex items-center justify-center w-10 h-full">
+                      <div className="w-1 h-full bg-gray-200 pointer-events-none" />
+                    </div>
+                    <div className="relative z-10 inline-flex items-center justify-center flex-shrink-0 w-10 h-10 text-white bg-indigo-500 rounded-full">
+                      2
+                    </div>
+                    <div className="flex-grow pl-4">
+                      <h2 className="mb-1 text-sm font-medium tracking-wider text-gray-900 title-font">
+                        Book your trip
+                      </h2>
+                      <p className="leading-relaxed">
+                        Book on the VRS online, choose a protection plan.
+                      </p>
+                    </div>
+                  </div>
+                  <div className="relative flex pb-12">
+                    <div className="absolute inset-0 flex items-center justify-center w-10 h-full">
+                      <div className="w-1 h-full bg-gray-200 pointer-events-none" />
+                    </div>
+                    <div className="relative z-10 inline-flex items-center justify-center flex-shrink-0 w-10 h-10 text-white bg-indigo-500 rounded-full">
+                      3
+                    </div>
+                    <div className="flex-grow pl-4">
+                      <h2 className="mb-1 text-sm font-medium tracking-wider text-gray-900 title-font">
+                        Hit the road
+                      </h2>
+                      <p className="leading-relaxed">
+                        Have the vehicle delivered or pick it up from your host.
+                        Check in with the app, grab the keys, and hit the road!
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+        {/* <section class="text-gray-600 body-font">
           <div class="container px-5 py-24 mx-auto">
             <div class="lg:w-2/3 flex flex-col sm:flex-row sm:items-center items-start mx-auto">
               <h1 class="flex-grow sm:pr-16 text-4xl font-medium title-font ">
@@ -379,7 +471,7 @@ const Home = () => {
               </Link>
             </div>
           </div>
-        </section>
+        </section> */}
       </div>
     </>
   );

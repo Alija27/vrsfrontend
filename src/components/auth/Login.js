@@ -15,13 +15,7 @@ export const Login = () => {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         })
-        .then((res) => {
-          if (res.data.role === "Admin") {
-            navigate("/admin");
-          } else {
-            navigate("/");
-          }
-        })
+        .then((res) => {})
         .catch((err) => {
           setLoading(false);
         });
@@ -34,7 +28,7 @@ export const Login = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  const [setUser] = useContext(UserContext);
+  const [user, setUser] = useContext(UserContext);
 
   function login(e) {
     e.preventDefault();
@@ -46,8 +40,15 @@ export const Login = () => {
       })
       .then((res) => {
         localStorage.setItem("token", res.data.token);
-        if (res.data.role === "Admin") {
+        setUser(res.data.user);
+        if (res.data.user.role === "Admin") {
           navigate("/admin");
+        } else if (res.data.user.role === "Vendor") {
+          if (res.data.user.vendor.status === "Accepted") {
+            navigate("/vendordashboard");
+          } else {
+            navigate("/");
+          }
         } else {
           navigate("/");
         }
@@ -68,7 +69,11 @@ export const Login = () => {
             <h1 className="text-3xl font-semibold text-center text-gray-700 dark:text-white">
               Login
             </h1>
-            {error && <div className="alert alert-danger">{error}</div>}
+            {error && (
+              <div className="flex justify-center mt-1 text-white bg-red-800 alert alert-danger ">
+                {error}
+              </div>
+            )}
             <form method="post" onSubmit={login} className="mt-6">
               <div>
                 <label
@@ -119,7 +124,7 @@ export const Login = () => {
                 href="#"
                 className="text-xs text-gray-600 dark:text-gray-400 hover:underline"
               >
-                Forget Password?
+                Forgot Password?
               </a>
 
               <span className="w-1/5 border-b dark:border-gray-400 lg:w-1/5" />

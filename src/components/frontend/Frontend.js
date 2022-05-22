@@ -1,3 +1,7 @@
+import VehiclesPage from "./VehiclesPage";
+import ChangePassword from "../auth/ChangePassword";
+import OTPinput from "../auth/OTPinput";
+import { ForgetPassword } from "../auth/ForgetPassword";
 import { React } from "react";
 import { Route, Routes } from "react-router-dom";
 import Home from "./Home";
@@ -26,7 +30,7 @@ const Frontend = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/addvehicle" element={<AddVehicle />} />
-        <Route path="/vehicles" element={<Vehicles />} />
+        <Route path="/vehiclespage" element={<Vehicles />} />
         <Route path="/registeredvehicle" element={<RegisteredVehicle />} />
         <Route path="/vendordashboard" element={<VendorDashboard />} />
         <Route path="/vehiclerequest" element={<VehicleRequest />} />
@@ -39,6 +43,10 @@ const Frontend = () => {
         <Route path="/edit-vendor/:id" element={<EditVendor />} />
         <Route path="/vendorprofile" element={<VendorProfile />} />
         <Route path="/vehicledetails/:id" element={<VehicleDetails />} />
+        <Route path="/forgetpassword" element={<ForgetPassword />} />
+        <Route path="/OTPverification" element={<OTPinput />} />
+        <Route path="/changepassword" element={<ChangePassword />} />
+        <Route path="/vehicles" element={<VehiclesPage />} />
       </Routes>
     </div>
   );

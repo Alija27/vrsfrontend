@@ -1,3 +1,19 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+.card-container:hover .card {
+ transform: rotateY(180deg);
+}
+.card{
+    transition: transform 1s ease-in-out ;
+    transform-style: preserve-3d;
+}
+ 
+.card .back{
+    transform: rotateY(180deg);
+    backface-visibility: hidden;
+}
+
+.card .front{
+    backface-visibility: hidden;
+}

@@ -118,35 +118,36 @@ const AddVehicle = () => {
           }}
         ></div>
       </div>
-      <div class="flex justify-center w-full p-6 rounded-lg  bg-white ">
-        <div className="w-1/2 p-10 shadow-lg">
+      <div class="w-full max-w-sm p-6 m-20 mx-auto bg-white rounded-md shadow-lg dark:bg-gray-800 ">
+        <h1 className="text-3xl font-semibold text-center text-gray-700 dark:text-white">
+          Add Vehicle
+        </h1>
+        <div>
           <h1>Hello, {user && user.vendor && user.vendor.name}</h1>
 
           <form onSubmit={submitvehicleData}>
-            <div className="mb-6 form-group">
+            <div className="mt-4">
+              <label
+                htmlFor="formFileSm"
+                className="inline-block text-gray-700 form-label"
+              >
+                Name
+              </label>
               <input
                 type="text"
-                className="form-control block
-              w-full
-              px-3
-              py-1.5
-              text-base
-              font-normal
-              text-gray-700
-              bg-white bg-clip-padding
-              border border-solid border-gray-300
-              rounded
-              transition
-              ease-in-out
-              m-0
-              focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40zblock focus:ring-opacity-40"
                 name="name"
                 placeholder="Vehicle Name"
                 value={vehicleData.name}
                 onChange={handleInputChange}
               />
+              {validation.name ? (
+                <div className="text-red-500">{validation.name} </div>
+              ) : (
+                ""
+              )}
             </div>
-            <div>
+            <div className="mt-4">
               <input
                 type="hidden"
                 className="form-control"
@@ -154,195 +155,212 @@ const AddVehicle = () => {
                 value={user.vendor && user.vendor.id}
               />
             </div>
-            <select
-              name="type_id"
-              className="items-center block w-full px-3 m-0 my-2 font-normal text-gray-700 transition ease-in-out bg-white bg-no-repeat border border-gray-300 border-solid appearance-none form-select bg-clip-padding focus:text-grey-900 focus:bg-white focus:border-white focus:outline-none"
-              onChange={handleInputChange}
-              value={vehicleData.type_id}
-            >
-              <option value="">Vehicle Type</option>
-              {types.map((type, index) => (
-                <option value={type.id}>{type.name}</option>
-              ))}
-            </select>
-            <select
-              name="location_id"
-              className="items-center block w-full px-3 m-0"
-              onChange={handleInputChange}
-              value={vehicleData.location_id}
-            >
-              <option value="">Location</option>
-              {locations.map((location) => (
-                <option value={location.id}>{location.name}</option>
-              ))}
-            </select>
-            <div className="mb-6 form-group">
+            <div className="mt-4">
+              <label
+                htmlFor="formFileSm"
+                className="inline-block text-gray-700 form-label"
+              >
+                Type
+              </label>
+
+              <select
+                name="type_id"
+                className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40zblock focus:ring-opacity-40"
+                onChange={handleInputChange}
+                value={vehicleData.type_id}
+              >
+                <option value="">Vehicle Type</option>
+                {types.map((type, index) => (
+                  <option value={type.id}>{type.name}</option>
+                ))}
+              </select>
+              {validation.type_id ? (
+                <div className="text-red-500">{validation.type_id} </div>
+              ) : (
+                ""
+              )}
+            </div>
+
+            <div clasName="mt-4">
+              <label
+                htmlFor="formFileSm"
+                className="inline-block text-gray-700 form-label"
+              >
+                Location
+              </label>
+              <select
+                name="location_id"
+                className="items-center block w-full px-3 m-0 rounded-md"
+                onChange={handleInputChange}
+                value={vehicleData.location_id}
+              >
+                <option value="">Location</option>
+                {locations.map((location) => (
+                  <option value={location.id}>{location.name}</option>
+                ))}
+              </select>
+              {validation.location_id ? (
+                <div className="text-red-500">{validation.location_id} </div>
+              ) : (
+                ""
+              )}
+            </div>
+            <div className="mt-4">
+              <label
+                htmlFor="formFileSm"
+                className="inline-block text-gray-700 form-label"
+              >
+                Model
+              </label>
               <input
                 type="text"
-                className="form-control block
-  w-full
-  px-3
-  py-1.5
-  text-base
-  font-normal
-  text-gray-700
-  bg-white bg-clip-padding
-  border border-solid border-gray-300
-  rounded
-  transition
-  ease-in-out
-  m-0
-  focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
                 name="model"
                 placeholder="Model"
                 value={vehicleData.model}
                 onChange={handleInputChange}
               />
+              {validation.model ? (
+                <div className="text-red-500">{validation.model} </div>
+              ) : (
+                ""
+              )}
             </div>
-            <div className="mb-6 form-group">
+            <div className="mt-4">
+              <label
+                htmlFor="formFileSm"
+                className="inline-block text-gray-700 form-label"
+              >
+                Color
+              </label>
               <input
                 type="text"
-                className="form-control block
-  w-full
-  px-3
-  py-1.5
-  text-base
-  font-normal
-  text-gray-700
-  bg-white bg-clip-padding
-  border border-solid border-gray-300
-  rounded
-  transition
-  ease-in-out
-  m-0
-  focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
                 name="color"
                 placeholder="Color"
                 value={vehicleData.color}
                 onChange={handleInputChange}
               />
+              {validation.color ? (
+                <div className="text-red-500">{validation.color} </div>
+              ) : (
+                ""
+              )}
             </div>
-            <div className="mb-6 form-group">
+            <div className="mt-4">
+              <label
+                htmlFor="formFileSm"
+                className="inline-block text-gray-700 form-label"
+              >
+                Total Seats
+              </label>
               <input
                 type="text"
-                className="form-control block
-  w-full
-  px-3
-  py-1.5
-  text-base
-  font-normal
-  text-gray-700
-  bg-white bg-clip-padding
-  border border-solid border-gray-300
-  rounded
-  transition
-  ease-in-out
-  m-0
-  focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
                 name="total_seats"
                 placeholder="Total Seats"
                 value={vehicleData.total_seats}
                 onChange={handleInputChange}
               />
+              {validation.total_seats ? (
+                <div className="text-red-500">{validation.total_seats} </div>
+              ) : (
+                ""
+              )}
             </div>
-            <div className="mb-6 form-group">
+            <div className="mt-4">
+              <label
+                htmlFor="formFileSm"
+                className="inline-block text-gray-700 form-label"
+              >
+                Brand
+              </label>
               <input
                 type="text"
-                className="form-control block
-  w-full
-  px-3
-  py-1.5
-  text-base
-  font-normal
-  text-gray-700
-  bg-white bg-clip-padding
-  border border-solid border-gray-300
-  rounded
-  transition
-  ease-in-out
-  m-0
-  focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
                 name="brand"
                 placeholder="Brand"
                 value={vehicleData.brand}
                 onChange={handleInputChange}
               />
+              {validation.brand ? (
+                <div className="text-red-500">{validation.brand} </div>
+              ) : (
+                ""
+              )}
             </div>
-            <div className="mb-6 form-group">
+            <div className="mt-4">
+              <label
+                htmlFor="formFileSm"
+                className="inline-block text-gray-700 form-label"
+              >
+                Rental Price
+              </label>
               <input
                 type="text"
-                className="form-control block
-  w-full
-  px-3
-  py-1.5
-  text-base
-  font-normal
-  text-gray-700
-  bg-white bg-clip-padding
-  border border-solid border-gray-300
-  rounded
-  transition
-  ease-in-out
-  m-0
-  focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
                 name="rental_price"
                 placeholder="Rental Price"
                 value={vehicleData.rental_price}
                 onChange={handleInputChange}
               />
+              {validation.rental_price ? (
+                <div className="text-red-500">{validation.rental_price} </div>
+              ) : (
+                ""
+              )}
             </div>
-            <div className="mb-6 form-group">
+            <div className="mt-4">
+              <label
+                htmlFor="formFileSm"
+                className="inline-block text-gray-700 form-label"
+              >
+                Description
+              </label>
               <textarea
-                className="
-  form-control
-  block
-  w-full
-  px-3
-  py-1.5
-  text-base
-  font-normal
-  text-gray-700
-  bg-white bg-clip-padding
-  border border-solid border-gray-300
-  rounded
-  transition
-  ease-in-out
-  m-0
-  focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
-"
+                className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40zblock focus:ring-opacity-40"
                 name="description"
                 rows={3}
                 placeholder="Description"
                 value={vehicleData.description}
                 onChange={handleInputChange}
               />
+              {validation.description ? (
+                <div className="text-red-500">{validation.description} </div>
+              ) : (
+                ""
+              )}
             </div>
 
-            <div className="mb-6 form-group">
+            <div className="mt-4">
+              <label
+                htmlFor="formFileSm"
+                className="inline-block text-gray-700 form-label"
+              >
+                Terms
+              </label>
               <input
                 name="terms"
                 type="text"
-                className="form-control block
-  w-full
-  px-3
-  py-1.5
-  text-base
-  font-normal
-  text-gray-700
-  bg-white bg-clip-padding
-  border border-solid border-gray-300
-  rounded
-  transition
-  ease-in-out
-  m-0
-  focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
                 placeholder="Terms"
                 value={vehicleData.terms}
                 onChange={handleInputChange}
               />
+              {validation.terms ? (
+                <div className="text-red-500">{validation.terms} </div>
+              ) : (
+                ""
+              )}
             </div>
 
-            <div className="mb-3 w-96">
+            <div className="mt-4">
+              <label
+                htmlFor="formFileSm"
+                className="inline-block text-gray-700 form-label"
+              >
+                Vehicle Image
+              </label>
               {/* <label
               htmlFor="formFileSm"
               className="inline-block mb-2 text-gray-700 form-label"
@@ -351,60 +369,69 @@ const AddVehicle = () => {
             </label> */}
               <input
                 onChange={(e) => handleImage(e.target.files)}
-                className="block w-full px-2 py-1 m-0 text-sm font-normal text-gray-700 transition ease-in-out bg-white border border-gray-300 border-solid rounded form-control bg-clip-padding focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40zblock focus:ring-opacity-40"
                 name="image"
                 type="file"
               />
+              {validation.image ? (
+                <div className="text-red-500">{validation.image} </div>
+              ) : (
+                ""
+              )}
             </div>
-            <div className="mb-6 form-group">
+            <div className="mt-4">
+              <label
+                htmlFor="formFileSm"
+                className="inline-block text-gray-700 form-label"
+              >
+                Condition
+              </label>
               <input
                 type="text"
-                className="form-control block
-  w-full
-  px-3
-  py-1.5
-  text-base
-  font-normal
-  text-gray-700
-  bg-white bg-clip-padding
-  border border-solid border-gray-300
-  rounded
-  transition
-  ease-in-out
-  m-0
-  focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
                 name="condition"
                 placeholder="Condition"
                 value={vehicleData.condition}
                 onChange={handleInputChange}
               />
+              {validation.condition ? (
+                <div className="text-red-500">{validation.condition} </div>
+              ) : (
+                ""
+              )}
             </div>
-            <div className="mb-6 form-group">
+            <div className="mt-4">
+              <label
+                htmlFor="formFileSm"
+                className="inline-block text-gray-700 form-label"
+              >
+                Has Driver
+              </label>
+              <input
+                class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
+                type="checkbox"
+                name="has_driver"
+                value={vehicleData.has_driver}
+                onChange={handleInputChange}
+              />
+
               <input
                 type="text"
-                className="form-control block
-  w-full
-  px-3
-  py-1.5
-  text-base
-  font-normal
-  text-gray-700
-  bg-white bg-clip-padding
-  border border-solid border-gray-300
-  rounded
-  transition
-  ease-in-out
-  m-0
-  focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
                 name="has_driver"
                 placeholder="Has Driver"
                 value={vehicleData.has_driver}
                 onChange={handleInputChange}
               />
+              {validation.has_driver ? (
+                <div className="text-red-500">{validation.has_driver} </div>
+              ) : (
+                ""
+              )}
             </div>
             <button
               type="submit"
-              className="
+              className="mt-4 
 w-full
 px-6
 py-2.5

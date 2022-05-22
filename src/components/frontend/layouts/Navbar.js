@@ -9,7 +9,7 @@ export const Navbar = () => {
   return (
     <div>
       <header class="text-gray-600 body-font shadow-lg">
-        <div class="container mx-auto flex flex-wrap p-2 flex-col md:flex-row items-center">
+        <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
           <a class="flex title-font font-medium items-center text-gray-500 mb-4 md:mb-0">
             <img
               className="w-8 h-8 rounded-full"
@@ -21,28 +21,28 @@ export const Navbar = () => {
           <nav class="md:ml-auto flex flex-wrap items-center text-base justify-center">
             <Link
               to="/"
-              class="mr-5  hover:text-indigo-500 font-medium  hover:border-b-2 hover:border-indigo-400 "
+              class="mr-5  hover:text-indigo-500 font-medium  border-2 border-white border-b-transparent hover:border-b-indigo-400 "
             >
               Home
             </Link>
             <Link
               to="/about"
-              class="mr-5 hover:text-indigo-500 font-medium  hover:border-b-2 hover:border-indigo-400"
+              class="mr-5 hover:text-indigo-500 font-medium border-2 border-white border-b-transparent hover:border-b-indigo-400"
             >
               About
             </Link>
             <Link
               to="/vehicles"
-              class="mr-5 hover:text-indigo-500 font-medium  hover:border-b-2 hover:border-indigo-400"
+              class="mr-5 hover:text-indigo-500 font-medium    border-2 border-white border-b-transparent hover:border-b-indigo-400"
             >
               Vehicles
             </Link>
             {user && user.role && (
-              <>
+              <Link to="#" className="relative group">
                 <button
                   id="dropdownDividerButton"
                   data-dropdown-toggle="dropdownDivider"
-                  class="inline-flex items-center text-white bg-indigo-500
+                  class="inline-flex items-center  text-white bg-indigo-500
               border-0 py-1 px-3 focus:outline-none hover:bg-indigo-600 rounded
               text-base mt-4 md:mt-0"
                   type="button"
@@ -51,21 +51,24 @@ export const Navbar = () => {
                 </button>
                 <div
                   id="dropdownDivider"
-                  class="hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600"
+                  class="invisible absolute right-2 group-hover:visible z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600"
                 >
                   <ul
                     class="py-1 text-sm text-gray-700 dark:text-gray-200"
                     aria-labelledby="dropdownDividerButton"
                   >
                     <li>
-                      {user && user.role === "Vendor" && user.vendor && (
-                        <Link
-                          to="/vendordashboard"
-                          class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                        >
-                          Vendor Dashboard
-                        </Link>
-                      )}
+                      {user &&
+                        user.vendor &&
+                        user.role === "Vendor" &&
+                        user.vendor.status === "Accepted" && (
+                          <Link
+                            to="/vendordashboard"
+                            class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                          >
+                            Vendor Dashboard
+                          </Link>
+                        )}
                     </li>
                     <li>
                       {user && user.role === "Admin" && (
@@ -85,6 +88,14 @@ export const Navbar = () => {
                             class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                           >
                             My Bookings
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            to="/notification"
+                            class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                          >
+                            <i class="fa-solid fa-bell mr-1"></i> Notification
                           </Link>
                         </li>
                         <li>
@@ -117,7 +128,7 @@ export const Navbar = () => {
                 </Link>
               </div> */}
                 </div>
-              </>
+              </Link>
             )}
 
             {/* <Link
@@ -134,7 +145,7 @@ export const Navbar = () => {
                 Vendor Dashboard
               </Link>
             )} */}
-            {!user.role && (
+            {user && !user.role && (
               <Link
                 to="/login"
                 class="inline-flex items-center text-white bg-indigo-500

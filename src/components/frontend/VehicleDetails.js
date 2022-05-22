@@ -1,3 +1,4 @@
+import Swal from "sweetalert2";
 import React from "react";
 import { FaStar } from "react-icons/fa";
 import { useEffect, useState } from "react";
@@ -49,12 +50,19 @@ const VehicleDetails = () => {
       })
       .then((res) => {
         setRequestVehicle(res.data);
-        alert("Requested Sucessfully");
+        Swal.fire({
+          icon: "sucess",
+          title: "Requested Sucessfully",
+        });
         navigate("/myBookings");
         setLoading(false);
       })
       .catch((err) => {
-        alert("Cannot send request");
+        Swal.fire({
+          icon: "error",
+          title: "Login to send request",
+          timer: 2000,
+        });
       });
     setLoading(false);
   }
@@ -73,7 +81,10 @@ const VehicleDetails = () => {
       })
       .catch((err) => {
         setLoading(false);
-        alert("Cannot check vehicle status!");
+        Swal.fire({
+          icon: "error",
+          title: "Cannot check vehicle status",
+        });
       });
     setLoading(false);
   }
@@ -179,29 +190,41 @@ const VehicleDetails = () => {
       {loading && <div>Loading......................................</div>}
       {!loading && (
         <>
-          <div className="relative overflow-hidden text-center h-96 p-50">
+          {/* <div className="relative overflow-hidden text-center h-96 p-50">
             <img
               alt="Jeremy S."
               className="w-full h-96 object-fit"
               src={`http://localhost:8000/storage/${vehicle.image}`}
             />
-          </div>
+          </div> */}
 
           <div className="gap-8 px-20 py-12 mx-auto md:mx-10 lg:flex ">
             <div className="w-full bg-white md:w-1/2">
               <div className="w-full ">
+                <img
+                  alt="Jeremy S."
+                  className="w-full h-96 object-fit"
+                  src={`http://localhost:8000/storage/${vehicle.image}`}
+                />
                 <h1 className="text-3xl font-bold text-white sm:text-slate-900 dark:sm:text-white ">
-                  {vehicle.name} Bentley Continental GT 2012
+                  {vehicle.name}
                 </h1>
                 <p className="col-start-1 mt-4 text-sm leading-6 sm:col-span-2 lg:mt-6 lg:row-start-4 lg:col-span-1 dark:text-slate-400">
-                  <p className="mt-1 text-lg text-gray-500 ">
+                  <p className="col-start-1 text-sm leading-6 sm:col-span-2 lg:mt-6 lg:row-start-4 lg:col-span-1 dark:text-slate-400">
+                    <p className="mt-1 text-lg text-gray-500">Description</p>{" "}
+                    {vehicle.description}
+                  </p>
+                  <p className="mt-5 text-lg text-gray-500 ">
                     <i class="fa-solid fa-location-pin ml-1"></i>{" "}
                     {vehicle.location.name}
                   </p>
                 </p>
-                <p className="col-start-1 text-sm leading-6 sm:col-span-2 lg:mt-6 lg:row-start-4 lg:col-span-1 dark:text-slate-400">
-                  <p className="mt-1 text-lg text-gray-500">Description</p>{" "}
-                  {vehicle.description}
+
+                <p className="col-start-1 mt-4 text-sm leading-6 sm:col-span-2 lg:mt-6 lg:row-start-4 lg:col-span-1 dark:text-slate-400">
+                  <p className="mt-1 text-lg text-gray-500">Rental Price</p>
+                  <h2 className="mt-1 text-lg text-black text-bold">
+                    Rs. {vehicle.rental_price}/day
+                  </h2>
                 </p>
                 <p className="col-start-1 text-sm leading-6 sm:col-span-2 lg:mt-6 lg:row-start-4 lg:col-span-1 dark:text-slate-400">
                   <p className="mt-1 text-lg text-gray-500">Terms</p>{" "}
@@ -216,13 +239,7 @@ const VehicleDetails = () => {
               </div>
             </div>
             <div className="bg-white md:w-1/2">
-              <p className="col-start-1 mt-4 text-sm leading-6 sm:col-span-2 lg:mt-6 lg:row-start-4 lg:col-span-1 dark:text-slate-400">
-                <p className="mt-1 text-lg text-gray-500">Rental Price</p>
-                <h2 className="mt-1 text-lg text-black text-bold">
-                  Rs. {vehicle.rental_price}/day
-                </h2>
-              </p>
-              <div className="p-5 border border-indigo-600 border-6">
+              <div className="p-5 mt-8 border border-indigo-600 border-6">
                 <form
                   onSubmit={(e) => {
                     e.preventDefault();
@@ -366,41 +383,53 @@ const VehicleDetails = () => {
               </div>
             </div>
             <div>
-              <section class="text-gray-600 body-font overflow-hidden">
-                <div class="container px-5 py-24 w-8/12 mx-24">
-                  Reviews
-                  {reviews.map((item) => (
-                    <div class="divide-y-2 divide-gray-100">
-                      <div class="py-8 flex flex-wrap md:flex-nowrap">
-                        <div class="flex gap-5 border-b border-gray-500 pb-8">
-                          <div class="md:mb-0 mb-6 flex-shrink-0 flex flex-col">
-                            <img
-                              className="inline-block rounded-full w-11 ring-2 ring-white"
-                              src="https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                              alt
-                            />
-                          </div>
-                          <div>
-                            <h2 class=" flex text-2xl font-medium text-gray-900 title-font mb-2">
-                              <FaStar color={item.stars >= 1 ? "yellow" : ""} />
+              {reviews && (
+                <section class="text-gray-600 body-font overflow-hidden">
+                  <div class="container px-5 py-24 w-8/12 mx-24">
+                    <div>Reviews</div>
+                    {reviews.map((item) => (
+                      <div class="divide-y-2 divide-gray-100">
+                        <div class="py-8 flex flex-wrap md:flex-nowrap">
+                          <div class="flex gap-5 border-b border-gray-500 pb-8">
+                            <div class="md:mb-0 mb-6 flex-shrink-0 flex flex-col">
+                              <img
+                                className="inline-block rounded-full w-11 ring-2 ring-white"
+                                src="https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                                alt
+                              />
+                            </div>
+                            <div>
+                              <h2 class=" flex text-2xl font-medium text-gray-900 title-font mb-2">
+                                <FaStar
+                                  color={item.stars >= 1 ? "yellow" : ""}
+                                />
 
-                              <FaStar color={item.stars >= 2 ? "yellow" : ""} />
-                              <FaStar color={item.stars >= 3 ? "yellow" : ""} />
-                              <FaStar color={item.stars >= 4 ? "yellow" : ""} />
-                              <FaStar color={item.stars >= 5 ? "yellow" : ""} />
-                              {/*  */}
-                            </h2>
-                            <span class="mt-1 text-gray-500 text-sm">
-                              {item.user.name}, {item.created_at}
-                            </span>
-                            <p class="leading-relaxed">{item.message}</p>
+                                <FaStar
+                                  color={item.stars >= 2 ? "yellow" : ""}
+                                />
+                                <FaStar
+                                  color={item.stars >= 3 ? "yellow" : ""}
+                                />
+                                <FaStar
+                                  color={item.stars >= 4 ? "yellow" : ""}
+                                />
+                                <FaStar
+                                  color={item.stars >= 5 ? "yellow" : ""}
+                                />
+                                {/*  */}
+                              </h2>
+                              <span class="mt-1 text-gray-500 text-sm">
+                                {item.user.name}, {item.created_at}
+                              </span>
+                              <p class="leading-relaxed">{item.message}</p>
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                  ))}
-                </div>
-              </section>
+                    ))}
+                  </div>
+                </section>
+              )}
               {/* <div class="min-h-screen bg-gray-100 flex items-center justify-center">
                 Reviews
                 {reviews.map((item) => (

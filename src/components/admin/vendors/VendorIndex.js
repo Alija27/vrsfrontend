@@ -7,10 +7,18 @@ import UserContext from "../../../UserContext";
 import useAxios from "../../../hooks/useAxios";
 
 export const VendorIndex = () => {
+  const [status, setStatus] = useState({});
   const [vendors, setVendors] = useState([]);
   const [loading, setLoading] = useState(false);
   const user = useContext(UserContext);
 
+  const updateStatus = async (id, status) => {
+    await useAxios
+      .put(`/admin/vendors/${id}`, { status: status })
+      .then((res) => {
+        alert("status updated");
+      });
+  };
   const getVendors = async () => {
     setLoading(true);
     await useAxios.get("/admin/vendors").then((res) => {
@@ -18,6 +26,7 @@ export const VendorIndex = () => {
       setLoading(false);
     });
   };
+
   useEffect(() => {
     getVendors();
   }, []);
@@ -114,6 +123,7 @@ export const VendorIndex = () => {
                               <th>Phone</th>
 
                               <th>User Name</th>
+                              <th>Status</th>
 
                               <th>Action</th>
                             </tr>
@@ -136,6 +146,35 @@ export const VendorIndex = () => {
 
                                 <td>{vendor.user.name}</td>
 
+                                <th>
+                                  <select
+                                    className=""
+                                    name="status"
+                                    id="status"
+                                    onChange={(e) =>
+                                      updateStatus(vendor.id, e.target.value)
+                                    }
+                                  >
+                                    <option
+                                      selected={vendor.status === "Accepted"}
+                                      value="Accepted"
+                                    >
+                                      Accept
+                                    </option>
+                                    <option
+                                      selected={vendor.status === "Rejected"}
+                                      value="Rejected"
+                                    >
+                                      Reject
+                                    </option>
+                                    <option
+                                      value="Pending"
+                                      selected={vendor.status === "Pending"}
+                                    >
+                                      Pending
+                                    </option>
+                                  </select>
+                                </th>
                                 <td>
                                   <Link
                                     to={`/admin/vendors/edit/${vendor.id}`}

@@ -7,6 +7,7 @@ import { VendorDashboard } from "./VendorDashboard";
 
 export const VehicleRequest = () => {
   const [requestList, setRequestList] = useState([]);
+  const [showModal, setShowModal] = useState(false);
   const [status, setStatus] = useState();
   const fetchVehicleRequest = async () => {
     await useAxios
@@ -34,11 +35,11 @@ export const VehicleRequest = () => {
     <div>
       <VendorDashboard />
       <div className="container m-5">
-        <div className="flex flex-wrap px-4 ">
+        <div className="flex flex-wrap px-4">
           <div className="w-full px-4">
             <div className="mx-auto text-center">
-              <div className="flex flex-wrap mx-4">
-                {requestList.map((item) => {
+              <div className="flex flex-wrap gap-10 mx-4">
+                {/* {requestList.map((item) => {
                   return (
                     <div className="relative w-1/3 mb-12">
                       <div className="overflow-hidden rounded-lg">
@@ -103,13 +104,13 @@ export const VehicleRequest = () => {
                             Pending
                           </option>
                           <option
-                            selected={item.is_approved == "Confirmed"}
+                            selected={item.is_approved === "Confirmed"}
                             value="Confirmed"
                           >
                             Confirm
                           </option>
                           <option
-                            selected={item.is_approved == "Canceled"}
+                            selected={item.is_approved === "Canceled"}
                             value="Canceled"
                           >
                             Canceled
@@ -117,12 +118,101 @@ export const VehicleRequest = () => {
                         </select>
                         {status}
 
-                        {/* <a
-                          href="javascript:void(0)"
-                          className="inline-block py-3 text-sm font-semibold transition border rounded-md text-body-color px-7 hover:bg-green-900 hover:border-primary hover:text-white"
+                       
+                      </div>
+                    </div>
+                  );
+                })} */}
+                {requestList.map((item) => {
+                  return (
+                    <div class="max-w-sm rounded overflow-hidden shadow-lg border border-gray-600">
+                      <img
+                        src={`http://localhost:8000/storage/${item.vehicle.image}`}
+                        alt="portfolio"
+                        className="w-full"
+                      />
+                      <div class="px-6 py-4">
+                        <div class="font-bold text-xl mb-2">
+                          {item.vehicle.name}
+                        </div>
+                        thaxiana
+                        <div class="flex flex-wrap space-around px-2 py-4 justify-center">
+                          <span class="inline-block bg-gray-200  px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
+                            Start Date: <br></br>
+                            {item.start_date}
+                          </span>
+                          <span class="inline-block bg-gray-200  px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
+                            End Date: <br></br>
+                            {item.end_date}
+                          </span>
+                        </div>
+                      </div>
+
+                      <div class="px-6  pb-2">
+                        <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
+                          Destination: {item.destination}
+                        </span>{" "}
+                        <br></br>
+                        <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
+                          Total Amount:{item.total_amount}
+                        </span>
+                        <br></br>
+                        <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
+                          Customer Name: {item.user.name}
+                        </span>
+                        <br></br>
+                        <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
+                          Citizenship Number: {item.user.citizenship_number}
+                        </span>
+                      </div>
+                      <div className="m-1">
+                        <select
+                          name="is_available"
+                          id="is_available"
+                          // value={item.is_approved}
+                          onChange={(e) => updateA(item.id, e.target.value)}
                         >
-                          View Customer Details
-                        </a> */}
+                          <option
+                            selected={item.is_approved === "Pending"}
+                            value="Pending"
+                          >
+                            Pending
+                          </option>
+                          <option
+                            selected={item.is_approved === "Confirmed"}
+                            value="Confirmed"
+                          >
+                            Confirm
+                          </option>
+                          <option
+                            selected={item.is_approved === "Canceled"}
+                            value="Canceled"
+                          >
+                            Canceled
+                          </option>
+                        </select>
+                      </div>
+                      <div className="bg-white border border-gray-200">
+                        <h2 className="mb-0 accordion-header" id="headingOne">
+                          Customer Image
+                        </h2>
+                        <img
+                          src={`http://localhost:8000/storage/${item.user.image}`}
+                          alt="customerimage"
+                          className="w-full"
+                          style={{ height: "250px", width: "250px" }}
+                        />
+                      </div>
+                      <div className="bg-white border border-gray-200">
+                        <h2 className="mb-0 accordion-header" id="headingOne">
+                          Citizenship Image
+                        </h2>
+                        <img
+                          src={`http://localhost:8000/storage/${item.user.citizenship_image}`}
+                          alt="citizenshipnumber"
+                          className="w-full"
+                          style={{ height: "250px", width: "250px" }}
+                        />
                       </div>
                     </div>
                   );

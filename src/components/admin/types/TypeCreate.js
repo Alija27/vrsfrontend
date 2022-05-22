@@ -9,14 +9,22 @@ const TypeCreate = () => {
   const [type, setType] = useState({
     name: "",
   });
+  const [image, setImage] = useState(null);
   const navigate = useNavigate();
   const handleInput = (e) => {
-    setType({ name: e.target.value });
+    setType({ ...type, [e.target.name]: e.target.value });
+  };
+  const handleImage = (files) => {
+    setImage(files[0]);
   };
   const submitType = async (e) => {
     e.preventDefault();
+    const data = new FormData();
+    data.append("name", type.name);
+    data.append("image", image);
+
     await useAxios
-      .post("/admin/types", type)
+      .post("/admin/types", data)
       .then((res) => {
         navigate("/admin/types");
       })
@@ -60,7 +68,16 @@ const TypeCreate = () => {
                         className="form-control "
                       />
                     </div>
-
+                    <div className="form-group">
+                      <label htmlFor="image">Image</label>
+                      <input
+                        type="file"
+                        name="image"
+                        id="image"
+                        className="form-control "
+                        onChange={(e) => handleImage(e.target.files)}
+                      />
+                    </div>
                     <div className="my-2 form-group">
                       <button
                         type="submit"
