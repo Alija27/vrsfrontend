@@ -16,7 +16,11 @@ export const VendorIndex = () => {
     await useAxios
       .put(`/admin/vendors/${id}`, { status: status })
       .then((res) => {
-        alert("status updated");
+        Swal.fire({
+          icon: "success",
+          title: "Status updated",
+          timer: 2000,
+        });
       });
   };
   const getVendors = async () => {
@@ -97,14 +101,14 @@ export const VendorIndex = () => {
                   <div className="mt-2 card">
                     <div className="card-header">
                       <h3 className="card-title">All Vendors</h3>
-                      <div className="card-tools">
+                      {/* <div className="card-tools">
                         <Link
                           to="/admin/Vendors/create"
                           className="bg-indigo btn btn-link btn-sm "
                         >
                           <i className="mr-1 fas fa-plus-circle"></i>Add New
                         </Link>
-                      </div>
+                      </div> */}
                     </div>
                     {/* /.card-header */}
                     <div className="p-0 card-body">
@@ -176,13 +180,13 @@ export const VendorIndex = () => {
                                   </select>
                                 </th>
                                 <td>
-                                  <Link
+                                  {/* <Link
                                     to={`/admin/vendors/edit/${vendor.id}`}
                                     className="m-1 btn btn-link bg-cyan btn-sm"
                                   >
                                     <i className="ml-1 mr-1 fas fa-edit"></i>
                                     Edit
-                                  </Link>
+                                  </Link> */}
 
                                   <Link
                                     to={`/admin/vendors/${vendor.id}`}
@@ -191,13 +195,13 @@ export const VendorIndex = () => {
                                     <i className="ml-1 mr-1 fas fa-eye"></i>
                                     Show
                                   </Link>
-                                  <span
+                                  {/* <span
                                     onClick={() => handleDelete(vendor.id)}
                                     className="m-1 btn btn-link bg-danger btn-sm"
                                   >
                                     <i className="ml-1 mr-1 fas fa-trash"></i>
                                     Delete
-                                  </span>
+                                  </span> */}
                                 </td>
                               </tr>
                             ))}

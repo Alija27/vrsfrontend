@@ -87,15 +87,15 @@ export const ReviewIndex = () => {
                     <div className="card-header">
                       <h3 className="card-title">All Reviews</h3>
                       <div className="card-tools">
-                        <Link
+                        {/* <Link
                           to="/admin/reviews/create"
                           className="bg-indigo btn btn-link btn-sm "
                         >
                           <i className="mr-1 fas fa-plus-circle"></i>Add New
-                        </Link>
+                        </Link> */}
                       </div>
                     </div>
-                    {/* /.card-header */}
+
                     <div className="p-0 card-body">
                       {loading ? (
                         <div className=" row justify-content-center">

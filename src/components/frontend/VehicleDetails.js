@@ -60,7 +60,7 @@ const VehicleDetails = () => {
       .catch((err) => {
         Swal.fire({
           icon: "error",
-          title: "Login to send request",
+          title: "Cannot send request",
           timer: 2000,
         });
       });
@@ -121,7 +121,6 @@ const VehicleDetails = () => {
 
   const checkEligible = () => {
     setLoading(true);
-
     useAxios.get(`/eligible/${id}`).then((res) => {
       if (res.data === 0) {
         setEligibleForReview(false);
@@ -154,23 +153,37 @@ const VehicleDetails = () => {
   const saveReview = (e) => {
     setLoading(true);
 
-    e.preventDefault();
-    useAxios
-      .post(`/review/${id}`, {
-        message: message,
-        stars: rating,
-        vehicle_id: id,
-        user_id: user.id,
-      })
-      .then((res) => {
-        alert(res.data);
-        getReview();
-        setMessage("");
-        setRating(0);
-      })
-      .catch((err) => {
-        alert(err);
+    if (!eligibleForReview) {
+      Swal.fire({
+        icon: "error",
+        title: "You are not eligible",
       });
+    } else {
+      e.preventDefault();
+      useAxios
+        .post(`/review/${id}`, {
+          message: message,
+          stars: rating,
+          vehicle_id: id,
+          user_id: user.id,
+        })
+        .then((res) => {
+          Swal.fire({
+            icon: "success",
+            title: "Rewiew posted sucessfully",
+          });
+          getReview();
+          setMessage("");
+          setRating(0);
+        })
+        .catch((err) => {
+          Swal.fire({
+            icon: "error",
+            title: "Cannot submit form fill up all fields",
+          });
+        });
+    }
+
     setLoading(false);
   };
 
@@ -382,6 +395,7 @@ const VehicleDetails = () => {
                 </div>
               </div>
             </div>
+
             <div>
               {reviews && (
                 <section class="text-gray-600 body-font overflow-hidden">
@@ -478,77 +492,76 @@ const VehicleDetails = () => {
                 ))}
               </div> */}
             </div>
-            {eligibleForReview && (
-              <section className="max-w-4xl p-6 mx-auto bg-gray-700 rounded-md shadow-lg dark:bg-gray-800">
-                <h2 className="text-lg font-semibold text-gray-100 capitalize dark:text-white">
-                  Review
-                </h2>
-                <form onSubmit={saveReview}>
-                  <div className="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
-                    <div>
-                      <label
-                        className="text-gray-100 dark:text-gray-200"
-                        htmlFor="rating"
-                      >
-                        Rate
-                      </label>
 
-                      <div
-                        name="stars"
-                        className="flex flex-row w-full px-4 py-2 mt-2 text-gray-100 rounded-md app dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
-                      >
-                        {[...Array(5)].map((star, i) => {
-                          const ratingValue = i + 1;
-                          return (
-                            <label>
-                              <input
-                                type="radio"
-                                name="stars"
-                                value={ratingValue}
-                                onClick={() => setRating(ratingValue)}
-                              />
-                              <FaStar
-                                className="star"
-                                color={
-                                  ratingValue <= (hover || rating)
-                                    ? "yellow"
-                                    : "white"
-                                }
-                                size={70}
-                                onMouseEnter={() => setHover(ratingValue)}
-                                onMouseLeave={() => setHover(null)}
-                              />
-                            </label>
-                          );
-                        })}
-                      </div>
-                    </div>
-                    <div>
-                      <label
-                        className="text-gray-100 dark:text-gray-200"
-                        htmlFor="comment"
-                      >
-                        Comment
-                      </label>
-                      <textarea
-                        name="message"
-                        value={message}
-                        onChange={(e) => setMessage(e.target.value)}
-                        className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
-                      ></textarea>
-                    </div>
-                  </div>
-                  <div className="flex justify-end mt-6">
-                    <button
-                      onClick={saveReview}
-                      className="px-6 py-2 leading-5 text-white transition-colors duration-200 transform bg-indigo-700 rounded-md hover:bg-indigo-600 focus:outline-none focus:bg-gray-600"
+            <section className="max-w-4xl p-6 mx-auto bg-gray-700 rounded-md shadow-lg dark:bg-gray-800">
+              <h2 className="text-lg font-semibold text-gray-100 capitalize dark:text-white">
+                Review
+              </h2>
+              <form onSubmit={saveReview}>
+                <div className="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
+                  <div>
+                    <label
+                      className="text-gray-100 dark:text-gray-200"
+                      htmlFor="rating"
                     >
-                      Submit
-                    </button>
+                      Rate
+                    </label>
+
+                    <div
+                      name="stars"
+                      className="flex flex-row w-full px-4 py-2 mt-2 text-gray-100 rounded-md app dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
+                    >
+                      {[...Array(5)].map((star, i) => {
+                        const ratingValue = i + 1;
+                        return (
+                          <label>
+                            <input
+                              type="radio"
+                              name="stars"
+                              value={ratingValue}
+                              onClick={() => setRating(ratingValue)}
+                            />
+                            <FaStar
+                              className="star"
+                              color={
+                                ratingValue <= (hover || rating)
+                                  ? "yellow"
+                                  : "white"
+                              }
+                              size={70}
+                              onMouseEnter={() => setHover(ratingValue)}
+                              onMouseLeave={() => setHover(null)}
+                            />
+                          </label>
+                        );
+                      })}
+                    </div>
                   </div>
-                </form>
-              </section>
-            )}
+                  <div>
+                    <label
+                      className="text-gray-100 dark:text-gray-200"
+                      htmlFor="comment"
+                    >
+                      Comment
+                    </label>
+                    <textarea
+                      name="message"
+                      value={message}
+                      onChange={(e) => setMessage(e.target.value)}
+                      className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
+                    ></textarea>
+                  </div>
+                </div>
+                <div className="flex justify-end mt-6">
+                  <button
+                    onClick={saveReview}
+                    className="px-6 py-2 leading-5 text-white transition-colors duration-200 transform bg-indigo-700 rounded-md hover:bg-indigo-600 focus:outline-none focus:bg-gray-600"
+                  >
+                    Submit
+                  </button>
+                </div>
+              </form>
+            </section>
           </div>
         </>
       )}

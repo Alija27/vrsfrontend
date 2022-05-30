@@ -119,6 +119,16 @@ export const Sidebar = () => {
                   <p>Reviews</p>
                 </NavLink>
               </li>
+              <li className="nav-item">
+                <NavLink
+                  to="/admin/contacts"
+                  activeclassname="active"
+                  className="mt-2 nav-link"
+                >
+                  <i className="nav-icon fas fa-star" />
+                  <p>Contacts</p>
+                </NavLink>
+              </li>
             </ul>
           </nav>
           {/* /.sidebar-menu */}

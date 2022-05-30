@@ -17,6 +17,7 @@ export const Register = () => {
     role: "",
     citizenship_number: "",
   });
+
   const [image, setImage] = useState(null);
   const [citizenshipimage, setCitizenshipimage] = useState(null);
   const navigate = useNavigate();

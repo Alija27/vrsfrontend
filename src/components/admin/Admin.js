@@ -20,7 +20,7 @@ import { RentalIndex } from "./rentals/RentalIndex";
 import RentalEdit from "./rentals/RentalEdit";
 import { ReviewIndex } from "./reviews/ReviewIndex";
 import ReviewCreate from "./reviews/ReviewCreate";
-
+import { Contact } from "./contacts/Contact";
 import TypeIndex from "./types/TypeIndex";
 import TypeCreate from "./types/TypeCreate";
 import TypeEdit from "./types/TypeEdit";
@@ -148,6 +148,7 @@ const Admin = () => {
         <Route path="/vehicles/:id" element={<VehicleShow />} />
         <Route path="/reviews" element={<ReviewIndex />} />
         <Route path="/reviews/create" element={<ReviewCreate />} />
+        <Route path="/contacts" element={<Contact />} />
         {/* // <Route path="/vehicles/:id" element={<VehicleShow />} /> */}
       </Routes>
       <Footer />

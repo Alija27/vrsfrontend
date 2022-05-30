@@ -5,6 +5,7 @@ import { useEffect, useState, useContext } from "react";
 import useAxios from "../../hooks/useAxios";
 import UserContext from "../../UserContext";
 import { Link } from "react-router-dom";
+import VendorRegister from "./VendorRegister";
 
 const VehiclesPage = () => {
   const [user] = useContext(UserContext);
@@ -29,10 +30,10 @@ const VehiclesPage = () => {
       })
       .catch((err) => {
         setLoading(false);
-        Swal.fire({
+        /* Swal.fire({
           icon: "error",
           title: "Cannot fetch Vehicle",
-        });
+        }); */
       });
     setLoading(false);
   }
@@ -47,10 +48,10 @@ const VehiclesPage = () => {
         setVehicles(res.data);
       })
       .catch((err) => {
-        Swal.fire({
+        /* Swal.fire({
           icon: "error",
           title: "Cannot fetch Vehicle ",
-        });
+        }); */
       });
 
     useAxios
@@ -59,10 +60,10 @@ const VehiclesPage = () => {
         setTypes(res.data);
       })
       .catch((err) => {
-        Swal.fire({
+        /*  Swal.fire({
           icon: "error",
           title: "Cannot fetch Vehicle types",
-        });
+        }); */
       });
 
     useAxios
@@ -71,10 +72,10 @@ const VehiclesPage = () => {
         setLocations(res.data);
       })
       .catch((err) => {
-        Swal.fire({
+        /* Swal.fire({
           icon: "error",
           title: "Cannot fetch locations",
-        });
+        }); */
       });
   }, []);
 
@@ -102,9 +103,7 @@ const VehiclesPage = () => {
                     onChange={(e) => setTypeId(e.target.value)}
                     className="items-center block w-full px-3 m-0 my-2 font-normal text-gray-700 transition ease-in-out bg-white bg-no-repeat border border-gray-300 border-solid rounded appearance-none form-select bg-clip-padding focus:text-grey-900 focus:bg-white focus:border-white focus:outline-none"
                   >
-                    <option disabled value="">
-                      Vehicle Type
-                    </option>
+                    <option value="">Vehicle Type</option>
                     {types.map((type) => (
                       <option value={type.id}>{type.name}</option>
                     ))}
@@ -116,15 +115,13 @@ const VehiclesPage = () => {
                     onChange={(e) => setLocationId(e.target.value)}
                     className="items-center block w-full px-3 m-0 my-2 font-normal text-gray-700 transition ease-in-out bg-white bg-no-repeat border border-gray-300 border-solid rounded appearance-none form-select bg-clip-padding focus:text-grey-900 focus:bg-white focus:border-white focus:outline-none"
                   >
-                    <option disabled value="">
-                      Location
-                    </option>
+                    <option value="">Location</option>
                     {locations.map((location) => (
                       <option value={location.id}>{location.name}</option>
                     ))}
                   </select>
                 </div>
-                <div className="w-full px-1">
+                {/* <div className="w-full px-1">
                   <label>Start Date</label>
                   <input
                     className="items-center block w-full px-3 m-0 my-2 font-normal text-gray-700 transition ease-in-out bg-white bg-no-repeat border border-gray-300 border-solid rounded appearance-none form-select bg-clip-padding focus:text-grey-900 focus:bg-white focus:border-white focus:outline-none"
@@ -137,7 +134,7 @@ const VehiclesPage = () => {
                     className="items-center block w-full px-3 m-0 my-2 font-normal text-gray-700 transition ease-in-out bg-white bg-no-repeat border border-gray-300 border-solid rounded appearance-none form-select bg-clip-padding focus:text-grey-900 focus:bg-white focus:border-white focus:outline-none"
                     type="date"
                   />
-                </div>
+                </div> */}
                 <div className="w-full px-2 py-2 mt-6 xl:w-1/5">
                   <button className="w-full px-2 py-2 text-white bg-indigo-700 rounded">
                     Search

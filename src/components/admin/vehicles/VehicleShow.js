@@ -2,12 +2,13 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 
 import { useParams, Link } from "react-router-dom";
+import useAxios from "../../../hooks/useAxios";
 
 export const VehicleShow = () => {
   const [vehicle, setVehicle] = useState({});
   const { id } = useParams();
   const fetchVehicle = async () => {
-    await axios(`http://localhost:8000/api/vehicles/${id}`).then((res) => {
+    await useAxios.get(`/admin/vehicles/${id}`).then((res) => {
       setVehicle(res.data);
     });
   };
@@ -22,29 +23,29 @@ export const VehicleShow = () => {
         {/* <div className="card card-primary card-outline"> */}
 
         <div className="container-fluid">
-          <div className="row mt-1">
+          <div className="mt-1 row">
             <div className="col-12">
-              <div className="card card-indigo card-outline m-2 mt-5">
+              <div className="m-2 mt-5 card card-indigo card-outline">
                 <div className="card-header">
                   <div className="card-title">vehicle Details</div>
                   <div className="card-tools">
                     <Link
                       to={`/admin/vehicles/edit/${vehicle.id}`}
-                      className="btn btn-link bg-cyan btn-sm mr-1"
+                      className="mr-1 btn btn-link bg-cyan btn-sm"
                     >
-                      <i className="fas fa- mr-1"></i>
+                      <i className="mr-1 fas fa-"></i>
                       Edit
                     </Link>
                     <Link
                       to="/admin/vehicles"
-                      className="btn btn-link bg-indigo btn-sm ml-1"
+                      className="ml-1 btn btn-link bg-indigo btn-sm"
                     >
-                      <i className="fas fa-arrow-left mr-1"></i>
+                      <i className="mr-1 fas fa-arrow-left"></i>
                       Go back
                     </Link>
                   </div>
                 </div>
-                <div className="card-body p-0">
+                <div className="p-0 card-body">
                   <table className="table table-bordered">
                     <tr>
                       <th>ID</th>
@@ -130,7 +131,7 @@ export const VehicleShow = () => {
                         <th>Vendor</th>
 
                         <td className="p-0">
-                          <table className="table table-bordered table-hover p-0">
+                          <table className="table p-0 table-bordered table-hover">
                             <thead className="bg-indigo">
                               <tr>
                                 {/*  <th>Id</th> */}

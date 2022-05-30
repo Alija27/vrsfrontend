@@ -3,6 +3,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 
 import { useParams, Link } from "react-router-dom";
+import useAxios from "../../../hooks/useAxios";
 
 export const RentalShow = () => {
   const [rental, setRental] = useState({
@@ -10,7 +11,7 @@ export const RentalShow = () => {
   });
   const { id } = useParams();
   const fetchRental = async () => {
-    await axios(`http://localhost:8000/api/rentals/${id}`).then((res) => {
+    await useAxios.get(`/admin/rentals/${id}`).then((res) => {
       setRental(res.data);
     });
     console.log(rental);
@@ -28,29 +29,29 @@ export const RentalShow = () => {
           {/* <div className="card card-primary card-outline"> */}
 
           <div className="container-fluid">
-            <div className="row mt-1">
+            <div className="mt-1 row">
               <div className="col-12">
-                <div className="card card-indigo card-outline m-2 mt-5">
+                <div className="m-2 mt-5 card card-indigo card-outline">
                   <div className="card-header">
                     <div className="card-title">Rental Details</div>
                     <div className="card-tools">
                       <Link
                         to={`/admin/rentals/edit/${rental.id}`}
-                        className="btn btn-link bg-cyan btn-sm mr-1"
+                        className="mr-1 btn btn-link bg-cyan btn-sm"
                       >
                         <i class="fas fa- mr-1"></i>
                         Edit
                       </Link>
                       <Link
                         to="/admin/rentals"
-                        className="btn btn-link bg-indigo btn-sm ml-1"
+                        className="ml-1 btn btn-link bg-indigo btn-sm"
                       >
                         <i class="fas fa-arrow-left mr-1"></i>
                         Go back
                       </Link>
                     </div>
                   </div>
-                  <div className="card-body p-0">
+                  <div className="p-0 card-body">
                     <table className="table table-bordered">
                       <tr>
                         <th>ID</th>

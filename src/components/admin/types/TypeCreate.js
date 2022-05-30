@@ -6,6 +6,7 @@ import useAxios from "../../../hooks/useAxios";
 
 const TypeCreate = () => {
   const [loading, setLoading] = useState(false);
+  const [validation, setValidationError] = useState({});
   const [type, setType] = useState({
     name: "",
   });
@@ -60,6 +61,11 @@ const TypeCreate = () => {
                           *
                         </span>
                       </label>
+                      {validation.name ? (
+                        <div className="text-danger">{validation.name} </div>
+                      ) : (
+                        ""
+                      )}
                       <input
                         type="text"
                         name="name"

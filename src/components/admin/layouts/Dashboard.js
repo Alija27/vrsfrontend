@@ -17,13 +17,13 @@ export const Dashboard = () => {
                 {/* small box */}
                 <div className="small-box bg-info">
                   <div className="inner">
-                    <h3>150</h3>
-                    <p>New Orders</p>
+                    <h3>5</h3>
+                    <p>Vehicle Types</p>
                   </div>
                   <div className="icon">
                     <i className="ion ion-bag" />
                   </div>
-                  <Link to="/" className="small-box-footer">
+                  <Link to="/admin/types" className="small-box-footer">
                     More info <i className="fas fa-arrow-circle-right" />
                   </Link>
                 </div>
@@ -33,15 +33,13 @@ export const Dashboard = () => {
                 {/* small box */}
                 <div className="small-box bg-success">
                   <div className="inner">
-                    <h3>
-                      53<sup style={{ fontSize: 20 }}>%</sup>
-                    </h3>
-                    <p>Bounce Rate</p>
+                    <h3>10</h3>
+                    <p>Users</p>
                   </div>
                   <div className="icon">
                     <i className="ion ion-stats-bars" />
                   </div>
-                  <Link to="/" className="small-box-footer">
+                  <Link to="/admin/users" className="small-box-footer">
                     More info <i className="fas fa-arrow-circle-right" />
                   </Link>
                 </div>
@@ -51,13 +49,13 @@ export const Dashboard = () => {
                 {/* small box */}
                 <div className="small-box bg-warning">
                   <div className="inner">
-                    <h3>44</h3>
-                    <p>User Registrations</p>
+                    <h3>6</h3>
+                    <p>Vendors</p>
                   </div>
                   <div className="icon">
                     <i className="ion ion-person-add" />
                   </div>
-                  <Link to="/" className="small-box-footer">
+                  <Link to="/admin/vendors" className="small-box-footer">
                     More info <i className="fas fa-arrow-circle-right" />
                   </Link>
                 </div>
@@ -67,13 +65,13 @@ export const Dashboard = () => {
                 {/* small box */}
                 <div className="small-box bg-danger">
                   <div className="inner">
-                    <h3>65</h3>
-                    <p>Unique Visitors</p>
+                    <h3>11</h3>
+                    <p>Vehicles</p>
                   </div>
                   <div className="icon">
                     <i className="ion ion-pie-graph" />
                   </div>
-                  <Link to="/" className="small-box-footer">
+                  <Link to="/admin/vehicles" className="small-box-footer">
                     More info <i className="fas fa-arrow-circle-right" />
                   </Link>
                 </div>

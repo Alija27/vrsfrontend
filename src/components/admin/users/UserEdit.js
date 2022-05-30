@@ -8,6 +8,7 @@ import useAxios from "../../../hooks/useAxios";
 
 const UserEdit = () => {
   const [image, setImage] = useState("");
+  const [citizenshipimage, setCitizenshipimage] = useState(null);
   const navigate = useNavigate();
   const [validation, setValidationError] = useState({});
   const [user, setUser] = useState({});
@@ -40,7 +41,9 @@ const UserEdit = () => {
     setImage(files[0]);
     console.log(image);
   };
-
+  const handleCitizenshipImage = (files) => {
+    setCitizenshipimage(files[0]);
+  };
   const updateuser = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -54,6 +57,8 @@ const UserEdit = () => {
     // data.append("password", user.password);
     data.append("address", user.address);
     data.append("role", user.role);
+    data.append("citizenship_number", user.citizenship_number);
+    data.append("citizenship_image", citizenshipimage);
     data.append("_method", "PUT");
     console.log(data.get("name"));
 
@@ -198,6 +203,45 @@ const UserEdit = () => {
                       />
                       <img
                         src={`http://localhost:8000/storage/${user.image}`}
+                        width={150}
+                        height={150}
+                      />
+                    </div>
+                    <div className="form-group">
+                      <label htmlFor="citizenship_number">
+                        Citizenship Number
+                        <span className="text-danger" title="Required">
+                          *
+                        </span>
+                      </label>
+                      <input
+                        type="text"
+                        name="citizenship_number"
+                        id="citizenship_number"
+                        className="form-control "
+                        value={user.citizenship_number}
+                        onChange={handleInputChange}
+                      />
+                      {validation.citizenship_number ? (
+                        <div className="text-danger">
+                          {validation.citizenship_number}{" "}
+                        </div>
+                      ) : (
+                        ""
+                      )}
+                    </div>
+
+                    <div className="form-group">
+                      <label htmlFor="image"> Citizenship Image</label>
+                      <input
+                        type="file"
+                        name="citizenship_image"
+                        id="citizenship_image"
+                        className="form-control "
+                        onChange={(e) => handleCitizenshipImage(e.target.files)}
+                      />
+                      <img
+                        src={`http://localhost:8000/storage/${user.citizenship_image}`}
                         width={150}
                         height={150}
                       />

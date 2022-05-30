@@ -22,6 +22,8 @@ import { EditVehicle } from "./EditVehicle";
 import EditVendor from "./EditVendor";
 import { VendorProfile } from "./VendorProfile";
 import VehicleDetails from "./VehicleDetails";
+import About from "./About";
+import Contact from "./Contact";
 
 const Frontend = () => {
   return (
@@ -47,6 +49,8 @@ const Frontend = () => {
         <Route path="/OTPverification" element={<OTPinput />} />
         <Route path="/changepassword" element={<ChangePassword />} />
         <Route path="/vehicles" element={<VehiclesPage />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
       </Routes>
     </div>
   );

@@ -4,6 +4,7 @@ import { useState } from "react";
 import axios from "axios";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
+import useAxios from "../../../hooks/useAxios";
 
 const Vendor = () => {
   const [vendor, setVendor] = useState({
@@ -12,7 +13,7 @@ const Vendor = () => {
   const { id } = useParams();
   const [user, setUser] = useState([]);
   const fetchVendor = async () => {
-    await axios(`http://localhost:8000/api/vendors/${id}`).then((res) => {
+    await useAxios.get(`/admin/vendors/${id}`).then((res) => {
       setVendor(res.data);
     });
   };
@@ -34,29 +35,29 @@ const Vendor = () => {
         {/* <div className="card card-primary card-outline"> */}
 
         <div className="container-fluid">
-          <div className="row mt-1">
+          <div className="mt-1 row">
             <div className="col-12">
-              <div className="card card-indigo card-outline m-2 mt-5">
+              <div className="m-2 mt-5 card card-indigo card-outline">
                 <div className="card-header">
                   <div className="card-title">Vendor Details</div>
                   <div className="card-tools">
                     <Link
                       to={`/admin/vendors/edit/${vendor.id}`}
-                      className="btn btn-link bg-cyan btn-sm mr-1"
+                      className="mr-1 btn btn-link bg-cyan btn-sm"
                     >
                       <i class="fas fa- mr-1"></i>
                       Edit
                     </Link>
                     <Link
                       to="/admin/vendors"
-                      className="btn btn-link bg-indigo btn-sm ml-1"
+                      className="ml-1 btn btn-link bg-indigo btn-sm"
                     >
                       <i class="fas fa-arrow-left mr-1"></i>
                       Go back
                     </Link>
                   </div>
                 </div>
-                <div className="card-body p-0">
+                <div className="p-0 card-body">
                   <table className="table table-bordered">
                     <tr>
                       <th>ID</th>
@@ -100,38 +101,8 @@ const Vendor = () => {
                     </tr>
                     <tr>
                       <th>User</th>
-                      <td>{vendor.user_id}</td>
+                      <td>{vendor.user.name}</td>
                     </tr>
-                    {user.vendor && (
-                      <tr>
-                        <th>User</th>
-
-                        <td className="p-0">
-                          <table className="table table-bordered table-hover p-0">
-                            <thead className="bg-indigo">
-                              <tr>
-                                {/*  <th>Id</th> */}
-                                <th>Name</th>
-                                {/* <th>Address</th>
-                              <th>Phone</th>
-                              <th>User ID</th>
-                              <th>Image</th> */}
-                              </tr>
-                            </thead>
-                            <tbody>
-                              <tr>
-                                {/* <td>{user.vendor.id}</td> */}
-                                <td>{vendor.user.name}</td>
-                                {/*  <td>{user.vendor.address}</td>
-                                <td>{user.vendor.phone}</td>
-                                <td>{user.vendor.user_id}</td>
-                                <td>{user.vendor.image}</td> */}
-                              </tr>
-                            </tbody>
-                          </table>
-                        </td>
-                      </tr>
-                    )}
                   </table>
                 </div>
               </div>

@@ -13,7 +13,7 @@ const TypeEdit = () => {
   const [loading, setLoading] = useState();
   const { id } = useParams();
   const fetchType = async () => {
-    await useAxios.get(`admin/types/${id}`).then((res) => {
+    await useAxios.get(`/admin/types/${id}`).then((res) => {
       setType(res.data);
     });
     console.log(type);
@@ -21,7 +21,11 @@ const TypeEdit = () => {
   useEffect(() => {
     fetchType(); /* eslint-disable */
   }, []);
+  const [image, setImage] = useState(null);
 
+  const handleImage = (files) => {
+    setImage(files[0]);
+  };
   const handleInputChange = (e) => {
     setType({ ...type, [e.target.name]: e.target.value });
     console.log(user);
@@ -29,9 +33,13 @@ const TypeEdit = () => {
 
   const updatetype = async (e) => {
     e.preventDefault();
+    const data = new FormData();
+    data.append("name", type.name);
+    data.append("image", image);
+    data.append("_method", "PUT");
     setLoading(true);
     await useAxios
-      .put(`admin/types/${id}`, type)
+      .post(`/admin/types/${id}`, data)
       .then((res) => {
         Swal.fire({
           timer: 2000,
@@ -97,7 +105,26 @@ const TypeEdit = () => {
                         ""
                       )}
                     </div>
-
+                    <div className="form-group">
+                      <label htmlFor="image">Image</label>
+                      <input
+                        type="file"
+                        name="image"
+                        id="image"
+                        className="form-control "
+                        onChange={(e) => handleImage(e.target.files)}
+                      />
+                      <img
+                        src={`http://localhost:8000/storage/${type.image}`}
+                        width={150}
+                        height={150}
+                      />
+                      {validation.image ? (
+                        <div className="text-danger">{validation.image} </div>
+                      ) : (
+                        ""
+                      )}
+                    </div>
                     <div className="my-2 form-group">
                       <button
                         onClick={updatetype}

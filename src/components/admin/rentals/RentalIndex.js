@@ -64,12 +64,12 @@ export const RentalIndex = () => {
                   <div className="card-header">
                     <h3 className="card-title text-bold">All rentals</h3>
                     <div className="card-tools">
-                      <Link
+                      {/* <Link
                         to="/admin/rentals/create"
                         className="bg-indigo btn btn-link btn-sm "
                       >
                         <i className="mr-1 fas fa-plus-circle"></i>Add New
-                      </Link>
+                      </Link> */}
                     </div>
                   </div>
                   {/* /.card-header */}
@@ -107,13 +107,13 @@ export const RentalIndex = () => {
                               <td>{rental.is_approved === 1 ? "Yes" : "No"}</td>
                               <td>{rental.is_complete === 1 ? "Yes" : "No"}</td>
                               <td>
-                                <Link
+                                {/* <Link
                                   to={`/admin/rentals/edit/${rental.id}`}
                                   className="m-1 btn btn-link bg-cyan btn-sm"
                                 >
                                   <i className="ml-1 mr-1 fas fa-edit"></i>
                                   Edit
-                                </Link>
+                                </Link> */}
 
                                 <Link
                                   to={`/admin/rentals/${rental.id}`}
@@ -122,13 +122,13 @@ export const RentalIndex = () => {
                                   <i className="ml-1 mr-1 fas fa-eye"></i>
                                   Show
                                 </Link>
-                                <span
+                                {/*  <span
                                   onClick={() => handleDelete(rental.id)}
                                   className="m-1 btn btn-link bg-danger btn-sm"
                                 >
                                   <i className="ml-1 mr-1 fas fa-trash"></i>
                                   Delete
-                                </span>
+                                </span> */}
                               </td>
                             </tr>
                           ))}

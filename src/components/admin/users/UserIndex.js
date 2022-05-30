@@ -110,9 +110,7 @@ export const UserIndex = () => {
                               <th>Image</th>
                               <th>Email</th>
                               <th>Phone</th>
-
                               <th>Role</th>
-
                               <th>Action</th>
                             </tr>
                           </thead>

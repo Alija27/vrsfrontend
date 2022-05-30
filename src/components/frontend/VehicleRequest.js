@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { MyBookings } from "./MyBookings";
 import { VendorDashboard } from "./VendorDashboard";
+import Swal from "sweetalert2";
 
 export const VehicleRequest = () => {
   const [requestList, setRequestList] = useState([]);
@@ -16,15 +17,17 @@ export const VehicleRequest = () => {
         setRequestList(res.data);
         console.log(res.data);
       })
-      .catch((err) => {
-        alert("Error");
-      });
+      .catch((err) => {});
   };
   const updateA = async (id, is_approved) => {
     await useAxios
       .put(`/changeRentalStatus/${id}`, { is_approved: is_approved })
       .then((res) => {
-        alert("status updated");
+        Swal.fire({
+          icon: "success",
+          title: "Booking Status Changed",
+          timer: 2000,
+        });
       });
   };
   useEffect(() => {
@@ -167,6 +170,7 @@ export const VehicleRequest = () => {
                       </div>
                       <div className="m-1">
                         <select
+                          disabled={item.is_approved === "Canceled"}
                           name="is_available"
                           id="is_available"
                           // value={item.is_approved}
@@ -189,6 +193,12 @@ export const VehicleRequest = () => {
                             value="Canceled"
                           >
                             Canceled
+                          </option>
+                          <option
+                            selected={item.is_approved === "Completed"}
+                            value="Completed"
+                          >
+                            Completed
                           </option>
                         </select>
                       </div>

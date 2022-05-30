@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
+import useAxios from "../../../hooks/useAxios";
 
 export const UserCreate = () => {
   const [userData, setUserData] = useState({
@@ -14,6 +15,7 @@ export const UserCreate = () => {
     role: "",
   });
   const [image, setImage] = useState(null);
+  const [citizenshipimage, setCitizenshipimage] = useState(null);
   const navigate = useNavigate();
   const [validation, setValidationError] = useState({});
   const [loading, setLoading] = useState(false);
@@ -27,7 +29,9 @@ export const UserCreate = () => {
     setImage(files[0]);
     console.log(image);
   };
-
+  const handleCitizenshipImage = (files) => {
+    setCitizenshipimage(files[0]);
+  };
   const submitUserData = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -39,8 +43,10 @@ export const UserCreate = () => {
     data.append("password", userData.password);
     data.append("address", userData.address);
     data.append("role", userData.role);
+    data.append("citizenship_number", userData.citizenship_number);
+    data.append("citizenship_image", citizenshipimage);
 
-    await axios
+    await useAxios
 
       .post("/admin/users", data, {
         headers: {
@@ -178,22 +184,7 @@ export const UserCreate = () => {
                         ""
                       )}
                     </div>
-                    <div className="form-group">
-                      <label htmlFor="confirmpassword">
-                        Confirm Password
-                        <span className="text-danger" title="Required">
-                          *
-                        </span>
-                      </label>
-                      <input
-                        type="password"
-                        name="confirmpassword"
-                        id="confirmpassword"
-                        className="form-control "
-                        value={userData.confirmpassword}
-                        onChange={handleInputChange}
-                      />
-                    </div>
+
                     <div className="form-group">
                       <label htmlFor="address">
                         Address
@@ -226,6 +217,41 @@ export const UserCreate = () => {
                         onChange={(e) => handleImage(e.target.files)}
                       />
                     </div>
+                    <div className="form-group">
+                      <label htmlFor="citizenship_number">
+                        Citizenship Number
+                        <span className="text-danger" title="Required">
+                          *
+                        </span>
+                      </label>
+                      <input
+                        type="text"
+                        name="citizenship_number"
+                        id="citizenship_number"
+                        className="form-control "
+                        value={userData.citizenhip_number}
+                        onChange={handleInputChange}
+                      />
+                      {validation.citizenship_numbber ? (
+                        <div className="text-danger">
+                          {validation.citizenship_number}{" "}
+                        </div>
+                      ) : (
+                        ""
+                      )}
+                    </div>
+
+                    <div className="form-group">
+                      <label htmlFor="image"> Citizenship Image</label>
+                      <input
+                        type="file"
+                        name="citizenship_image"
+                        id="citizenship_image"
+                        className="form-control "
+                        onChange={(e) => handleCitizenshipImage(e.target.files)}
+                      />
+                    </div>
+
                     <div className="form-group">
                       <label htmlFor="role">
                         Role

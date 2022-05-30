@@ -14,19 +14,19 @@ export const Header = () => {
         {/* Left navbar links */}
         <ul className="navbar-nav">
           <li className="nav-item">
-            <Link
+            {/*  <Link
               className="nav-link"
               data-widget="pushmenu"
               to="#"
               role="button"
             >
               <i className="fas fa-bars" />
-            </Link>
+            </Link> */}
           </li>
           <li className="nav-item d-none d-sm-inline-block">
-            <Link to="" className="nav-link">
+            {/*  <Link to="" className="nav-link">
               Home {user && user.name}
-            </Link>
+            </Link> */}
           </li>
         </ul>
         {/* Right navbar links */}
@@ -73,15 +73,15 @@ export const Header = () => {
               {user && user.name}
             </Link>
             <div className="dropdown-menu dropdown-menu-sm dropdown-menu-right">
-              <Link to="" className="dropdown-item">
+              {/* <Link to="" className="dropdown-item">
                 <i className="mr-2 fas fa-user-tie" /> Profile
-              </Link>
+              </Link> */}
               <div className="dropdown-divider" />
               <Link to="/" className="dropdown-item">
                 <i className="mr-2 fas fa-home" /> Home
               </Link>
               <div className="dropdown-divider" />
-              <Link to="" className="dropdown-item">
+              <Link to="/logout" className="dropdown-item">
                 <i className="mr-2 fas fa-key" /> Logout
               </Link>
             </div>

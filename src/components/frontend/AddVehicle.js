@@ -401,21 +401,7 @@ const AddVehicle = () => {
               )}
             </div>
             <div className="mt-4">
-              <label
-                htmlFor="formFileSm"
-                className="inline-block text-gray-700 form-label"
-              >
-                Has Driver
-              </label>
-              <input
-                class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
-                type="checkbox"
-                name="has_driver"
-                value={vehicleData.has_driver}
-                onChange={handleInputChange}
-              />
-
-              <input
+              {/*  <input
                 type="text"
                 className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
                 name="has_driver"
@@ -427,7 +413,31 @@ const AddVehicle = () => {
                 <div className="text-red-500">{validation.has_driver} </div>
               ) : (
                 ""
-              )}
+              )} */}
+              <div className="mt-4">
+                <label
+                  htmlFor="formFileSm"
+                  className="inline-block text-gray-700 form-label"
+                >
+                  Has Driver
+                </label>
+
+                <select
+                  name="has_driver"
+                  className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40zblock focus:ring-opacity-40"
+                  onChange={handleInputChange}
+                  value={vehicleData.has_driver}
+                >
+                  <option value="1">Yes</option>
+
+                  <option value="0">No</option>
+                </select>
+                {validation.has_driver ? (
+                  <div className="text-red-500">{validation.has_driver} </div>
+                ) : (
+                  ""
+                )}
+              </div>
             </div>
             <button
               type="submit"

@@ -95,6 +95,26 @@ export const UserShow = () => {
                       <th>Role</th>
                       <td>{user.role}</td>
                     </tr>
+                    <tr>
+                      <th>Citizenship_number</th>
+                      <td>{user.citizenship_number}</td>
+                    </tr>
+                    <tr>
+                      <th>Citizenship Image</th>
+                      <td>
+                        {" "}
+                        {user.citizenship_image ? (
+                          <img
+                            src={`http://localhost:8000/storage/${user.citizenship_image}`}
+                            height={200}
+                            width={200}
+                            alt=""
+                          />
+                        ) : (
+                          "No image to preview"
+                        )}
+                      </td>
+                    </tr>
                     {user.vendor && (
                       <tr>
                         <th>Vendor</th>

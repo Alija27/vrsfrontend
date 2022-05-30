@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import useAxios from "../../hooks/useAxios";
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
 
 function VehicleCard(props) {
   let registeredVehicle = props.vehicle;
@@ -21,6 +22,11 @@ function VehicleCard(props) {
       })
       .then((res) => {
         setIsAvailable(res.data.is_available);
+        Swal.fire({
+          icon: "success",
+          title: "Vehicle status changed",
+          timer: 2000,
+        });
       })
       .catch((err) => {});
   }

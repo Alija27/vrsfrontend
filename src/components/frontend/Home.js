@@ -1,25 +1,42 @@
+import { motion } from "framer-motion";
 import React from "react";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import useAxios from "../../hooks/useAxios";
 import Swal from "sweetalert2";
 import p from "./p.mp4";
+import s from "./sa.mp4";
 
 const Home = () => {
   const [types, setTypes] = useState([]);
-  useEffect(() => {
+  const [frequentlyusedvehicles, setFrequentlyusedvehicles] = useState([]);
+  useEffect(
+    () => {
+      useAxios
+        .get("/types")
+        .then((res) => {
+          setTypes(res.data);
+        })
+        .catch((err) => {
+          /*  Swal.fire({
+            icon: "error",
+            title: "Cannot fetch Vehicle types",
+          }); */
+        });
+    },
     useAxios
-      .get("/types")
+      .get("/frequentlyusedvehicles")
       .then((res) => {
-        setTypes(res.data);
+        setFrequentlyusedvehicles(res.data);
       })
       .catch((err) => {
-        Swal.fire({
+        /*  Swal.fire({
           icon: "error",
-          title: "Cannot fetch Vehicle types",
-        });
-      });
-  }, []);
+          title: "Cannot fetch Vehicle",
+        }); */
+      }),
+    []
+  );
 
   return (
     <>
@@ -199,7 +216,6 @@ const Home = () => {
                 </div>
               </div>
             ))}
-
             {/* <div className="max-w-xs mx-auto overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800">
               <img
                 className="object-cover w-full h-56"
@@ -262,6 +278,35 @@ const Home = () => {
               </div>
             </div>
             */}
+          </section>
+        </div>
+        <div>
+          <h1 className="justify-center w-1/2 pb-4 mx-auto my-10 text-2xl font-bold text-center border-b-4 border-indigo-600 md:text-4xl md:w-1/3 mt-15 ">
+            Frequently Used Vehicles
+          </h1>
+          {/* <h1 className="flex w-3/12 p-2 pb-3 mx-auto mb-5 text-4xl font-bold text-center border-indigo-400 rounded-md border-b-4e mt-11">
+            Vehicle Types
+          </h1> */}
+
+          <section className="flex flex-wrap justify-center gap-3 my-5 mt-8 space-y-4">
+            {frequentlyusedvehicles.map((as) => (
+              <Link to={`/vehicleDetails/${as.vehicle.id}`}>
+                <div className="w-[350px] h-[300px] rounded shadow-xl mx-5">
+                  <div>
+                    <img
+                      className="w-full h-[250px] border-b-2"
+                      src={`http://localhost:8000/storage/${as.vehicle.image}`}
+                      alt="avatar"
+                    />
+                    <div class="flex flex-wrap justify-center px-2 py-4">
+                      <span class="font-bold text-xl mb-2">
+                        {as.vehicle.name}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </Link>
+            ))}
           </section>
         </div>
         <div className="flex flex-wrap justify-center gap-4 mt-5"></div>
@@ -388,74 +433,90 @@ const Home = () => {
                 How VRS Works
               </h1>
 
-              <div className="flex flex-wrap justify-center w-full">
+              {/* <div className="flex flex-wrap justify-center w-full">
                 <img
                   className="object-cover object-center mb-16 rounded-lg mr-11 lg:w-3/5 md:w-1/2 md:mt-0"
                   src="https://images.unsplash.com/photo-1580273916550-e323be2ae537?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1528&q=80"
                   alt="step"
                   style={{ height: "400px", width: "600px" }}
                 />
-
-                {/*  <video loop autoPlay muted>
+ */}
+              {/*  <video loop autoPlay muted>
                   <source src={key} type="video/mp4" />
                   Your browser does not support the video tag.
                 </video> */}
-
-                <div className="lg:w-2/5 md:w-1/2 md:pr-10 md:py-6">
-                  <div className="relative flex pb-12">
-                    <div className="absolute inset-0 flex items-center justify-center w-10 h-full">
-                      <div className="w-1 h-full bg-gray-200 pointer-events-none" />
-                    </div>
-                    <div className="relative z-10 inline-flex items-center justify-center flex-shrink-0 w-10 h-10 text-white bg-indigo-500 rounded-full">
-                      1
-                    </div>
-                    <div className="flex-grow pl-4">
-                      <h2 className="mb-1 text-sm font-medium tracking-wider text-gray-900 title-font">
-                        Find the Perfect Vehicle
-                      </h2>
-                      <p className="leading-relaxed">
-                        Enter a location and date and browse thousands of cars
-                        shared by local hosts
-                      </p>
-                    </div>
+              <div className="flex flex-col justify-center gap-5 px-5 py-5 mx-5 my-5 lg:flex-row md:flex-row">
+                <div className="w-full bg-white h-96">
+                  <div className="h-full">
+                    <video loop autoPlay muted>
+                      <source src={s} type="video/mp4" />
+                      Your browser does not support the video tag.
+                    </video>
                   </div>
-                  <div className="relative flex pb-12">
-                    <div className="absolute inset-0 flex items-center justify-center w-10 h-full">
-                      <div className="w-1 h-full bg-gray-200 pointer-events-none" />
+                </div>
+                <div className="w-full mx-5 bg-white">
+                  <div className="">
+                    <div className="relative flex pb-12">
+                      <div className="absolute inset-0 flex items-center justify-center w-10 h-full">
+                        <div className="w-1 h-full bg-gray-200 pointer-events-none" />
+                      </div>
+                      <div className="relative z-10 inline-flex items-center justify-center flex-shrink-0 w-10 h-10 text-white bg-indigo-500 rounded-full">
+                        1
+                      </div>
+                      <div className="flex-grow pl-4">
+                        <h2 className="mb-1 text-sm font-medium tracking-wider text-gray-900 title-font">
+                          Find the Perfect Vehicle
+                        </h2>
+                        <p className="leading-relaxed">
+                          Enter a location and date and browse thousands of cars
+                          shared by local hosts
+                        </p>
+                      </div>
                     </div>
-                    <div className="relative z-10 inline-flex items-center justify-center flex-shrink-0 w-10 h-10 text-white bg-indigo-500 rounded-full">
-                      2
+                    <div className="relative flex pb-12">
+                      <div className="absolute inset-0 flex items-center justify-center w-10 h-full">
+                        <div className="w-1 h-full bg-gray-200 pointer-events-none" />
+                      </div>
+                      <div className="relative z-10 inline-flex items-center justify-center flex-shrink-0 w-10 h-10 text-white bg-indigo-500 rounded-full">
+                        2
+                      </div>
+                      <div className="flex-grow pl-4">
+                        <h2 className="mb-1 text-sm font-medium tracking-wider text-gray-900 title-font">
+                          Book your trip
+                        </h2>
+                        <p className="leading-relaxed">
+                          Book on the VRS online, choose a protection plan.
+                        </p>
+                      </div>
                     </div>
-                    <div className="flex-grow pl-4">
-                      <h2 className="mb-1 text-sm font-medium tracking-wider text-gray-900 title-font">
-                        Book your trip
-                      </h2>
-                      <p className="leading-relaxed">
-                        Book on the VRS online, choose a protection plan.
-                      </p>
-                    </div>
-                  </div>
-                  <div className="relative flex pb-12">
-                    <div className="absolute inset-0 flex items-center justify-center w-10 h-full">
-                      <div className="w-1 h-full bg-gray-200 pointer-events-none" />
-                    </div>
-                    <div className="relative z-10 inline-flex items-center justify-center flex-shrink-0 w-10 h-10 text-white bg-indigo-500 rounded-full">
-                      3
-                    </div>
-                    <div className="flex-grow pl-4">
-                      <h2 className="mb-1 text-sm font-medium tracking-wider text-gray-900 title-font">
-                        Hit the road
-                      </h2>
-                      <p className="leading-relaxed">
-                        Have the vehicle delivered or pick it up from your host.
-                        Check in with the app, grab the keys, and hit the road!
-                      </p>
+                    <div className="relative flex pb-12">
+                      <div className="absolute inset-0 flex items-center justify-center w-10 h-full">
+                        <div className="w-1 h-full bg-gray-200 pointer-events-none" />
+                      </div>
+                      <div className="relative z-10 inline-flex items-center justify-center flex-shrink-0 w-10 h-10 text-white bg-indigo-500 rounded-full">
+                        3
+                      </div>
+                      <div className="flex-grow pl-4">
+                        <h2 className="mb-1 text-sm font-medium tracking-wider text-gray-900 title-font">
+                          Hit the road
+                        </h2>
+                        <p className="leading-relaxed">
+                          Have the vehicle delivered or pick it up from your
+                          host. Check in with the app, grab the keys, and hit
+                          the road!
+                        </p>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
           </section>
+        </div>
+        <div>
+          <motion.div className="carousel">
+            <motion.div className="coursel-two"></motion.div>
+          </motion.div>
         </div>
         {/* <section class="text-gray-600 body-font">
           <div class="container px-5 py-24 mx-auto">

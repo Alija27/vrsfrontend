@@ -91,12 +91,12 @@ export const VehicleIndex = () => {
                     <div className="card-header">
                       <h3 className="card-title">All vehicles</h3>
                       <div className="card-tools">
-                        <Link
+                        {/*  <Link
                           to="/admin/vehicles/create"
                           className="bg-indigo btn btn-link btn-sm "
                         >
                           <i className="mr-1 fas fa-plus-circle"></i>Add New
-                        </Link>
+                        </Link> */}
                       </div>
                     </div>
                     {/* /.card-header */}
@@ -148,13 +148,13 @@ export const VehicleIndex = () => {
                                 </td>
 
                                 <td>
-                                  <Link
+                                  {/*  <Link
                                     to={`/admin/vehicles/edit/${vehicle.id}`}
                                     className="m-1 btn btn-link bg-cyan btn-sm"
                                   >
                                     <i className="ml-1 mr-1 fas fa-edit"></i>
                                     Edit
-                                  </Link>
+                                  </Link> */}
 
                                   <Link
                                     to={`/admin/vehicles/${vehicle.id}`}
@@ -163,13 +163,13 @@ export const VehicleIndex = () => {
                                     <i className="ml-1 mr-1 fas fa-eye"></i>
                                     Show
                                   </Link>
-                                  <span
+                                  {/*  <span
                                     onClick={() => handleDelete(vehicle.id)}
                                     className="m-1 btn btn-link bg-danger btn-sm"
                                   >
                                     <i className="ml-1 mr-1 fas fa-trash"></i>
                                     Delete
-                                  </span>
+                                  </span> */}
                                 </td>
                               </tr>
                             ))}

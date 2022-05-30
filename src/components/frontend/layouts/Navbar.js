@@ -31,11 +31,18 @@ export const Navbar = () => {
             >
               About
             </Link>
+
             <Link
               to="/vehicles"
               class="mr-5 hover:text-indigo-500 font-medium    border-2 border-white border-b-transparent hover:border-b-indigo-400"
             >
               Vehicles
+            </Link>
+            <Link
+              to="/contact"
+              class="mr-5 hover:text-indigo-500 font-medium    border-2 border-white border-b-transparent hover:border-b-indigo-400"
+            >
+              Contact
             </Link>
             {user && user.role && (
               <Link to="#" className="relative group">
@@ -90,14 +97,7 @@ export const Navbar = () => {
                             My Bookings
                           </Link>
                         </li>
-                        <li>
-                          <Link
-                            to="/notification"
-                            class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                          >
-                            <i class="fa-solid fa-bell mr-1"></i> Notification
-                          </Link>
-                        </li>
+
                         <li>
                           <Link
                             to="/profile"
