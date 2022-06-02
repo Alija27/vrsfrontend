@@ -9,13 +9,16 @@ import s from "./sa.mp4";
 
 const Home = () => {
   const [types, setTypes] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [frequentlyusedvehicles, setFrequentlyusedvehicles] = useState([]);
   useEffect(
     () => {
+      setLoading(true);
       useAxios
         .get("/types")
         .then((res) => {
           setTypes(res.data);
+          setLoading(false);
         })
         .catch((err) => {
           /*  Swal.fire({
@@ -201,22 +204,39 @@ const Home = () => {
           {/* <h1 className="flex w-3/12 p-2 pb-3 mx-auto mb-5 text-4xl font-bold text-center border-indigo-400 rounded-md border-b-4e mt-11">
             Vehicle Types
           </h1> */}
-          <section className="flex flex-wrap justify-center gap-3 my-5 mt-8 space-y-4">
-            {types.map((type) => (
-              <div className="w-[350px] h-[300px] rounded shadow-xl mx-5">
-                <div>
-                  <img
-                    className="w-full h-[250px] border-b-2"
-                    src={`http://localhost:8000/storage/${type.image}`}
-                    alt="avatar"
-                  />
-                  <div class="flex flex-wrap justify-center px-2 py-4">
-                    <span class="font-bold text-xl mb-2">{type.name}</span>
+          {loading ? (
+            <div className="h-full row justify-content-center">
+              <div class="flex justify-center items-center ">
+                <div class="flex justify-center items-center"></div>
+                <div
+                  class="spinner-border animate-spin inline-block w-24 h-24 border-4  rounded-full"
+                  role="status"
+                ></div>
+              </div>
+            </div>
+          ) : (
+            <section className="flex flex-wrap justify-center gap-3 my-5 mt-8 space-y-4">
+              {types.map((type) => (
+                <div className="w-[350px] h-[300px] rounded shadow-xl mx-5">
+                  <div>
+                    <img
+                      className="w-full h-[250px] border-b-2"
+                      src={`http://localhost:8000/storage/${type.image}`}
+                      alt="avatar"
+                    />
+                    <div class="flex flex-wrap justify-center px-2 py-4">
+                      <Link
+                        to={`/showbytype/${type.id}`}
+                        class="font-bold text-xl mb-2"
+                      >
+                        {type.name}
+                      </Link>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
-            {/* <div className="max-w-xs mx-auto overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800">
+              ))}
+
+              {/* <div className="max-w-xs mx-auto overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800">
               <img
                 className="object-cover w-full h-56"
                 src="https://images.pexels.com/photos/6011503/pexels-photo-6011503.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
@@ -278,7 +298,8 @@ const Home = () => {
               </div>
             </div>
             */}
-          </section>
+            </section>
+          )}
         </div>
         <div>
           <h1 className="justify-center w-1/2 pb-4 mx-auto my-10 text-2xl font-bold text-center border-b-4 border-indigo-600 md:text-4xl md:w-1/3 mt-15 ">
@@ -287,27 +308,38 @@ const Home = () => {
           {/* <h1 className="flex w-3/12 p-2 pb-3 mx-auto mb-5 text-4xl font-bold text-center border-indigo-400 rounded-md border-b-4e mt-11">
             Vehicle Types
           </h1> */}
-
-          <section className="flex flex-wrap justify-center gap-3 my-5 mt-8 space-y-4">
-            {frequentlyusedvehicles.map((as) => (
-              <Link to={`/vehicleDetails/${as.vehicle.id}`}>
-                <div className="w-[350px] h-[300px] rounded shadow-xl mx-5">
-                  <div>
-                    <img
-                      className="w-full h-[250px] border-b-2"
-                      src={`http://localhost:8000/storage/${as.vehicle.image}`}
-                      alt="avatar"
-                    />
-                    <div class="flex flex-wrap justify-center px-2 py-4">
-                      <span class="font-bold text-xl mb-2">
-                        {as.vehicle.name}
-                      </span>
+          {loading ? (
+            <div className="h-full row justify-content-center">
+              <div class="flex justify-center items-center ">
+                <div class="flex justify-center items-center"></div>
+                <div
+                  class="spinner-border animate-spin inline-block w-24 h-24 border-4  rounded-full text-black"
+                  role="status"
+                ></div>
+              </div>
+            </div>
+          ) : (
+            <section className="flex flex-wrap justify-center gap-3 my-5 mt-8 space-y-4">
+              {frequentlyusedvehicles.map((as) => (
+                <Link to={`/vehicleDetails/${as.vehicle.id}`}>
+                  <div className="w-[350px] h-[300px] rounded shadow-xl mx-5">
+                    <div>
+                      <img
+                        className="w-full h-[250px] border-b-2"
+                        src={`http://localhost:8000/storage/${as.vehicle.image}`}
+                        alt="avatar"
+                      />
+                      <div class="flex flex-wrap justify-center px-2 py-4">
+                        <span class="font-bold text-xl mb-2">
+                          {as.vehicle.name}
+                        </span>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </Link>
-            ))}
-          </section>
+                </Link>
+              ))}
+            </section>
+          )}
         </div>
         <div className="flex flex-wrap justify-center gap-4 mt-5"></div>
 

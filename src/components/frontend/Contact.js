@@ -31,10 +31,13 @@ const Contact = () => {
     data.append("email", contact.email);
     data.append("message", contact.message);
 
-    await useAxios
+    await setLoading(true);
+    useAxios
 
       .post("/contacts", data, {})
+
       .then((res) => {
+        setLoading(false);
         Swal.fire({
           timer: 2000,
           icon: "success",
@@ -132,6 +135,11 @@ const Contact = () => {
                     onChange={handleInputChange}
                     className="w-full px-3 py-1 text-base leading-8 text-gray-700 transition-colors duration-200 ease-in-out bg-white border border-gray-300 rounded outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
                   />
+                  {validation.name ? (
+                    <div className="text-red-500">{validation.name} </div>
+                  ) : (
+                    ""
+                  )}
                 </div>
                 <div className="relative mb-4">
                   <label
@@ -148,6 +156,11 @@ const Contact = () => {
                     onChange={handleInputChange}
                     className="w-full px-3 py-1 text-base leading-8 text-gray-700 transition-colors duration-200 ease-in-out bg-white border border-gray-300 rounded outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
                   />
+                  {validation.email ? (
+                    <div className="text-red-500">{validation.email} </div>
+                  ) : (
+                    ""
+                  )}
                 </div>
                 <div className="relative mb-4">
                   <label
@@ -164,6 +177,13 @@ const Contact = () => {
                     onChange={handleInputChange}
                     className="w-full px-3 py-1 text-base leading-8 text-gray-700 transition-colors duration-200 ease-in-out bg-white border border-gray-300 rounded outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
                   />
+                  {validation.phonenumber ? (
+                    <div className="text-red-500">
+                      {validation.phonenumber}{" "}
+                    </div>
+                  ) : (
+                    ""
+                  )}
                 </div>
                 <div className="relative mb-4">
                   <label
@@ -180,6 +200,11 @@ const Contact = () => {
                     className="w-full h-32 px-3 py-1 text-base leading-6 text-gray-700 transition-colors duration-200 ease-in-out bg-white border border-gray-300 rounded outline-none resize-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
                     defaultValue={""}
                   />
+                  {validation.message ? (
+                    <div className="text-red-500">{validation.message} </div>
+                  ) : (
+                    ""
+                  )}
                 </div>
                 <button className="px-6 py-2 text-lg text-white bg-indigo-500 border-0 rounded focus:outline-none hover:bg-indigo-600">
                   Submit

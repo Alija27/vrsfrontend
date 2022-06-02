@@ -24,6 +24,7 @@ import { VendorProfile } from "./VendorProfile";
 import VehicleDetails from "./VehicleDetails";
 import About from "./About";
 import Contact from "./Contact";
+import ShowByType from "./ShowByType";
 
 const Frontend = () => {
   return (
@@ -43,6 +44,7 @@ const Frontend = () => {
         <Route path="/vendor-register" element={<VendorRegister />} />
         <Route path="/editvehicle/:id" element={<EditVehicle />} />
         <Route path="/edit-vendor/:id" element={<EditVendor />} />
+        <Route path="/showbytype/:id" element={<ShowByType />} />
         <Route path="/vendorprofile" element={<VendorProfile />} />
         <Route path="/vehicledetails/:id" element={<VehicleDetails />} />
         <Route path="/forgetpassword" element={<ForgetPassword />} />

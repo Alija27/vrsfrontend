@@ -56,7 +56,6 @@ const VendorRegister = () => {
       })
       .catch((err) => {
         if (err.response.status === 422) {
-          alert("");
         } else {
           Swal.fire({
             timer: 2000,

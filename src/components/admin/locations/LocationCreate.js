@@ -100,6 +100,11 @@ const LocationCreate = () => {
                         value={locationData.name}
                         onChange={handleInputChange}
                       />
+                      {validation.name ? (
+                        <div className="text-danger">{validation.name} </div>
+                      ) : (
+                        ""
+                      )}
                     </div>
                     <div className="form-group">
                       <label htmlFor="latitude">
@@ -116,6 +121,13 @@ const LocationCreate = () => {
                         value={locationData.latitude}
                         onChange={handleInputChange}
                       />
+                      {validation.latitude ? (
+                        <div className="text-danger">
+                          {validation.latitude}{" "}
+                        </div>
+                      ) : (
+                        ""
+                      )}
                     </div>
                     <div className="form-group">
                       <label htmlFor="longitude">
@@ -132,6 +144,13 @@ const LocationCreate = () => {
                         value={locationData.longitude}
                         onChange={handleInputChange}
                       />
+                      {validation.longitude ? (
+                        <div className="text-danger">
+                          {validation.longitude}{" "}
+                        </div>
+                      ) : (
+                        ""
+                      )}
                     </div>
                     <div className="my-2 form-group">
                       <button

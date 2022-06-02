@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 import useAxios from "../../../hooks/useAxios";
+import Swal from "sweetalert2";
 
 const TypeCreate = () => {
   const [loading, setLoading] = useState(false);
@@ -29,7 +30,17 @@ const TypeCreate = () => {
       .then((res) => {
         navigate("/admin/types");
       })
-      .catch((err) => {});
+      .catch((err) => {
+        if (err.response.status === 422) {
+          setValidationError(err.response.data.errors);
+        } else {
+          Swal.fire({
+            timer: 2000,
+            icon: "error",
+            title: err,
+          });
+        }
+      });
   };
 
   return (
@@ -83,6 +94,11 @@ const TypeCreate = () => {
                         className="form-control "
                         onChange={(e) => handleImage(e.target.files)}
                       />
+                      {validation.image ? (
+                        <div className="text-danger">{validation.image}</div>
+                      ) : (
+                        ""
+                      )}
                     </div>
                     <div className="my-2 form-group">
                       <button

@@ -17,6 +17,7 @@ const VehicleDetails = () => {
     type: {},
   });
   const [reviews, setReview] = useState([]);
+  const [validation, setValidationError] = useState({});
   const [eligibleForReview, setEligibleForReview] = useState(false);
   const { id } = useParams();
   const [loading, setLoading] = useState(false);
@@ -38,6 +39,9 @@ const VehicleDetails = () => {
   });
   function submitBook() {
     setLoading(true);
+    if (!user.id) {
+      navigate("/login");
+    }
     useAxios
       .post("/requestVehicle", {
         user_id: user.id,
@@ -58,17 +62,22 @@ const VehicleDetails = () => {
         setLoading(false);
       })
       .catch((err) => {
-        Swal.fire({
-          icon: "error",
-          title: "Cannot send request",
-          timer: 2000,
-        });
+        if (err.response.status === 422) {
+          setValidationError(err.response.data.errors);
+        } else {
+          Swal.fire({
+            timer: 2000,
+            icon: "error",
+            title: err,
+          });
+        }
       });
     setLoading(false);
   }
 
   function submitForm() {
     setLoading(true);
+
     useAxios
       .post(`/checkvehicle/${id}`, { start_date, end_date })
       .then((res) => {
@@ -80,11 +89,15 @@ const VehicleDetails = () => {
         });
       })
       .catch((err) => {
-        setLoading(false);
-        Swal.fire({
-          icon: "error",
-          title: "Cannot check vehicle status",
-        });
+        if (err.response.status === 422) {
+          setValidationError(err.response.data.errors);
+        } else {
+          Swal.fire({
+            timer: 2000,
+            icon: "error",
+            title: err,
+          });
+        }
       });
     setLoading(false);
   }
@@ -275,6 +288,13 @@ const VehicleDetails = () => {
                       }}
                       className="w-full px-3 py-1 text-base leading-8 text-gray-700 transition-colors duration-200 ease-in-out bg-white border border-gray-300 rounded outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
                     />
+                    {validation.start_date ? (
+                      <div className="text-red-500">
+                        {validation.start_date}{" "}
+                      </div>
+                    ) : (
+                      ""
+                    )}
                   </div>
                   <div className="relative mb-4">
                     <label
@@ -292,6 +312,11 @@ const VehicleDetails = () => {
                       }}
                       className="w-full px-3 py-1 text-base leading-8 text-gray-700 transition-colors duration-200 ease-in-out bg-white border border-gray-300 rounded outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
                     />
+                    {validation.end_date ? (
+                      <div className="text-red-500">{validation.end_date} </div>
+                    ) : (
+                      ""
+                    )}
                   </div>
 
                   <button className="w-full px-6 py-2 text-lg text-white bg-indigo-500 border-0 rounded focus:outline-none hover:bg-indigo-600">
@@ -306,7 +331,9 @@ const VehicleDetails = () => {
 
                 {!loading && book_data.status && (
                   <div>
-                    <p>{book_data.status}</p>
+                    <p className="text-center text-green-400">
+                      {book_data.status}
+                    </p>
                     {book_data.is_available && (
                       <div>
                         <form
@@ -322,6 +349,13 @@ const VehicleDetails = () => {
                               value={start_date}
                               className="w-full px-3 py-1 text-base leading-8 text-gray-700 transition-colors duration-200 ease-in-out bg-white border border-gray-300 rounded outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
                             />
+                            {/* {validation.start_date ? (
+                              <div className="text-red-500">
+                                {validation.start_date}{" "}
+                              </div>
+                            ) : (
+                              ""
+                            )} */}
                           </div>
                           <div className="relative mb-4">
                             <input
@@ -330,6 +364,13 @@ const VehicleDetails = () => {
                               value={end_date}
                               className="w-full px-3 py-1 text-base leading-8 text-gray-700 transition-colors duration-200 ease-in-out bg-white border border-gray-300 rounded outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
                             />
+                            {/* {validation.end_date ? (
+                              <div className="text-red-500">
+                                {validation.end_date}{" "}
+                              </div>
+                            ) : (
+                              ""
+                            )} */}
                           </div>
                           <div className="relative mb-4">
                             Destination
@@ -339,6 +380,13 @@ const VehicleDetails = () => {
                               onChange={handleInput}
                               className="w-full px-3 py-1 text-base leading-8 text-gray-700 transition-colors duration-200 ease-in-out bg-white border border-gray-300 rounded outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
                             />
+                            {validation.destination ? (
+                              <div className="text-red-500">
+                                {validation.destination}{" "}
+                              </div>
+                            ) : (
+                              ""
+                            )}
                           </div>
                           <div className="relative mb-4">
                             Total Amount
@@ -348,6 +396,13 @@ const VehicleDetails = () => {
                               value={requestVehicle.total_amount}
                               className="w-full px-3 py-1 text-base leading-8 text-gray-700 transition-colors duration-200 ease-in-out bg-white border border-gray-300 rounded outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
                             />
+                            {validation.total_amount ? (
+                              <div className="text-red-500">
+                                {validation.total_amount}{" "}
+                              </div>
+                            ) : (
+                              ""
+                            )}
                           </div>
                           <div className="relative mb-4">
                             Remarks
@@ -357,6 +412,13 @@ const VehicleDetails = () => {
                               onChange={handleInput}
                               className="w-full px-3 py-1 text-base leading-8 text-gray-700 transition-colors duration-200 ease-in-out bg-white border border-gray-300 rounded outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
                             />
+                            {validation.remarks ? (
+                              <div className="text-red-500">
+                                {validation.remarks}{" "}
+                              </div>
+                            ) : (
+                              ""
+                            )}
                           </div>
 
                           <button className="w-full px-6 py-2 text-lg text-white bg-indigo-500 border-0 rounded focus:outline-none hover:bg-indio-600">
