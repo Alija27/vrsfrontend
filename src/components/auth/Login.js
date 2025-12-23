@@ -30,7 +30,7 @@ export const Login = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  const [user, setUser] = useContext(UserContext);
+  const [user, fetchUser, setUser] = useContext(UserContext);
 
   function login(e) {
     e.preventDefault();
@@ -43,15 +43,26 @@ export const Login = () => {
       .then((res) => {
         localStorage.setItem("token", res.data.token);
         setUser(res.data.user);
-        if (res.data.user.role === "Admin") {
+
+        // Fetch latest user data to ensure we have complete information
+        fetchUser();
+
+        // Redirect based on user role and vendor status
+        const userRole = res.data.user.role;
+        const userVendor = res.data.user.vendor;
+
+        if (userRole === "Admin") {
           navigate("/admin");
-        } else if (res.data.user.role === "Vendor") {
-          if (res.data.user.vendor.status === "Accepted") {
+        } else if (userRole === "Vendor") {
+          // Check if vendor exists and is accepted
+          if (userVendor && userVendor.status === "Accepted") {
             navigate("/vendordashboard");
           } else {
+            // Vendor not accepted or doesn't exist, go to home
             navigate("/");
           }
         } else {
+          // Customer or other roles - go to home
           navigate("/");
         }
       })

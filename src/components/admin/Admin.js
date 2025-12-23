@@ -67,52 +67,55 @@ const Admin = () => {
     );
   };
 
+  // Cleanup function to remove AdminLTE resources
+  const cleanupAdminLTE = () => {
+    const jquery = document.getElementById("jquery");
+    if (jquery && jquery.parentNode) {
+      jquery.parentNode.removeChild(jquery);
+    }
+
+    const css = document.getElementById("css");
+    if (css && css.parentNode) {
+      css.parentNode.removeChild(css);
+    }
+
+    const bootstrapbundle = document.getElementById("bootstrapbundle");
+    if (bootstrapbundle && bootstrapbundle.parentNode) {
+      bootstrapbundle.parentNode.removeChild(bootstrapbundle);
+    }
+
+    const adminltejs = document.getElementById("adminltejs");
+    if (adminltejs && adminltejs.parentNode) {
+      adminltejs.parentNode.removeChild(adminltejs);
+    }
+
+    // Remove all AdminLTE body classes
+    document.body.classList.remove(
+      "hold-transition",
+      "sidebar-mini",
+      "layout-fixed",
+      "layout-avabr-fixed",
+      "layout-navbar-fixed"
+    );
+  };
+
   useEffect(() => {
     fetchUser();
     addLinks();
+
+    // Cleanup on unmount
+    return () => {
+      cleanupAdminLTE();
+    };
   }, []);
 
   useEffect(() => {
     if (user.role === "") {
-      let jquery = document.getElementById("jquery");
-      document.body.removeChild(jquery);
-
-      let css = document.getElementById("css");
-      document.head.removeChild(css);
-
-      let bootstrapbundle = document.getElementById("bootstrapbundle");
-      document.body.removeChild(bootstrapbundle);
-
-      let adminltejs = document.getElementById("adminltejs");
-      document.body.removeChild(adminltejs);
-
-      document.body.classList.remove(
-        "hold-transition",
-        "sidebar-mini",
-        "layout-fixed",
-        "layout-avabr-fixed"
-      );
+      cleanupAdminLTE();
       navigate("/");
     }
     if (user.role && user.role !== "Admin") {
-      let jquery = document.getElementById("jquery");
-      document.body.removeChild(jquery);
-
-      let css = document.getElementById("css");
-      document.head.removeChild(css);
-
-      let bootstrapbundle = document.getElementById("bootstrapbundle");
-      document.body.removeChild(bootstrapbundle);
-
-      let adminltejs = document.getElementById("adminltejs");
-      document.body.removeChild(adminltejs);
-
-      document.body.classList.remove(
-        "hold-transition",
-        "sidebar-mini",
-        "layout-fixed",
-        "layout-avabr-fixed"
-      );
+      cleanupAdminLTE();
       navigate("/");
     }
   }, [user]);

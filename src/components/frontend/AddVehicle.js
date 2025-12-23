@@ -63,6 +63,15 @@ const AddVehicle = () => {
   }, []);
   const submitvehicleData = async (e) => {
     e.preventDefault();
+    if (!user || !user.vendor || !user.vendor.id) {
+      Swal.fire({
+        timer: 2000,
+        icon: "error",
+        title: "Vendor information not found",
+      });
+      setLoading(false);
+      return;
+    }
     setLoading(true);
     const data = new FormData();
     data.append("name", vehicleData.name);

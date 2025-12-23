@@ -22,7 +22,9 @@ export const RegisteredVehicle = () => {
     fetchUser();
     getvehicles();
     console.log(user);
-    console.log(user.vendor.id);
+    if (user && user.vendor) {
+      console.log(user.vendor.id);
+    }
   }, []);
   const getvehicles = () => {
     useAxios

@@ -18,7 +18,9 @@ const EditVendor = () => {
     fetchUser();
 
     console.log(user);
-    console.log(user.vendor.id);
+    if (user && user.vendor) {
+      console.log(user.vendor.id);
+    }
   }, []);
 
   const [vendor, setVendor] = useState({});

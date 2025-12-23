@@ -1,11 +1,44 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useContext } from "react";
 
 import UserContext from "../../../UserContext";
 
 export const Navbar = () => {
   const [user, fetchUser] = useContext(UserContext);
+
+  // Cleanup AdminLTE styles when component mounts (in case coming from admin)
+  useEffect(() => {
+    // Remove AdminLTE body classes
+    document.body.classList.remove(
+      "hold-transition",
+      "sidebar-mini",
+      "layout-fixed",
+      "layout-avabr-fixed",
+      "layout-navbar-fixed"
+    );
+
+    // Remove AdminLTE resources if they exist
+    const jquery = document.getElementById("jquery");
+    if (jquery && jquery.parentNode) {
+      jquery.parentNode.removeChild(jquery);
+    }
+
+    const css = document.getElementById("css");
+    if (css && css.parentNode) {
+      css.parentNode.removeChild(css);
+    }
+
+    const bootstrapbundle = document.getElementById("bootstrapbundle");
+    if (bootstrapbundle && bootstrapbundle.parentNode) {
+      bootstrapbundle.parentNode.removeChild(bootstrapbundle);
+    }
+
+    const adminltejs = document.getElementById("adminltejs");
+    if (adminltejs && adminltejs.parentNode) {
+      adminltejs.parentNode.removeChild(adminltejs);
+    }
+  }, []);
+
   return (
     <div>
       <header class="text-gray-600 body-font shadow-lg">

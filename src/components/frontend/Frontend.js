@@ -6,6 +6,7 @@ import { React } from "react";
 import { Route, Routes } from "react-router-dom";
 import Home from "./Home";
 import { Navbar } from "./layouts/Navbar";
+import { Footer } from "./layouts/Footer";
 import Vehicles from "./Vehicles";
 import AddVehicle from "./AddVehicle";
 import "../../index.css";
@@ -28,32 +29,35 @@ import ShowByType from "./ShowByType";
 
 const Frontend = () => {
   return (
-    <div>
+    <div className="flex flex-col min-h-screen">
       <Navbar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/addvehicle" element={<AddVehicle />} />
-        <Route path="/vehiclespage" element={<Vehicles />} />
-        <Route path="/registeredvehicle" element={<RegisteredVehicle />} />
-        <Route path="/vendordashboard" element={<VendorDashboard />} />
-        <Route path="/vehiclerequest" element={<VehicleRequest />} />
-        <Route path="/mybookings" element={<MyBookings />} />
-        <Route path="/vehicles/:id" element={<ViewVehicle />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/edit-profile/:id" element={<EditProfile />} />
-        <Route path="/vendor-register" element={<VendorRegister />} />
-        <Route path="/editvehicle/:id" element={<EditVehicle />} />
-        <Route path="/edit-vendor/:id" element={<EditVendor />} />
-        <Route path="/showbytype/:id" element={<ShowByType />} />
-        <Route path="/vendorprofile" element={<VendorProfile />} />
-        <Route path="/vehicledetails/:id" element={<VehicleDetails />} />
-        <Route path="/forgetpassword" element={<ForgetPassword />} />
-        <Route path="/OTPverification" element={<OTPinput />} />
-        <Route path="/changepassword" element={<ChangePassword />} />
-        <Route path="/vehicles" element={<VehiclesPage />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/contact" element={<Contact />} />
-      </Routes>
+      <main className="flex-grow">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/addvehicle" element={<AddVehicle />} />
+          <Route path="/vehiclespage" element={<Vehicles />} />
+          <Route path="/registeredvehicle" element={<RegisteredVehicle />} />
+          <Route path="/vendordashboard" element={<VendorDashboard />} />
+          <Route path="/vehiclerequest" element={<VehicleRequest />} />
+          <Route path="/mybookings" element={<MyBookings />} />
+          <Route path="/vehicles/:id" element={<ViewVehicle />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/edit-profile/:id" element={<EditProfile />} />
+          <Route path="/vendor-register" element={<VendorRegister />} />
+          <Route path="/editvehicle/:id" element={<EditVehicle />} />
+          <Route path="/edit-vendor/:id" element={<EditVendor />} />
+          <Route path="/showbytype/:id" element={<ShowByType />} />
+          <Route path="/vendorprofile" element={<VendorProfile />} />
+          <Route path="/vehicledetails/:id" element={<VehicleDetails />} />
+          <Route path="/forgetpassword" element={<ForgetPassword />} />
+          <Route path="/OTPverification" element={<OTPinput />} />
+          <Route path="/changepassword" element={<ChangePassword />} />
+          <Route path="/vehicles" element={<VehiclesPage />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
+        </Routes>
+      </main>
+      <Footer />
     </div>
   );
 };

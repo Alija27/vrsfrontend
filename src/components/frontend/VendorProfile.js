@@ -11,7 +11,9 @@ export const VendorProfile = () => {
   useEffect(() => {
     fetchUser();
     console.log(user);
-    console.log(user.vendor.id);
+    if (user && user.vendor) {
+      console.log(user.vendor.id);
+    }
   }, []);
 
   return (
@@ -46,12 +48,14 @@ export const VendorProfile = () => {
                 <div className="flex flex-wrap justify-center">
                   <div className="flex justify-center w-full px-4 lg:w-3/12 lg:order-2">
                     <div className="relative">
-                      <img
-                        alt="image"
-                        src={`http://localhost:8000/storage/${user.vendor.image}`}
-                        className="absolute h-auto -m-16 -ml-20 align-middle border-none rounded-full shadow-xl lg:-ml-16"
-                        style={{ maxWidth: 200, maxHeight: 200 }}
-                      />
+                      {user && user.vendor && user.vendor.image && (
+                        <img
+                          alt="image"
+                          src={`http://localhost:8000/storage/${user.vendor.image}`}
+                          className="absolute h-auto -m-16 -ml-20 align-middle border-none rounded-full shadow-xl lg:-ml-16"
+                          style={{ maxWidth: 200, maxHeight: 200 }}
+                        />
+                      )}
                     </div>
                   </div>
                   <div className="w-full px-4 lg:w-4/12 lg:order-3 lg:text-right lg:self-center">
@@ -88,31 +92,37 @@ export const VendorProfile = () => {
                   </div>
                 </div>
                 <div className="mt-40 text-center">
-                  <h3 className="mb-2 text-4xl font-semibold leading-normal text-gray-800">
-                    {user.vendor.name}
-                  </h3>
-                  <div className="mt-0 mb-2 text-sm font-bold leading-normal text-gray-500 uppercase">
-                    <i className="mr-2 text-lg text-gray-500 fas fa-map-marker-alt" />
-                    {user.vendor.address}
-                  </div>
-                  <div className="mt-10 mb-2 text-gray-700">
-                    <i className="mr-2 text-lg text-gray-500 fas fa-phone" />
-                    {user.vendor.phone}
-                  </div>
-                  <div className="mt-10 mb-2 text-gray-700">
-                    <span className="block text-xl font-bold tracking-wide text-gray-700 uppercase">
-                      22
-                    </span>
-                    <span className="text-sm text-gray-500">Vehicles</span>
-                  </div>
-                  <div className="mt-10 mb-2 text-gray-700">
-                    <Link
-                      to={`/edit-vendor/${user.vendor.id}`}
-                      className="px-4 py-2 mb-1 text-xs font-bold text-white uppercase bg-indigo-500 rounded shadow outline-none active:bg-indigo-600 hover:shadow-md focus:outline-none sm:mr-2"
-                    >
-                      Edit
-                    </Link>
-                  </div>
+                  {user && user.vendor ? (
+                    <>
+                      <h3 className="mb-2 text-4xl font-semibold leading-normal text-gray-800">
+                        {user.vendor.name}
+                      </h3>
+                      <div className="mt-0 mb-2 text-sm font-bold leading-normal text-gray-500 uppercase">
+                        <i className="mr-2 text-lg text-gray-500 fas fa-map-marker-alt" />
+                        {user.vendor.address}
+                      </div>
+                      <div className="mt-10 mb-2 text-gray-700">
+                        <i className="mr-2 text-lg text-gray-500 fas fa-phone" />
+                        {user.vendor.phone}
+                      </div>
+                      <div className="mt-10 mb-2 text-gray-700">
+                        <span className="block text-xl font-bold tracking-wide text-gray-700 uppercase">
+                          22
+                        </span>
+                        <span className="text-sm text-gray-500">Vehicles</span>
+                      </div>
+                      <div className="mt-10 mb-2 text-gray-700">
+                        <Link
+                          to={`/edit-vendor/${user.vendor.id}`}
+                          className="px-4 py-2 mb-1 text-xs font-bold text-white uppercase bg-indigo-500 rounded shadow outline-none active:bg-indigo-600 hover:shadow-md focus:outline-none sm:mr-2"
+                        >
+                          Edit
+                        </Link>
+                      </div>
+                    </>
+                  ) : (
+                    <p className="text-gray-600">No vendor profile found</p>
+                  )}
                   {/* <div className="mb-2 text-gray-700">
                     <i className="mr-2 text-lg text-gray-500 fas fa-university" />
                     University of Computer Science

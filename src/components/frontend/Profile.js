@@ -12,283 +12,277 @@ export const Profile = () => {
     fetchUser();
 
     console.log(user);
-    console.log(user.vendor.id);
+    if (user && user.vendor) {
+      console.log(user.vendor.id);
+    }
   }, []);
 
   return (
-    <div className="items-center">
-      {/* <section className="text-gray-600 body-font">
-        <div className="container flex flex-wrap items-center px-5 py-24 mx-auto">
-          <div className="pr-0 lg:w-1/2 md:w-1/2 md:pr-16 lg:pr-0">
-            Image
-            <div>
-              <img
-                src={`http://localhost:8000/storage/${user.image}`}
-                alt="image"
-              />
+    <div className="min-h-screen bg-gray-50">
+      {/* Header Section with Background */}
+      <div className="relative bg-gradient-to-r from-indigo-600 to-indigo-800">
+        <div className="absolute inset-0 bg-black opacity-20"></div>
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+          <div className="text-center">
+            <div className="flex justify-center mb-6">
+              <div className="relative">
+                <img
+                  alt="Profile"
+                  src={`http://localhost:8000/storage/${user.image}`}
+                  className="h-32 w-32 rounded-full border-4 border-white shadow-lg object-cover"
+                />
+                <div className="absolute bottom-0 right-0 h-8 w-8 bg-green-500 border-4 border-white rounded-full"></div>
+              </div>
             </div>
-          </div>
-          <div className="flex flex-col w-full p-5 mt-10 bg-gray-100 rounded-lg lg:w-1/2 md:w-1/2 md:ml-auto md:mt-0">
-            <h2 className="mb-5 text-lg font-medium text-gray-900 title-font">
-              User Profile
-            </h2>
-            <div className="relative mb-4">
-              <label
-                htmlFor="full-name"
-                className="text-sm leading-7 text-gray-600"
-              >
-                Name
-              </label>
-              <input
-                disabled
-                type="text"
-                id="name"
-                name="name"
-                value={user.name}
-                className="w-full px-3 py-1 text-base leading-8 text-gray-700 transition-colors duration-200 ease-in-out bg-white border border-gray-300 rounded outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
-              />
-            </div>
-            <div className="relative mb-4">
-              <label
-                htmlFor="email"
-                className="text-sm leading-7 text-gray-600"
-              >
-                Email
-              </label>
-              <input
-                disabled
-                type="email"
-                id="email"
-                name="email"
-                value={user.email}
-                className="w-full px-3 py-1 text-base leading-8 text-gray-700 transition-colors duration-200 ease-in-out bg-white border border-gray-300 rounded outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
-              />
-            </div>
-            <div className="relative mb-4">
-              <label
-                htmlFor="email"
-                className="text-sm leading-7 text-gray-600"
-              >
-                Address
-              </label>
-              <input
-                disabled
-                type="text"
-                id="address"
-                name="address"
-                value={user.address}
-                className="w-full px-3 py-1 text-base leading-8 text-gray-700 transition-colors duration-200 ease-in-out bg-white border border-gray-300 rounded outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
-              />
-            </div>
-            <div className="relative mb-4">
-              <label
-                htmlFor="full-name"
-                className="text-sm leading-7 text-gray-600"
-              >
-                Phone
-              </label>
-              <input
-                disabled
-                type="text"
-                id="name"
-                name="name"
-                value={user.phone}
-                className="w-full px-3 py-1 text-base leading-8 text-gray-700 transition-colors duration-200 ease-in-out bg-white border border-gray-300 rounded outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
-              />
-            </div>
-            <div className="relative mb-4">
-              <label
-                htmlFor="email"
-                className="text-sm leading-7 text-gray-600"
-              >
-                Citizenship Number
-              </label>
-              <input
-                disabled
-                type="email"
-                id="email"
-                name="email"
-                value={user.citizenship_number}
-                className="w-full px-3 py-1 text-base leading-8 text-gray-700 transition-colors duration-200 ease-in-out bg-white border border-gray-300 rounded outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
-              />
-            </div>
-            <div className="relative mb-4">
-              <label
-                htmlFor="email"
-                className="text-sm leading-7 text-gray-600"
-              >
-                Role
-              </label>
-              <input
-                disabled
-                type="email"
-                id="email"
-                name="email"
-                value={user.role}
-                className="w-full px-3 py-1 text-base leading-8 text-gray-700 transition-colors duration-200 ease-in-out bg-white border border-gray-300 rounded outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
-              />
-            </div>
-            <div className="relative mb-4">
-              <label
-                htmlFor="email"
-                className="text-sm leading-7 text-gray-600"
-              >
-                Citizenship Image
-              </label>
-              <img
-                src={`http://localhost:8000/storage/${user.citizenship_image}`}
-                alt="citizen"
-                height="500px"
-                width="500px"
-              />
-            </div>
+            <h1 className="text-4xl font-bold text-white mb-2">
+              {user.name || "User"}
+            </h1>
+            <p className="text-indigo-100 text-lg">{user.role || "User"}</p>
           </div>
         </div>
-      </section> */}
+      </div>
 
-      <nav className="absolute top-0 z-50 flex flex-wrap items-center justify-between w-full px-2 py-3 ">
-        <div className="container flex flex-wrap items-center justify-between px-4 mx-auto">
-          <div
-            className="items-center flex-grow hidden bg-white lg:flex lg:bg-transparent lg:shadow-none"
-            id="example-collapse-navbar"
-          ></div>
-        </div>
-      </nav>
-      <main className="profile-page">
-        <section className="relative block" style={{ height: 500 }}>
-          <div
-            className="absolute top-0 w-full h-full bg-center bg-cover"
-            /*  style={{
-              backgroundImage:
-                'url("https://images.unsplash.com/photo-1499336315816-097655dcfbda?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2710&q=80")',
-            }} */
-          >
-            <span
-              id="blackOverlay"
-              className="absolute w-full h-full bg-black opacity-50"
-            />
-          </div>
-        </section>
-        <section className="relative py-16 bg-indigo-300">
-          <div className="container w-full px-4 mx-auto md:w-7/12">
-            <div className="relative flex flex-col w-full min-w-0 mb-6 -mt-64 break-words bg-white rounded-lg shadow-xl">
-              <div className="px-6">
-                <div className="flex flex-wrap justify-center">
-                  <div className="flex justify-center w-full px-4 lg:w-3/12 lg:order-2">
-                    <div className="relative">
-                      <img
-                        alt="image"
-                        src={`http://localhost:8000/storage/${user.image}`}
-                        className="absolute h-auto -m-16 -ml-20 align-middle border-none rounded-full shadow-xl lg:-ml-16"
-                        style={{ maxWidth: 200, maxHeight: 200 }}
-                      />
+      {/* Main Content */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 -mt-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          {/* Left Column - Personal Information */}
+          <div className="lg:col-span-2 space-y-6">
+            {/* Personal Details Card */}
+            <div className="bg-white rounded-lg shadow-md p-6">
+              <div className="flex items-center justify-between mb-6">
+                <h2 className="text-2xl font-bold text-gray-900">
+                  Personal Information
+                </h2>
+                <Link
+                  to={`/edit-profile/${user.id}`}
+                  className="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-indigo-600 rounded-md hover:bg-indigo-700 transition-colors"
+                >
+                  <svg
+                    className="w-4 h-4 mr-2"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+                    />
+                  </svg>
+                  Edit Profile
+                </Link>
+              </div>
+
+              <div className="space-y-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Full Name
+                    </label>
+                    <div className="px-4 py-3 bg-gray-50 rounded-md border border-gray-200">
+                      <p className="text-gray-900">{user.name || "N/A"}</p>
                     </div>
                   </div>
-                  <div className="w-full px-4 lg:w-4/12 lg:order-3 lg:text-right lg:self-center">
-                    {/* <div className="px-3 py-6 mt-32 sm:mt-0">
-                      <Link
-                        to={`/edit-vendor/${user.vendor.id}`}
-                        className="px-4 py-2 mb-1 text-xs font-bold text-white uppercase bg-indigo-500 rounded shadow outline-none active:bg-indigo-600 hover:shadow-md focus:outline-none sm:mr-2"
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Email Address
+                    </label>
+                    <div className="px-4 py-3 bg-gray-50 rounded-md border border-gray-200">
+                      <p className="text-gray-900">{user.email || "N/A"}</p>
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Phone Number
+                    </label>
+                    <div className="px-4 py-3 bg-gray-50 rounded-md border border-gray-200">
+                      <p className="text-gray-900">{user.phone || "N/A"}</p>
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Role
+                    </label>
+                    <div className="px-4 py-3 bg-gray-50 rounded-md border border-gray-200">
+                      <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-indigo-100 text-indigo-800">
+                        {user.role || "N/A"}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Address
+                  </label>
+                  <div className="px-4 py-3 bg-gray-50 rounded-md border border-gray-200">
+                    <p className="text-gray-900 flex items-center">
+                      <svg
+                        className="w-5 h-5 mr-2 text-gray-400"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
                       >
-                        Edit
-                      </Link>
-                    </div> */}
-                  </div>
-                  <div className="w-full px-4 lg:w-4/12 lg:order-1">
-                    <div className="flex justify-center py-4 pt-8 lg:pt-4">
-                      {/* <div className="p-3 mr-4 text-center">
-                        <span className="block text-xl font-bold tracking-wide text-gray-700 uppercase">
-                          22
-                        </span>
-                        <span className="text-sm text-gray-500">Vehicles</span>
-                      </div> */}
-                      {/*  <div className="p-3 mr-4 text-center">
-                        <span className="block text-xl font-bold tracking-wide text-gray-700 uppercase">
-                          10
-                        </span>
-                        <span className="text-sm text-gray-500">Photos</span>
-                      </div>
-                      <div className="p-3 text-center lg:mr-4">
-                        <span className="block text-xl font-bold tracking-wide text-gray-700 uppercase">
-                          89
-                        </span>
-                        <span className="text-sm text-gray-500">Comments</span>
-                      </div> */}
-                    </div>
-                  </div>
-                </div>
-                <div className="mt-40 text-center">
-                  <h3 className="mb-2 text-4xl font-semibold leading-normal text-gray-800">
-                    {user.name}
-                  </h3>
-                  <div className="mt-0 mb-2 text-sm font-bold leading-normal text-gray-500 uppercase">
-                    <i className="mr-2 text-lg text-gray-500 fas fa-map-marker-alt" />
-                    {user.address}
-                  </div>
-                  <div className="mt-10 mb-2 text-gray-700">
-                    <i className="mr-2 text-lg text-gray-500 fas fa-phone" />
-                    {user.phone}
-                  </div>
-                  <div className="mt-10 mb-2 text-gray-700">
-                    <i className="mr-2 text-lg text-gray-500 fas fa-message" />
-                    {user.email}
-                  </div>
-                  <div className="mt-10 mb-2 text-gray-700">
-                    <i className="mr-2 text-lg text-gray-500 fas " />
-                    Citizenship Number:{user.citizenship_number}
-                  </div>
-                  <div className="mt-10 mb-2 text-gray-700">
-                    <i className="mr-2 text-lg text-gray-500 fas " />
-                    {user.role}
-                  </div>
-                  <div className="mt-10 mb-2 text-gray-700">
-                    <span className="block text-xl font-bold tracking-wide text-gray-700 uppercase">
-                      22
-                    </span>
-                    <span className="text-sm text-gray-500">Vehicles</span>
-                  </div>
-
-                  {/* <div className="mb-2 text-gray-700">
-                    <i className="mr-2 text-lg text-gray-500 fas fa-university" />
-                    University of Computer Science
-                  </div> */}
-                </div>
-                <div className="py-10 mt-10 text-center border-t border-gray-300">
-                  <div className="flex flex-wrap justify-center">
-                    <div className="w-full px-4 lg:w-9/12">
-                      <p className="mb-4 text-lg leading-relaxed text-gray-800">
-                        <label
-                          htmlFor="email"
-                          className="text-sm leading-7 text-gray-600"
-                        >
-                          Citizenship Image
-                        </label>
-                        <img
-                          src={`http://localhost:8000/storage/${user.citizenship_image}`}
-                          alt="citizen"
-                          height="500px"
-                          width="500px"
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
                         />
-                      </p>
-                      {/*  <a href="#pablo" className="font-normal text-pink-500">
-                        Show more
-                      </a> */}
-                      <div className="mt-10 mb-2 text-gray-700">
-                        <Link
-                          to={`/edit-profile/${user.id}`}
-                          className="px-4 py-2 mb-1 text-xs font-bold text-white uppercase bg-indigo-500 rounded shadow outline-none active:bg-indigo-600 hover:shadow-md focus:outline-none sm:mr-2"
-                        >
-                          Edit
-                        </Link>
-                      </div>
-                    </div>
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                        />
+                      </svg>
+                      {user.address || "N/A"}
+                    </p>
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Citizenship Number
+                  </label>
+                  <div className="px-4 py-3 bg-gray-50 rounded-md border border-gray-200">
+                    <p className="text-gray-900">
+                      {user.citizenship_number || "N/A"}
+                    </p>
                   </div>
                 </div>
               </div>
             </div>
+
+            {/* Citizenship Image Card */}
+            {user.citizenship_image && (
+              <div className="bg-white rounded-lg shadow-md p-6">
+                <h2 className="text-2xl font-bold text-gray-900 mb-4">
+                  Citizenship Document
+                </h2>
+                <div className="flex justify-center">
+                  <div className="border-2 border-gray-200 rounded-lg p-4 bg-gray-50">
+                    <img
+                      src={`http://localhost:8000/storage/${user.citizenship_image}`}
+                      alt="Citizenship Document"
+                      className="max-w-full h-auto rounded-lg shadow-sm"
+                      style={{ maxHeight: "500px" }}
+                    />
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
-        </section>
-      </main>
+
+          {/* Right Column - Quick Actions & Stats */}
+          <div className="space-y-6">
+            {/* Quick Actions Card */}
+            <div className="bg-white rounded-lg shadow-md p-6">
+              <h2 className="text-xl font-bold text-gray-900 mb-4">
+                Quick Actions
+              </h2>
+              <div className="space-y-3">
+                <Link
+                  to={`/edit-profile/${user.id}`}
+                  className="flex items-center p-3 bg-indigo-50 rounded-lg hover:bg-indigo-100 transition-colors"
+                >
+                  <svg
+                    className="w-5 h-5 mr-3 text-indigo-600"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                    />
+                  </svg>
+                  <span className="text-gray-700 font-medium">
+                    Edit Profile
+                  </span>
+                </Link>
+
+                <Link
+                  to="/mybookings"
+                  className="flex items-center p-3 bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors"
+                >
+                  <svg
+                    className="w-5 h-5 mr-3 text-blue-600"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"
+                    />
+                  </svg>
+                  <span className="text-gray-700 font-medium">My Bookings</span>
+                </Link>
+
+                {user.role === "Vendor" && user.vendor && (
+                  <Link
+                    to="/vendordashboard"
+                    className="flex items-center p-3 bg-green-50 rounded-lg hover:bg-green-100 transition-colors"
+                  >
+                    <svg
+                      className="w-5 h-5 mr-3 text-green-600"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+                      />
+                    </svg>
+                    <span className="text-gray-700 font-medium">
+                      Vendor Dashboard
+                    </span>
+                  </Link>
+                )}
+              </div>
+            </div>
+
+            {/* Account Info Card */}
+            <div className="bg-white rounded-lg shadow-md p-6">
+              <h2 className="text-xl font-bold text-gray-900 mb-4">
+                Account Information
+              </h2>
+              <div className="space-y-3">
+                <div className="flex justify-between items-center py-2 border-b border-gray-200">
+                  <span className="text-sm text-gray-600">Account Status</span>
+                  <span className="px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                    Active
+                  </span>
+                </div>
+                <div className="flex justify-between items-center py-2 border-b border-gray-200">
+                  <span className="text-sm text-gray-600">Member Since</span>
+                  <span className="text-sm text-gray-900">
+                    {new Date().getFullYear()}
+                  </span>
+                </div>
+                <div className="flex justify-between items-center py-2">
+                  <span className="text-sm text-gray-600">User ID</span>
+                  <span className="text-sm text-gray-900 font-mono">
+                    #{user.id}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
